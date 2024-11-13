@@ -2,30 +2,9 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import sampleData from '../sampledata';
 
 const { width, height } = Dimensions.get('window');
-
-const sampleData = {
-    individual: [
-        { id: '1', name: 'Juliana Soares, 23', activity: 'Food, Outdoor Activities' },
-        { id: '2', name: 'João Silva, 32', activity: 'Nightlife, Arts & Museums' },
-        { id: '3', name: 'Francisco Coelho, 24', activity: 'Unsusual routes & Sports' },
-        { id: '4', name: 'Joana Santos, 25', activity: 'Nature' },
-        // Add more items here...
-    ],
-    group: [
-        { id: '1', title: 'Day in Belém', activity: '...and 5 more' },
-        { id: '2', title: 'Bar hopping in Chiado', activity: '...and 6 more' },
-        { id: '3', title: 'Walk in Sintra', activity: '...and 31 more' },
-        // Add more items here...
-    ],
-    paidTours: [
-        { id: '1', title: 'Visit São Jorge Castle', price: '20€' },
-        { id: '2', title: 'Alfama Walking Tour', price: '19€' },
-        { id: '3', title: 'Taste of Lisbon Experience', price: '60€' },
-        // Add more items here...
-    ],
-};
 
 const InYourAreaScreen = () => {
     const renderIndividualItem = ({ item }) => (
