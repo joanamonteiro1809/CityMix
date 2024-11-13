@@ -21,9 +21,15 @@ const MainNavigator = () => {
                 tabBarActiveTintColor: '#f2b636',
                 tabBarInactiveTintColor: '#888',
                 headerShown: false,
+                tabBarShowLabel: false, 
+                tabBarItemStyle: {
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingTop: 10,
+                }
             })}
         >
-            <Tab.Screen name="Home" component={InYourAreaScreen} />
+            <Tab.Screen name="Home" component={InYourAreaScreen}/>
             <Tab.Screen name="Messages" component={InYourAreaScreen} />
             <Tab.Screen name="Notifications" component={InYourAreaScreen} />
             <Tab.Screen name="Profile" component={InYourAreaScreen} />

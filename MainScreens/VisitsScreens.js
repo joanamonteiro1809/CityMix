@@ -1,13 +1,14 @@
 // screens/ProfileScreen.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IndividualScreen from './IndividualScreen';
-import TabControl from './TabControl';
+import TabControl from '../GeneralElements/TabControl';
+import ArrowButton from '../GeneralElements/ArrowButton';
 
 const { width, height } = Dimensions.get('window');
 
-const VisitsScreen = () => {
+const VisitsScreen = ({ navigation }) => {
     const [activeTab, setActiveTab] = useState('Individuals'); // Default tab
 
     return (
@@ -15,14 +16,14 @@ const VisitsScreen = () => {
             
             {/* Custom Header */}
             <View style={styles.header}>
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                    style={styles.backButton}
-                >
-                    <View style={styles.backButtonInner}>
-                        <Icon name="arrow-back" size={20} color="#fff" />
-                    </View>
-                </TouchableOpacity>
+                {/*<TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('HomeScreen') }}>
+                        <Text style={styles.loginButtonText}> </Text>
+                        <Image source={require('../assets/arrow.png')} style={styles.arrow}/>
+                </TouchableOpacity>*/}
+                <ArrowButton
+                    onPress={() => navigation.navigate('HomeScreen')}
+                    iconName={("chevron-left")}
+                />
                 
                 <View style={styles.headerTitleContainer}>
                     <Icon name="search" size={20} color="#000" style={styles.searchIcon} />
@@ -34,11 +35,6 @@ const VisitsScreen = () => {
                 </TouchableOpacity>
             </View>
 
-            {/* Search Bar */}
-            <View style={styles.searchContainer}>
-                <TextInput style={styles.searchInput} placeholder="Search" />
-                <Icon name="search" size={24} color="#555" />
-            </View>
 
             {/* Segmented Control */}
             <TabControl
@@ -105,6 +101,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
+        marginTop: height * 0.04, // Space below the search bar, responsive to screen height
+    },
+    headerTitleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     headerTitle: {
         fontSize: 18,
