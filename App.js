@@ -17,15 +17,11 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-            <Stack.Navigator initialRouteName="VisitsScreen">
+            <Stack.Navigator initialRouteName="Login">
                 <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="SignupStep1" component={SignupStep1} options={{ headerShown: false }} />
                 <Stack.Screen name="SignupStep2" component={SignupStep2} options={{ headerShown: false }} />
                 <Stack.Screen name="HomeScreen" component={MainNavigator} options={{ headerShown: false }} />
-                <Stack.Screen name="IndividualScreen" component={IndividualScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="GroupScreen" component={GroupScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="PaidToursScreen" component={PaidToursScreen} options={{ headerShown: false }} />
-                <Stack.Screen name="VisitsScreen" component={VisitsScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
     </NavigationContainer>
   );

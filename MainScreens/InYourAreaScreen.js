@@ -6,7 +6,7 @@ import sampleData from '../sampledata';
 
 const { width, height } = Dimensions.get('window');
 
-const InYourAreaScreen = () => {
+const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
         <View style={styles.card}>
             <Icon name="account-circle" size={24} color="#555" />
@@ -45,10 +45,12 @@ const InYourAreaScreen = () => {
                 <Text style={styles.inYourAreaTag}>In Your Area</Text>
 
                 {/* Individual Section */}
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>Individual</Text>
-                    <TouchableOpacity><Text style={styles.viewAll}>›</Text></TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Individual</Text>
+                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                        </View>
+                </TouchableOpacity>
                 <FlatList
                     horizontal
                     data={sampleData.individual}
@@ -58,10 +60,12 @@ const InYourAreaScreen = () => {
                 />
 
                 {/* Group Section */}
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>Group</Text>
-                    <TouchableOpacity><Text style={styles.viewAll}>›</Text></TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Group' })}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Group</Text>
+                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                        </View>
+                </TouchableOpacity>
                 <FlatList
                     horizontal
                     data={sampleData.group}
@@ -71,10 +75,12 @@ const InYourAreaScreen = () => {
                 />
 
                 {/* Paid Tours Section */}
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>Paid tours</Text>
-                    <TouchableOpacity><Text style={styles.viewAll}>›</Text></TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Paid</Text>
+                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                        </View>
+                </TouchableOpacity>
                 <FlatList
                     horizontal
                     data={sampleData.paidTours}
@@ -115,7 +121,6 @@ const styles = StyleSheet.create({
     },
     sectionHeader: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 20,
     },
@@ -123,8 +128,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    viewAll: {
-        fontSize: 18,
+    iconStyle: {
+        fontSize:25,
         color: '#888',
     },
     listContainer: {

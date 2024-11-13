@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Dimensions, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import sampleData from '../sampledata';
-import SegmentedControl from './SegmentedControl';
 
 const { width } = Dimensions.get('window'); 
 

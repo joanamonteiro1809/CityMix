@@ -10,16 +10,17 @@ import PaidToursScreen from './PaidToursScreen';
 
 const { width, height } = Dimensions.get('window');
 
-const VisitsScreen = ({ navigation }) => {
-    const [activeTab, setActiveTab] = useState('Individuals'); // Default tab
+const VisitsScreen = ({ navigation, route }) => {
 
+    const initialTab = route.params?.tabSelected || "Individuals";
+    const [activeTab, setActiveTab] = useState(initialTab); // Default tab
     return (
         <View style={styles.container}>
             
             {/* Custom Header */}
             <View style={styles.header}>
                 <ArrowButton
-                    onPress={() => navigation.navigate('HomeScreen')}
+                    onPress={() => navigation.navigate('InYourArea')}
                     iconName={("chevron-left")}
                 />
                 
@@ -64,13 +65,14 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: '#fff',
+        paddingTop: 35,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
-        marginTop: height * 0.04, // Space below the search bar, responsive to screen height
+        //marginTop: height * 0.04, // Space below the search bar, responsive to screen height
     },
     headerTitleContainer: {
         flexDirection: 'row',
