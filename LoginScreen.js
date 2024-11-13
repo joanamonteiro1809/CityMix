@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         //fontFamily: "Gill Sans",       //fontFamily: 'CodecPro-Regular',
         //fontFamily: 'CodecPro-Italic',
-        fontFamily: fontsLoaded ? 'CodecPro-Italic' : 'System', // Use system font if fonts are not loaded
 
     },
     input: {
