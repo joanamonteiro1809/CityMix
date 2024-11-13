@@ -8,6 +8,8 @@ import LoginScreen from './LoginScreen';
 import HomeScreen from './(tabs)';
 import InYourAreaScreen from './MainScreens/InYourAreaScreen';
 import MainNavigator from './MainScreens/MainNavigator';
+import { useFonts } from 'expo-font'; // Import useFonts
+
 
 const Stack = createStackNavigator();
 

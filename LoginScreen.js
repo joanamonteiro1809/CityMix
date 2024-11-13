@@ -1,91 +1,158 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { useFonts } from 'expo-font'; // Import useFonts
 
 const LoginScreen = ({ navigation }) => {
+
+    const [fontsLoaded] = useFonts({
+            'CodecPro-Regular': require('./assets/fonts/CodecPro-Regular.ttf'),
+            'CodecPro-Italic': require('./assets/fonts/CodecPro-Italic.ttf'),
+
+        });
+
+
+    // Wait until fonts are loaded
+    if (!fontsLoaded) {
+        return null; // Avoid rendering until font is ready
+    }
+
     return (
         <View style={styles.container}>
-            {/* Logo */}
+            {/* Top Section with Background and Illustration */}
+            {/*<View style={styles.topSection}>
+                //<Image
+                  //source={require('./assets/Logo.png')} // Replace with actual image URL or local file
+                  //style={styles.illustration}
+                ///>
+            //</View>*/}
+
             <Image
-                source={require('./assets/Logo.png')} 
+                source={require('./assets/Logo.png')} // Replace with actual image URL or local file
                 style={styles.logo}
             />
 
-            {/* Login Title */}
-            <Text style={styles.title}>Login</Text>
+            <View style={styles.inputContainer}>
 
-            {/* Email and Password Input */}
-            <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#888" />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                placeholderTextColor="#888"
-                secureTextEntry
-            />
+                {/* Login Title */}
+                <Text style={styles.title}>Login</Text>
 
-            {/* Sign Up Link and Login Button */}
-            <View style={styles.actionRow}>
-                <TouchableOpacity onPress={() => navigation.navigate('SignupStep1')}>
-                    <Text style={styles.signupText}>Sign up</Text>
+                {/* Email and Password Input */}
+                <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#888" />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    placeholderTextColor="#888"
+                    secureTextEntry
+                />
+
+                {/* Sign Up Link and Login Button */}
+                <View style={styles.actionRow}>
+                    <TouchableOpacity onPress={() => navigation.navigate('SignupStep1')}>
+                        <Text style={styles.signupText}>Sign up</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('HomeScreen') }}>
+                        <Text style={styles.loginButtonText}> </Text>
+                        <Image source={require('./assets/arrow.png')} style={styles.arrow}/>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Forgot Password Link */}
+                <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                    <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('HomeScreen') }}>
-                    <Text style={styles.loginButtonText}>➔</Text>
-                </TouchableOpacity>
+
             </View>
-
-            {/* Forgot Password Link */}
-            <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-                <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-            </TouchableOpacity>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#f9f9f9',
+        paddingHorizontal: 25,
+        backgroundColor: '#EBEBEB',
     },
+
+    inputContainer: {
+        position: 'absolute', // Position it absolutely within the container
+        bottom: -20,
+        width: '120%',
+        height: 560,
+        backgroundColor: '#FFF',
+        padding: 30,
+        borderRadius: 65,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 5,
+        alignItems: 'center',
+        //justifyContent: 'center',
+
+    },
+
     logo: {
-        width: 200,
-        height: 100,
-        marginBottom: 20,
+        width: 400,
+        height: 300,
+        marginTop: 20,
+        position: 'absolute', // Position it absolutely within the container
+        top: 50,
+        left: 20,
+        alignItems: 'center',
         resizeMode: 'contain', // Adjusts the image size while maintaining aspect ratio
     },
+
     title: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 'bold',
-        color: '#f2b636', // Gold color
-        marginBottom: 20,
+        color: '#FF914D', // Gold color
+        marginBottom: 50,
+        marginTop: 30,
+        //fontFamily: "Gill Sans",       //fontFamily: 'CodecPro-Regular',
+        //fontFamily: 'CodecPro-Italic',
+        fontFamily: fontsLoaded ? 'CodecPro-Italic' : 'System', // Use system font if fonts are not loaded
+
     },
     input: {
-        width: '100%',
+        width: '90%',
         padding: 10,
         borderWidth: 1,
         borderColor: '#ddd',
-        borderRadius: 5,
-        marginBottom: 15,
+        borderRadius: 10,
+        marginBottom: 20,
         backgroundColor: '#f2f2f2',
         color: '#333', // Text color for input
+
     },
     actionRow: {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
-        width: '100%',
+        width: '90%',
         justifyContent: 'space-between',
+
     },
+
+    arrow: {
+        width: '40%',
+        height: 25,
+        position: 'absolute',
+    },
+
     signupText: {
         color: '#888',
         fontSize: 16,
+
     },
+
     loginButton: {
-        backgroundColor: '#f2b636', // Gold color
-        width: 50,
-        height: 50,
+        backgroundColor: '#FF914D', // Gold color
+        width: 40,
+        height: 40,
         borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
@@ -97,6 +164,8 @@ const styles = StyleSheet.create({
     forgotPasswordText: {
         color: '#888',
         fontSize: 14,
+        textDecorationLine: 'underline',
+
     },
 });
 
