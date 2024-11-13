@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IndividualScreen from './IndividualScreen';
 import TabControl from '../GeneralElements/TabControl';
 import ArrowButton from '../GeneralElements/ArrowButton';
+import GroupScreen from './GroupScreen';
+import PaidToursScreen from './PaidToursScreen';
 
 const { width, height } = Dimensions.get('window');
 
@@ -16,10 +18,6 @@ const VisitsScreen = ({ navigation }) => {
             
             {/* Custom Header */}
             <View style={styles.header}>
-                {/*<TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('HomeScreen') }}>
-                        <Text style={styles.loginButtonText}> </Text>
-                        <Image source={require('../assets/arrow.png')} style={styles.arrow}/>
-                </TouchableOpacity>*/}
                 <ArrowButton
                     onPress={() => navigation.navigate('HomeScreen')}
                     iconName={("chevron-left")}
@@ -36,7 +34,7 @@ const VisitsScreen = ({ navigation }) => {
             </View>
 
 
-            {/* Segmented Control */}
+            {/* Tab Control */}
             <TabControl
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
@@ -44,17 +42,17 @@ const VisitsScreen = ({ navigation }) => {
             />
             
             {/* Tab Content */}
-            <View style={styles.tabContent}>
+            <View>
                 {activeTab === 'Individuals' && (
                     <IndividualScreen></IndividualScreen>
                 )}
 
                 {activeTab === 'Group' && (
-                    <Text>Group</Text>
+                    <GroupScreen></GroupScreen>
                 )}
 
                 {activeTab === 'Paid' && (
-                    <Text>Paid</Text>
+                    <PaidToursScreen></PaidToursScreen>
                 )}
             </View>
         </View>
@@ -62,35 +60,6 @@ const VisitsScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 20,
-        backgroundColor: '#f5f5f5',
-    },
-    tabsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 20,
-    },
-    tab: {
-        fontSize: 18,
-        color: '#888',
-    },
-    activeTab: {
-        color: '#f2b636',
-        fontWeight: 'bold',
-    },
-    tabContent: {
-        marginTop: 20,
-    },
-    sectionTitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginTop: 10,
-    },
-    sectionText: {
-        color: '#666',
-    },
     container: {
         flex: 1,
         paddingHorizontal: 20,
@@ -112,19 +81,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: '#000',
-    },
-    searchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#eaeaea',
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        marginVertical: 10,
-    },
-    searchInput: {
-        flex: 1,
-        fontSize: 16,
-        paddingVertical: 5,
     },
 });
 

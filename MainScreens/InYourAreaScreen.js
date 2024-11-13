@@ -34,6 +34,7 @@ const InYourAreaScreen = () => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
+                
                 {/* Search Bar */}
                 <View style={styles.searchContainer}>
                     <TextInput style={styles.searchInput} placeholder="Search" />

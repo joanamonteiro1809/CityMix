@@ -40,7 +40,7 @@ const renderIndividualItem = ({ item }) => {
 const IndividualScreen = ({ navigation } ) => {
 
     return (
-        <View style={styles.indiContainer}>
+        <View>
 
             {/* Toggle Buttons */}
             {/*<SegmentedControl onOptionSelect={"Individual"} />*/}
@@ -57,43 +57,6 @@ const IndividualScreen = ({ navigation } ) => {
 };
 
 const styles = StyleSheet.create({
-    indiContaine: {
-        flex: 1,
-        paddingHorizontal: 20,
-        backgroundColor: '#fff',
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 10,
-    },
-    headerTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#000',
-    },
-    toggleButtons: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 10,
-    },
-    toggleButton: {
-        flex: 1,
-        paddingVertical: 8,
-        alignItems: 'center',
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#f2b636',
-        marginHorizontal: 5,
-    },
-    activeButton: {
-        backgroundColor: '#f2b636',
-    },
-    toggleButtonText: {
-        color: '#555',
-        fontWeight: 'bold',
-    },
     profileCard: {
         flexDirection: 'row',
         padding: 15,
@@ -122,34 +85,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#888',
         marginRight: 3,
-    },
-    recommendationList: {
-        paddingVertical: 10,
-    },
-    recommendationCard: {
-        flexDirection: 'row',
-        padding: 10,
-        backgroundColor: '#f7f7f7',
-        borderRadius: 10,
-        marginBottom: 10,
-        alignItems: 'center',
-    },
-    imagePlaceholder: {
-        width: 50,
-        height: 50,
-        backgroundColor: '#ccc',
-        borderRadius: 10,
-    },
-    recommendationInfo: {
-        marginLeft: 10,
-        flex: 1,
-    },
-    recommendationTitle: {
-        fontWeight: 'bold',
-    },
-    starsContainer: {
-        flexDirection: 'row',
-        marginTop: 5,
     },
 });
 

@@ -8,6 +8,8 @@ import LoginScreen from './LoginScreen';
 import MainNavigator from './MainScreens/MainNavigator';
 import IndividualScreen from './MainScreens/IndividualScreen';
 import VisitsScreen from './MainScreens/VisitsScreens';
+import GroupScreen from './MainScreens/GroupScreen';
+import PaidToursScreen from './MainScreens/PaidToursScreen';
 import { useFonts } from 'expo-font'; // Import useFonts
 
 const Stack = createStackNavigator();
@@ -21,6 +23,8 @@ export default function App() {
                 <Stack.Screen name="SignupStep2" component={SignupStep2} options={{ headerShown: false }} />
                 <Stack.Screen name="HomeScreen" component={MainNavigator} options={{ headerShown: false }} />
                 <Stack.Screen name="IndividualScreen" component={IndividualScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="GroupScreen" component={GroupScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="PaidToursScreen" component={PaidToursScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="VisitsScreen" component={VisitsScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
     </NavigationContainer>
