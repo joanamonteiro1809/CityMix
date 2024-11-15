@@ -1,7 +1,10 @@
 // screens/SignupStep1.js
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import ArrowButton from '../GeneralElements/ArrowButton';
 
+const screenWidth = Dimensions.get('window').width;
+const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep1 = ({ navigation }) => {
     return (
@@ -12,21 +15,24 @@ const SignupStep1 = ({ navigation }) => {
                 <View style={styles.progressInactive} />
                 <View style={styles.progressInactive} />
             </View>
+
             <TextInput style={styles.input} placeholder="Name" />
             <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" />
             <TextInput style={styles.input} placeholder="Username" />
             <TextInput style={styles.input} placeholder="Password" secureTextEntry />
             <TextInput style={styles.input} placeholder="Confirm Password" secureTextEntry />
 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignupStep2')}>
-                <Text style={styles.buttonText}>➔</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonsRow}>
+                <ArrowButton
+                    onPress={() => navigation.goBack()}
+                    iconName={("chevron-left")}
+                />
+                <ArrowButton
+                    onPress={() => navigation.navigate('SignupStep2')}
+                    iconName={("chevron-right")}
+                />
+            </View>
 
-            {/* Custom Back Button at the Bottom */}
-            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Text style={styles.backButtonText}>Back</Text>
-            </TouchableOpacity>
-            
         </View>
     );
 };
@@ -35,73 +41,67 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: 'flex-start',
+        //alignItems: 'center',
+        paddingTop: 100,
     },
+
     title: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
-        color: '#f2b636',
+        color: '#FF914D',
         marginBottom: 20,
     },
+
     progressBar: {
         flexDirection: 'row',
-        marginBottom: 20,
     },
+
     progressActive: {
-        width: 30,
-        height: 5,
-        backgroundColor: '#f2b636',
+        width: elementWidth,
+        height: 10,
+        backgroundColor: '#FF914D',
         marginHorizontal: 2,
+        borderRadius: 10,
+
     },
+
     progressInactive: {
-        width: 30,
-        height: 5,
+        width: elementWidth,
+        height: 10,
         backgroundColor: '#ddd',
-        marginHorizontal: 2,
+        marginHorizontal: 5,
+        borderRadius: 10,
+
     },
+
     input: {
         width: '100%',
-        padding: 10,
-        borderWidth: 1,
+        padding: 15,
+        borderWidth: 0.7,
         borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 15,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    button: {
-        backgroundColor: '#f2b636',
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        fontSize: 20,
-        color: '#fff',
+        borderRadius: 10,
+        marginTop: 30,
+        backgroundColor: '#EBEBEB',
+        //color: '#333',
     },
 
-    backButtonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
-    backButton: {
-        backgroundColor: '#f2b636',
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    backButtonText: {
-        fontSize: 20,
-        color: '#fff',
+    arrow: {
+        width: '40%',
+        height: 25,
+        position: 'absolute',
     },
 
+    buttonsRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+        position: 'absolute',
+        bottom: 10,
+        left: 20,
+        right: 20,
+        justifyContent: 'space-between',
+    },
 });
 
 export default SignupStep1;

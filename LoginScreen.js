@@ -19,15 +19,9 @@ const LoginScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             {/* Top Section with Background and Illustration */}
-            {/*<View style={styles.topSection}>
-                //<Image
-                  //source={require('./assets/Logo.png')} // Replace with actual image URL or local file
-                  //style={styles.illustration}
-                ///>
-            //</View>*/}
 
             <Image
-                source={require('./assets/Logo.png')} // Replace with actual image URL or local file
+                source={require('./assets/Logo.png')}
                 style={styles.logo}
             />
 
