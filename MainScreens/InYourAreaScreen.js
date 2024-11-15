@@ -1,6 +1,6 @@
 // screens/InYourAreaScreen.js
 import React from 'react';
-import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import sampleData from '../sampledata';
 
@@ -36,9 +36,19 @@ const InYourAreaScreen = ({navigation}) => {
             <View style={styles.container}>
                 
                 {/* Search Bar */}
-                <View style={styles.searchContainer}>
-                    <TextInput style={styles.searchInput} placeholder="Search" />
-                    <Icon name="search" size={24} color="#555" />
+                <View style={styles.header}>
+                    <View style={styles.searchContainer}>
+                        <Icon name="search" size={24} color="#555" />
+                        <TextInput style={styles.searchInput} placeholder="Search" />
+                    </View>
+                    
+                    {/* Image next to the search container */}
+                    <TouchableOpacity>
+                        <Image
+                            source={require('../assets/map.png')}
+                            style={styles.map}
+                        />
+                    </TouchableOpacity>
                 </View>
 
                 {/* In Your Area Tag */}
@@ -46,10 +56,10 @@ const InYourAreaScreen = ({navigation}) => {
 
                 {/* Individual Section */}
                 <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionTitle}>Individual</Text>
-                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
-                        </View>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Individual</Text>
+                        <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                    </View>
                 </TouchableOpacity>
                 <FlatList
                     horizontal
@@ -61,10 +71,10 @@ const InYourAreaScreen = ({navigation}) => {
 
                 {/* Group Section */}
                 <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Group' })}>
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionTitle}>Group</Text>
-                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
-                        </View>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Group</Text>
+                        <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                    </View>
                 </TouchableOpacity>
                 <FlatList
                     horizontal
@@ -76,10 +86,10 @@ const InYourAreaScreen = ({navigation}) => {
 
                 {/* Paid Tours Section */}
                 <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionTitle}>Paid</Text>
-                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
-                        </View>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>Paid</Text>
+                        <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                    </View>
                 </TouchableOpacity>
                 <FlatList
                     horizontal
@@ -100,6 +110,11 @@ const styles = StyleSheet.create({
         paddingTop: 35,
         backgroundColor: '#f5f5f5',
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',  // Ensures both search bar and map align in the center vertically
+        justifyContent: 'space-between', // Space out the elements if needed
+    },
     searchContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -108,10 +123,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: height * 0.02, // Space below the search bar, responsive to screen height
         height: height * 0.06, // Adjusts the height of the search bar to screen height
+        flex: 1, // Ensures search input takes the available space
     },
     searchInput: {
-        flex: 1,
+        flex: 1, // Ensures input field takes most of the space
         fontSize: 16,
+    },
+    map: {
+        width: height * 0.06,
+        height: height * 0.06,
+        marginLeft: 10, // Adds some space between the search bar and the map image
+        resizeMode: 'contain', // Ensures the image is resized to fit within the given area
     },
     inYourAreaTag: {
         fontSize: 18,
@@ -129,7 +151,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     iconStyle: {
-        fontSize:25,
+        fontSize: 25,
         color: '#888',
     },
     listContainer: {
