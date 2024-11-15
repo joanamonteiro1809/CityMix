@@ -7,20 +7,19 @@ import ArrowButton from '../../GeneralElements/ArrowButton';
 const { width } = Dimensions.get('window');
 
 const TourDetailScreen = ({navigation, route}) => {
-    //const routeStops = ["Torre de Belém", "Mosteiro dos Jerónimos", "Pastéis de Belém"];
-    const reviews = Array(3).fill({ id: Math.random().toString(), rating: 4.5, review: "Great tour!" });
-
-    const sampleTour = {
-        id: '1',
-        title: 'Visit São Jorge Castle',
-        price: '20€',
-        rating: '4.0',
-        tourGuide: 'Rúben Santos',
-        description: 'Come visit the principal castle of Lisbon.',
-        meetingPoint: 'Castelo',
-        imageLink: 'https://via.placeholder.com/150',
-        routeStops: ["Torre de Belém", "Mosteiro dos Jerónimos", "Pastéis de Belém"],
-    };
+    const sampleTour = { 
+        id: '1', 
+        title: "St. George's Castle Tour", 
+        price: '20€', 
+        rating: '4.0', 
+        tourGuide: 'Rúben Santos', 
+        description: 'Come visit the principal castle of Lisbon.', 
+        imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
+        routeStops: ["São Jorge Castle"],
+        reviews: [
+            { reviewer: 'Maria Oliveira', rating: 5, comment: 'Amazing tour! The guide was very knowledgeable.' },
+            { reviewer: 'Carlos Silva', rating: 4, comment: 'Great experience, but a bit crowded.' },
+        ],};
 
     const tourDetails = route.params?.tour || sampleTour;
 
@@ -74,22 +73,35 @@ const TourDetailScreen = ({navigation, route}) => {
 
                 {/* Reviews */}
                 <Text style={styles.sectionTitle}>Reviews</Text>
+                
                 <FlatList
-                    horizontal
-                    data={reviews}
-                    renderItem={({ item }) => (
+                horizontal
+                data={tourDetails.reviews}
+                renderItem={({ item }) => {
+                    // Convert the rating to a number
+                    const rating = parseFloat(item.rating.replace(",", "."));
+
+                    return (
                         <View style={styles.reviewCard}>
-                            <Text>{item.review}</Text>
+                            <View>
+                                <Text style={styles.reviewerText}>{item.reviewer}</Text>
+                                <Text>{item.comment}</Text>
+                            </View>
                             <View style={styles.reviewRating}>
-                                <Text>{item.rating}</Text>
-                                <Icon name="star" size={14} color="#f2b636" />
+                                <Text style={{marginRight: 5}}>{item.rating}</Text>
+                                {/* Display stars based on the rating */}
+                                {[...Array(Math.floor(rating))].map((_, index) => (
+                                    <Icon key={index} name="star" size={14} color="#f2b636" />
+                                ))}
                             </View>
                         </View>
-                    )}
-                    keyExtractor={(item) => item.id}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.reviewsList}
-                />
+                    );
+                }}
+                keyExtractor={(item, index) => index.toString()}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.reviewsList}
+            />
+
 
             </View>
             </ScrollView>
@@ -189,6 +201,12 @@ const styles = StyleSheet.create({
         padding: 10,
         marginRight: 10,
         width: width * 0.4,
+        justifyContent: 'space-between'
+    },
+    reviewerText:{
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginBottom: 2
     },
     reviewRating: {
         flexDirection: 'row',
