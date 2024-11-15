@@ -6,7 +6,7 @@ import IndividualScreen from './IndividualScreen';
 import TabControl from '../GeneralElements/TabControl';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import GroupScreen from './GroupScreen';
-import PaidToursScreen from './PaidToursScreen';
+import PaidToursScreen from './PaidScreens/PaidToursScreen';
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ const VisitsScreen = ({ navigation, route }) => {
             {/* Custom Header */}
             <View style={styles.header}>
                 <ArrowButton
-                    onPress={() => navigation.navigate('InYourArea')}
+                    onPress={() => navigation.goBack()}
                     iconName={("chevron-left")}
                 />
                 
@@ -53,7 +53,7 @@ const VisitsScreen = ({ navigation, route }) => {
                 )}
 
                 {activeTab === 'Paid' && (
-                    <PaidToursScreen></PaidToursScreen>
+                    <PaidToursScreen nav={navigation}></PaidToursScreen>
                 )}
             </View>
         </View>

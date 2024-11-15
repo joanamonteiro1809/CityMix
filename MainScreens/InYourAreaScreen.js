@@ -23,12 +23,12 @@ const InYourAreaScreen = ({navigation}) => {
         </View>
     );
 
-    const renderPaidToursItem = ({ item }) => (
-        <View style={styles.card}>
+    const renderPaidToursItem = ({ navigation, item }) => (
+        <TouchableOpacity onPress={() => navigation.navigate('TourDetails', { tour: item })} style={styles.card}>
             <Icon name="image" size={24} color="#555" />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.price}</Text>
-        </View>
+        </TouchableOpacity>
     );
 
     return (
@@ -84,8 +84,8 @@ const InYourAreaScreen = ({navigation}) => {
                 <FlatList
                     horizontal
                     data={sampleData.paidTours}
-                    renderItem={renderPaidToursItem}
-                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => renderPaidToursItem({ item, navigation })}
+                    keyExtractor={item => item.id.toString()}
                     contentContainerStyle={styles.listContainer}
                 />
             </View>

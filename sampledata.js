@@ -13,9 +13,20 @@ const sampleData = {
         // Add more items here...
     ],
     paidTours: [
-        { id: '1', title: 'Visit São Jorge Castle', price: '20€', rating: '4.0' },
-        { id: '2', title: 'Alfama Walking Tour', price: '19€', rating: '3.5' },
-        { id: '3', title: 'Taste of Lisbon Experience', price: '60€', rating: '4.5' },
+        { id: '1', title: "St. George's Castle Tour", price: '20€', rating: '4.0', tourGuide: 'Rúben Santos', 
+            description: 'Come visit the principal castle of Lisbon.', 
+            imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
+            routeStops: ["São Jorge Castle"]},
+            
+        { id: '2', title: 'Alfama Walking Tour', price: '19€', rating: '3.5', tourGuide: 'Inês Dias', 
+            description: 'Walk through and enjoy the streets of Alfama.',
+            imageLink: "https://images.resosys.com/destinations/10/articles/alfama-neighbourhood-lisbon_en/inline/1667827088-lisbon-alfama-2.jpg",
+            routeStops: ["Santa Luzia Viewpoint", "Lisbon Cathedral", "Fado Museum"] },
+
+        { id: '3', title: 'Taste of Lisbon Experience', price: '60€', rating: '4.5', tourGuide: 'Alice Pires', 
+            description: 'Come taste the food of Lisbon.',
+            imageLink: "https://www.tasteoflisboa.com/wp-content/uploads/sites/2712/2019/05/Taste-of-Lisboa-%C2%A9-Andreia-Mayer-60-copy.jpg?w=700&h=700&zoom=2",
+            routeStops: ["Time Out Market", "Bacalhau House", "Ginjinha Bar", "Café A Brasileira"] },
         // Add more items here...
     ],
 };
