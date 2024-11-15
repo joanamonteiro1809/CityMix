@@ -1,10 +1,11 @@
 // TourBookingScreen.js --> Page for booking and paying the tour
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import dayjs from 'dayjs';
+import TimePicker from '../../GeneralElements/TimePicker';
 
 const TourBookingScreen = ({ navigation, route }) => {
     const sampleTour = {
@@ -22,10 +23,20 @@ const TourBookingScreen = ({ navigation, route }) => {
 
     const [date, setDate] = useState(null); // Store the selected date
     const [showCalendar, setShowCalendar] = useState(false); // Track visibility of CalendarPicker
+    
+    const[time, setTime] = useState(null); // Store the selected time
+    const [showTime, setShowTime] = useState(false); // Track visibility of TimePicker
+
+    const availableTimes = ["10:00", "11:00", "12:00", "13:00", "14:00"];
 
     // Toggle CalendarPicker visibility
     const handleToggleCalendar = () => {
         setShowCalendar((prev) => !prev); // Toggle showCalendar state
+    };
+
+    // Toggle TimePicker visibility
+    const handleToggleTime = () => {
+        setShowTime((prev) => !prev); // Toggle showCalendar state
     };
 
     // Function to handle date selection without hiding the calendar
@@ -33,68 +44,90 @@ const TourBookingScreen = ({ navigation, route }) => {
         setDate(newDate); // Set selected date
     };
 
+    // Function to handle time selection
+    const handleTimeChange = (newTime) => {
+        setTime(newTime); // Set selected time
+    };
+
+    const renderContent = () => (
+        <View style={styles.infoCard}>
+            {/* Guide info */}
+            <View style={styles.infoContainer}>
+                <Text style={styles.sectionTitle}>Guide:</Text>
+                <Text style={styles.infoText}>{tour.tourGuide}</Text>
+                <Icon name="account-circle" size={24} color="#555" />
+            </View>
+
+            {/* Date Input */}
+            <View style={styles.infoContainer}>
+                <Text style={styles.sectionTitle}>Date:</Text>
+                <Text style={styles.input}>
+                    {date ? dayjs(date).format('MMMM D, YYYY') : 'MMMM D, YYYY'}
+                </Text>
+                <TouchableOpacity onPress={handleToggleCalendar}>
+                    <Icon name="calendar-month" size={24} color="#555" />
+                </TouchableOpacity>
+            </View>
+
+            {/* Conditionally render CalendarPicker */}
+            {showCalendar && (
+                <View style={styles.calendarPickerContainer}>
+                    <CalendarPicker date={date} onDateChange={handleDateChange} />
+                </View>
+            )}
+
+            {/* Time Input */}
+            <View style={styles.selectContainer}>
+                <Text style={styles.sectionTitle}>Time:</Text>
+                <Text style={styles.input}>
+                    {time ? time : '00:00'}
+                </Text>
+                <TouchableOpacity onPress={handleToggleTime}>
+                    <Icon name="access-time" size={24} color="#555" />
+                </TouchableOpacity>
+            </View>
+
+            {/* Conditionally render TimePicker */}
+            {showTime && (
+                <View style={styles.calendarPickerContainer}>
+                    <TimePicker timeSelected={time} availableTimes={availableTimes} onTimeSelect={handleTimeChange} />
+                </View>
+            )}
+
+            {/* Meeting Point */}
+            <View style={styles.infoContainer}>
+                <Text style={styles.sectionTitle}>Meeting Point:</Text>
+                <Text style={styles.infoText}>{tour.routeStops[0]}</Text>
+            </View>
+        </View>
+    );
+
     return (
         <View style={styles.container}>
+            
             {/* Header */}
             <View style={styles.header}>
                 <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
                 <Text style={styles.headerTitle}>{tour.title}</Text>
             </View>
 
-            {/* Tour Information Card */}
-            <ScrollView style={[styles.infoCard, showCalendar && styles.expandedInfoCard]}>
-                {/* Guide info */}
-                <View style={styles.infoContainer}>
-                    <Text style={styles.sectionTitle}>Guide:</Text>
-                    <Text style={styles.infoText}>{tour.tourGuide}</Text>
-                    <Icon name="account-circle" size={24} color="#555" />
-                </View>
-
-                {/* Date Input */}
-                <View style={styles.infoContainer}>
-                    <Text style={styles.sectionTitle}>Date:</Text>
-                    <Text style={styles.input}>
-                        {date ? dayjs(date).format('MMMM D, YYYY') : 'MMMM D, YYYY'}
-                    </Text>
-                    <TouchableOpacity onPress={handleToggleCalendar}>
-                        <Icon name="calendar-month" size={24} color="#555" />
-                    </TouchableOpacity>
-                </View>
-
-                {/* Conditionally render CalendarPicker */}
-                {showCalendar && (
-                    <View style={styles.calendarPickerContainer}>
-                        <CalendarPicker date={date} onDateChange={handleDateChange} />
-                    </View>
+            {/* Using FlatList for the main content */}
+            <FlatList
+                data={[{ key: 'content' }]} // Single item to render all content
+                renderItem={renderContent}
+                keyExtractor={(item) => item.key}
+                ListFooterComponent={() => (
+                    <>
+                        <View style={styles.priceContainer}>
+                            <Text style={styles.totalPriceText}>Total Price: {tour.price}</Text>
+                        </View>
+                        <TouchableOpacity style={styles.payButton}>
+                            <Text style={styles.payButtonText}>Pay</Text>
+                        </TouchableOpacity>
+                    </>
                 )}
-
-                {/* Time Input */}
-                <View style={styles.selectContainer}>
-                    <Text style={styles.sectionTitle}>Time:</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="00:00"
-                        placeholderTextColor="#aaa"
-                        editable={false} // Replace with Time Picker integration if needed
-                    />
-                </View>
-
-                {/* Meeting Point */}
-                <View style={styles.infoContainer}>
-                    <Text style={styles.sectionTitle}>Meeting Point:</Text>
-                    <Text style={styles.infoText}>{tour.routeStops[0]}</Text>
-                </View>
-            </ScrollView>
-
-            {/* Total Price */}
-            <View style={styles.priceContainer}>
-                <Text style={styles.totalPriceText}>Total Price: {tour.price}</Text>
-            </View>
-
-            {/* Pay Button */}
-            <TouchableOpacity style={styles.payButton}>
-                <Text style={styles.payButtonText}>Pay</Text>
-            </TouchableOpacity>
+                contentContainerStyle={{ paddingHorizontal: 15 }}
+            />
         </View>
     );
 };
@@ -127,7 +160,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         marginBottom: 20,
-        marginHorizontal: 15,
+        marginHorizontal: 5,
     },
     expandedInfoCard: {
         minHeight: 300, // Adjust to ensure enough space when CalendarPicker is visible
@@ -153,7 +186,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical:10,
     },
-
     input: {
         paddingVertical:10,
         backgroundColor: '#e9e9e9',
@@ -175,7 +207,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderWidth: 1,
         borderColor: '#f2b636',
-        marginHorizontal: 15,
+        marginHorizontal: 5,
     },
     totalPriceText: {
         fontSize: 18,
@@ -187,7 +219,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 8,
         alignItems: 'center',
-        marginHorizontal: 15,
+        marginHorizontal: 5,
     },
     payButtonText: {
         color: '#fff',
