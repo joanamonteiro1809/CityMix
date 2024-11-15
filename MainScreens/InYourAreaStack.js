@@ -6,7 +6,7 @@ import IndividualScreen from './IndividualScreen';
 import GroupScreen from './GroupScreen';
 import PaidToursScreen from './PaidToursScreen';
 import VisitsScreen from './VisitsScreens';
-import MainNavigator from './MainNavigator';
+//import MainNavigator from './MainNavigator';
 
 const Stack = createStackNavigator();
 
