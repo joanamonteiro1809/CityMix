@@ -1,6 +1,6 @@
 // TourBookingScreen.js --> Page for booking and paying the tour
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -71,9 +71,7 @@ const TourBookingScreen = ({ navigation, route }) => {
 
             {/* Conditionally render CalendarPicker */}
             {showCalendar && (
-                <View style={styles.calendarPickerContainer}>
-                    <CalendarPicker date={date} onDateChange={handleDateChange} />
-                </View>
+                <CalendarPicker date={date} onDateChange={handleDateChange} />
             )}
 
             {/* Time Input */}
@@ -195,10 +193,6 @@ const styles = StyleSheet.create({
         color: '#aaa',
         marginRight: 5,
     },    
-    calendarPickerContainer: {
-        //marginTop: 10,
-    },
-
     priceContainer: {
         backgroundColor: '#fff7e5',
         padding: 15,

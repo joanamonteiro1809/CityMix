@@ -6,11 +6,7 @@ import SignupStep1 from './SignupComponents/SignupStep1';
 import SignupStep2 from './SignupComponents/SignupStep2';
 import LoginScreen from './LoginScreen';
 import MainNavigator from './MainScreens/MainNavigator';
-
-//////////////////////////////////////////////////////////////////////////////
-import TourBookingScreen from './MainScreens/PaidScreens/TourBookingScreen';
-import TimePicker from './GeneralElements/TimePicker';
-
+import MyNormalProfile from './MainScreens/ProfileScreens/MyNormalProfile';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +18,7 @@ export default function App() {
                 <Stack.Screen name="SignupStep1" component={SignupStep1} options={{ headerShown: false }} />
                 <Stack.Screen name="SignupStep2" component={SignupStep2} options={{ headerShown: false }} />
                 <Stack.Screen name="HomeScreen" component={MainNavigator} options={{ headerShown: false }} /> 
+                <Stack.Screen name="Profile" component={MyNormalProfile} options={{ headerShown: false }} /> 
             </Stack.Navigator>
     </NavigationContainer>
   );

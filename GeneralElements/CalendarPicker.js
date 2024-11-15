@@ -11,7 +11,7 @@ const CalendarPicker = ({ date, onDateChange }) => {
       <DateTimePicker
         mode="single"
         date={date}
-        minimumDate={today} // Set minimumDate to today, disabling past dates
+        //minimumDate={today} // Set minimumDate to today, disabling past dates
         selectedItemColor='#FF914D'
         onChange={(params) => onDateChange(params.date)}
       />
