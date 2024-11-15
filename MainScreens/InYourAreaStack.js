@@ -5,6 +5,7 @@ import InYourAreaScreen from './InYourAreaScreen';
 import VisitsScreen from './VisitsScreens';
 import TourDetailScreen from './PaidScreens/TourDetailScreen';
 import TourBookingScreen from './PaidScreens/TourBookingScreen';
+import FilterScreen from './FilterScreen';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="VisitsScreen" component={VisitsScreen} options={{ headerShown: false }} />
             <Stack.Screen name="TourDetails" component={TourDetailScreen} options={{ headerShown: false }} />
             <Stack.Screen name="TourBooking" component={TourBookingScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Filter" component={FilterScreen} options={{ presentation: 'modal', headerShown: false}} />
         </Stack.Navigator>
     );
 };

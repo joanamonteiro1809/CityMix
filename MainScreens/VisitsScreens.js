@@ -29,7 +29,7 @@ const VisitsScreen = ({ navigation, route }) => {
                     <Text style={styles.headerTitle}>Lisbon</Text>
                 </View>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
                     <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                 </TouchableOpacity>
             </View>

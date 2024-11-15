@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.0",
+    "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/datetimepicker": "^8.2.0",
     "@react-native-vector-icons/ionicons": "^7.4.0-alpha.37",
