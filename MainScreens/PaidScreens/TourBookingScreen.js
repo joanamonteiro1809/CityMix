@@ -124,7 +124,7 @@ const TourBookingScreen = ({ navigation, route }) => {
                         </TouchableOpacity>
                     </>
                 )}
-                contentContainerStyle={{ paddingHorizontal: 15 }}
+                contentContainerStyle={{ paddingHorizontal: 15, paddingVertical:20 }}
             />
         </View>
     );
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 15,
+        //marginBottom: 15,
         padding: 10,
         backgroundColor: '#f2b636',
     },
