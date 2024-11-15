@@ -24,5 +24,5 @@ export default function App() {
                 <Stack.Screen name="HomeScreen" component={MainNavigator} options={{ headerShown: false }} /> 
             </Stack.Navigator>
     </NavigationContainer>
-  );
+  );
 }
