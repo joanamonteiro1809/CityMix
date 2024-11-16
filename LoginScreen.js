@@ -31,8 +31,6 @@ const LoginScreen = ({ navigation }) => {
 
                 {/* Login Title */}
                 <Text style={styles.title}>Login</Text>
-                <Text style={{ fontFamily: 'CodecPro-Regular' }}>CodecPro-Regular</Text>
-                <Text style={{ fontFamily: 'CodecPro-Italic' }}>CodecPro-Italic</Text>
 
                 {/* Email and Password Input */}
                 <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#888" />
