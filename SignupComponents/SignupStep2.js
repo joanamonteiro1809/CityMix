@@ -91,7 +91,7 @@ const SignupStep2 = ({ navigation }) => {
 
             <View style={styles.imageUploadContainer}>
                 <TouchableOpacity onPress={pickImage}>
-                    <Image source={require('/Users/catarinapedroso/StudioProjects/CityMix/assets/upload.png')}  style={styles.image}/>
+                    <Image source={require('../assets/upload.png')}  style={styles.image}/>
                     {image && <Image source={{ uri: image }} style={styles.image} />}
                 </TouchableOpacity>
             </View>
@@ -140,7 +140,7 @@ const SignupStep2 = ({ navigation }) => {
             <View style={styles.certContainer}>
                 {isTourGuide && (
                     <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
-                        <Image source={require('/Users/catarinapedroso/StudioProjects/CityMix/assets/file.png')} style={styles.fileIcon} />
+                        <Image source={require('../assets/file.png')} style={styles.fileIcon} />
                         <Text style={styles.text}>
                             {cert ? cert.name : "Upload Certificate"}
                         </Text>
