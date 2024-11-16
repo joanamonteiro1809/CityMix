@@ -73,8 +73,9 @@ const SignupStep2 = ({ navigation }) => {
             type: '*/*',
         });
 
-        if(result.type === 'success') {
-            setCert(result);
+        //console.log('Document Picker Result:', result);
+        if(!result.canceled) {
+            setCert(result.assets[0]);
         }
     };
 
@@ -91,8 +92,11 @@ const SignupStep2 = ({ navigation }) => {
 
             <View style={styles.imageUploadContainer}>
                 <TouchableOpacity onPress={pickImage}>
-                    <Image source={require('/Users/catarinapedroso/StudioProjects/CityMix/assets/upload.png')}  style={styles.image}/>
-                    {image && <Image source={{ uri: image }} style={styles.image} />}
+                    {!image ? (
+                        <Image source={require('../assets/upload.png')}  style={styles.image}/>
+                    ) : (
+                        <Image source={{ uri: image }} style={styles.image} />)
+                    }
                 </TouchableOpacity>
             </View>
 
@@ -140,10 +144,14 @@ const SignupStep2 = ({ navigation }) => {
             <View style={styles.certContainer}>
                 {isTourGuide && (
                     <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
-                        <Image source={require('/Users/catarinapedroso/StudioProjects/CityMix/assets/file.png')} style={styles.fileIcon} />
-                        <Text style={styles.text}>
-                            {cert ? cert.name : "Upload Certificate"}
-                        </Text>
+                        {!cert ? (
+                            <>
+                            <Image source={require('../assets/file.png')} style={styles.fileIcon} />
+                            <Text style={styles.text}> Upload Certificate </Text>
+                            </>
+                        ) : (
+                            <Text style={styles.showMore}> {cert.name} </Text>
+                        )}
                     </TouchableOpacity>
                 )}
             </View>
@@ -154,7 +162,7 @@ const SignupStep2 = ({ navigation }) => {
                   iconName={("chevron-left")}
                 />
                 <ArrowButton
-                  onPress={() => navigation.navigate('SignupStep2')}
+                  onPress={() => navigation.navigate('SignupStep3')}
                   iconName={("chevron-right")}
                 />
             </View>
@@ -278,8 +286,8 @@ const styles = StyleSheet.create({
     imageUploadContainer: {
         alignSelf: 'center',
         justifyContent: 'center',
-        width: 200,
-        borderRadius: 50,
+        width: 130,
+        borderRadius: 20,
         backgroundColor: '#EBEBEB',
         borderColor: '#ccc',
         borderWidth: 0.7,
@@ -291,7 +299,7 @@ const styles = StyleSheet.create({
     image: {
         width: 90,
         height: 90,
-        marginTop: 10,
+        //marginTop: 10,
         alignSelf: 'center',
 
       },
