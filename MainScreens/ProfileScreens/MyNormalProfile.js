@@ -12,8 +12,9 @@ const sampleEvents = [
     // Add more sample events here
 ];
 
-const MyNormalProfile = () => {
-    const [activeTab, setActiveTab] = useState('Events'); // Default tab
+const MyNormalProfile = ({ route }) => {
+    const initialTab = route.params?.tabSelected || "Events";
+    const [activeTab, setActiveTab] = useState(initialTab); // Default tab
     const [isAvailable, setIsAvailable] = useState(true); // Availability toggle state
     
     // Calendar state

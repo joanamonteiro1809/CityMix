@@ -17,6 +17,7 @@ const TourBookingScreen = ({ navigation, route }) => {
         description: 'Come visit the principal castle of Lisbon.',
         meetingPoint: 'Castelo',
         routeStops: ["Torre de Belém", "Mosteiro dos Jerónimos", "Pastéis de Belém"],
+        availableTimes: ["10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"],
     };
 
     const tour = route.params?.tour || sampleTour;
@@ -27,7 +28,8 @@ const TourBookingScreen = ({ navigation, route }) => {
     const[time, setTime] = useState(null); // Store the selected time
     const [showTime, setShowTime] = useState(false); // Track visibility of TimePicker
 
-    const availableTimes = ["10:00", "11:00", "12:00", "13:00", "14:00"];
+    const [dateError, setDateError] = useState(false); // Error for date
+    const [timeError, setTimeError] = useState(false); // Error for time
 
     // Toggle CalendarPicker visibility
     const handleToggleCalendar = () => {
@@ -42,15 +44,33 @@ const TourBookingScreen = ({ navigation, route }) => {
     // Function to handle date selection without hiding the calendar
     const handleDateChange = (newDate) => {
         setDate(newDate); // Set selected date
+        setDateError(false); // Clear error when user selects a date
     };
 
     // Function to handle time selection
     const handleTimeChange = (newTime) => {
         setTime(newTime); // Set selected time
+        setTimeError(false); // Clear error when user selects a date
+    };
+
+
+    // Function to validate inputs before navigating to the PopupPaid screen
+    const handlePayPress = () => {
+        if (!date || !time) {
+            if (!date) setDateError(true);
+            if (!time) setTimeError(true);
+        } else {
+            navigation.navigate("PopupPaid", 
+                {selectedDate: dayjs(date).format('MMMM D, YYYY'), 
+                    selectedTime: time,
+                    title: tour.title, 
+                    guide: tour.tourGuide});
+        }
     };
 
     const renderContent = () => (
         <View style={styles.infoCard}>
+
             {/* Guide info */}
             <View style={styles.infoContainer}>
                 <Text style={styles.sectionTitle}>Guide:</Text>
@@ -61,7 +81,7 @@ const TourBookingScreen = ({ navigation, route }) => {
             {/* Date Input */}
             <View style={styles.infoContainer}>
                 <Text style={styles.sectionTitle}>Date:</Text>
-                <Text style={styles.input}>
+                <Text style={[styles.input, dateError && styles.errorContainer]}>
                     {date ? dayjs(date).format('MMMM D, YYYY') : 'MMMM D, YYYY'}
                 </Text>
                 <TouchableOpacity onPress={handleToggleCalendar}>
@@ -71,13 +91,13 @@ const TourBookingScreen = ({ navigation, route }) => {
 
             {/* Conditionally render CalendarPicker */}
             {showCalendar && (
-                <CalendarPicker date={date} onDateChange={handleDateChange} />
+                <CalendarPicker date={date} onDateChange={handleDateChange} disableMode={true} />
             )}
 
             {/* Time Input */}
             <View style={styles.selectContainer}>
                 <Text style={styles.sectionTitle}>Time:</Text>
-                <Text style={styles.input}>
+                <Text style={[styles.input, timeError && styles.errorContainer]}>
                     {time ? time : '00:00'}
                 </Text>
                 <TouchableOpacity onPress={handleToggleTime}>
@@ -88,7 +108,7 @@ const TourBookingScreen = ({ navigation, route }) => {
             {/* Conditionally render TimePicker */}
             {showTime && (
                 <View style={styles.calendarPickerContainer}>
-                    <TimePicker timeSelected={time} availableTimes={availableTimes} onTimeSelect={handleTimeChange} />
+                    <TimePicker timeSelected={time} availableTimes={tour.availableTimes} onTimeSelect={handleTimeChange} />
                 </View>
             )}
 
@@ -119,7 +139,7 @@ const TourBookingScreen = ({ navigation, route }) => {
                         <View style={styles.priceContainer}>
                             <Text style={styles.totalPriceText}>Total Price: {tour.price}</Text>
                         </View>
-                        <TouchableOpacity style={styles.payButton}>
+                        <TouchableOpacity style={styles.payButton} onPress={handlePayPress}>
                             <Text style={styles.payButtonText}>Pay</Text>
                         </TouchableOpacity>
                     </>
@@ -141,7 +161,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         //marginBottom: 15,
         padding: 10,
-        backgroundColor: '#f2b636',
+        backgroundColor: '#FF914D',
     },
     headerTitle: {
         fontSize: 20,
@@ -200,7 +220,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 20,
         borderWidth: 1,
-        borderColor: '#f2b636',
+        borderColor: '#FF914D',
         marginHorizontal: 5,
     },
     totalPriceText: {
@@ -209,7 +229,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     payButton: {
-        backgroundColor: '#f2b636',
+        backgroundColor: '#FF914D',
         paddingVertical: 15,
         borderRadius: 8,
         alignItems: 'center',
@@ -220,6 +240,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
+    disabledPayButton: {
+        backgroundColor: '#ccc', // Gray color for disabled button
+    },
+    errorContainer:{
+        borderWidth: 2,
+        borderColor: 'red',
+    }
 });
 
 export default TourBookingScreen;

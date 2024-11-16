@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import CalendarPicker from '../GeneralElements/CalendarPicker';
 import dayjs from 'dayjs';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import Slider from '../GeneralElements/Slinder';
 
 const FilterScreen = ({ navigation }) => {
@@ -89,7 +88,7 @@ const FilterScreen = ({ navigation }) => {
 
             {/* Conditionally render CalendarPicker */}
             {showCalendar && (
-                <CalendarPicker date={date} onDateChange={handleDateChange} />
+                <CalendarPicker date={date} onDateChange={handleDateChange} disableMode={true} />
             )}
 
             {/* Activities info */}
@@ -193,7 +192,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        marginLeft: 20,
         
     },
     headerTitleContainer: {

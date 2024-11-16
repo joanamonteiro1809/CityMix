@@ -6,6 +6,8 @@ import VisitsScreen from './VisitsScreens';
 import TourDetailScreen from './PaidScreens/TourDetailScreen';
 import TourBookingScreen from './PaidScreens/TourBookingScreen';
 import FilterScreen from './FilterScreen';
+import PopupPaid from './PaidScreens/PopupPaid';
+import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,8 @@ const InYourAreaStack = () => {
             <Stack.Screen name="TourDetails" component={TourDetailScreen} options={{ headerShown: false }} />
             <Stack.Screen name="TourBooking" component={TourBookingScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Filter" component={FilterScreen} options={{ presentation: 'modal', headerShown: false}} />
+            <Stack.Screen name="PopupPaid" component={PopupPaid} options={{ presentation: 'modal', headerShown: false}} />
+            <Stack.Screen name="NormalProfile" component={MyNormalProfile} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };

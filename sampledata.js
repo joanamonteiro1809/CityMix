@@ -21,7 +21,9 @@ const sampleData = {
                 { reviewer: 'Maria Oliveira', rating: '5,0', comment: 'Amazing tour! The guide was very knowledgeable.' },
                 { reviewer: 'Carlos Silva', rating: '4,0', comment: 'Great experience, but a bit crowded.' },
                 { reviewer: 'Joana Pereira', rating: '4,0', comment: "The castle is huge but it's very beautiful." },
-            ],},
+            ],
+            availableTimes: ["10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"],
+        },
             
         { id: '2', title: 'Alfama Walking Tour', price: '19€', rating: '3.5', tourGuide: 'Inês Dias', 
             description: 'Walk through and enjoy the streets of Alfama.',
@@ -30,7 +32,9 @@ const sampleData = {
             reviews: [
                 { reviewer: 'Ana Pereira', rating: '4,0', comment: 'Loved walking through Alfama!' },
                 { reviewer: 'João Costa', rating: '3,0', comment: 'It was okay, but too hot during the day.' },
-            ],},
+            ],
+            availableTimes: ["11:00", "12:00", "13:00", "14:00", "15:00"],
+        },
 
         { id: '3', title: 'Taste of Lisbon Experience', price: '60€', rating: '4.5', tourGuide: 'Alice Pires', 
             description: 'Come taste the food of Lisbon.',
@@ -39,7 +43,9 @@ const sampleData = {
             reviews: [
                 { reviewer: 'Luís Mendes', rating: '5,0', comment: 'The food was incredible! Highly recommend.' },
                 { reviewer: 'Sara Nunes', rating: '4,0', comment: 'Great experience, but a bit pricey.' },
-            ],},
+            ],
+            availableTimes: ["11:00", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"],
+        },
         // Add more items here...
     ],
 
