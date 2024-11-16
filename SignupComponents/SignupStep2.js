@@ -1,21 +1,25 @@
 // screens/SignupStep2.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable } from 'react-native';
-import CustomCheckbox from './CustomCheckbox';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CheckBox from '@react-native-community/checkbox';
+import * as ImagePicker from 'expo-image-picker';
+import Checkbox from 'expo-checkbox';
+import * as DocumentPicker from 'expo-document-picker';
 
 const screenWidth = Dimensions.get('window').width;
 const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep2 = ({ navigation }) => {
+
+// CHECKBOX
     const [isTourGuide, setIsTourGuide] = useState(false);
 
     const toggleCheckbox = () => {
         setIsTourGuide(!isTourGuide);
     };
 
+// DATE OF BIRTH
     const [date, setDate] = useState('');
     const [showPicker, setShowPicker] = useState(false);
 
@@ -30,6 +34,7 @@ const SignupStep2 = ({ navigation }) => {
         }
     };
 
+// LANGUAGES
     const [showAllLanguages, setShowAllLanguages] = useState(false);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
     const languages = ['English', 'Portuguese', 'Spanish', 'French', 'Chinese', 'Dutch', 'Italian', 'Japanese'];
@@ -43,6 +48,36 @@ const SignupStep2 = ({ navigation }) => {
         );
     };
 
+// PROFILE PICTURE
+    const [image, setImage] = useState(null);
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ['images'],
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+
+        if (!result.canceled) {
+              setImage(result.assets[0].uri);
+            }
+    };
+
+// UPLOAD CERTIFICARE
+    const [cert, setCert] = useState(null);
+
+    const pickCert = async() => {
+        let result = await DocumentPicker.getDocumentAsync({
+            type: '*/*',
+        });
+
+        if(result.type === 'success') {
+            setCert(result);
+        }
+    };
+
     return (
         <View style={styles.container}>
 
@@ -52,6 +87,13 @@ const SignupStep2 = ({ navigation }) => {
                 <View style={styles.progressActive} />
                 <View style={styles.progressActive} />
                 <View style={styles.progressInactive} />
+            </View>
+
+            <View style={styles.imageUploadContainer}>
+                <TouchableOpacity onPress={pickImage}>
+                    <Image source={require('/Users/catarinapedroso/StudioProjects/CityMix/assets/upload.png')}  style={styles.image}/>
+                    {image && <Image source={{ uri: image }} style={styles.image} />}
+                </TouchableOpacity>
             </View>
 
             {showPicker && (
@@ -90,26 +132,34 @@ const SignupStep2 = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-        <View style={styles.checkboxContainer}>
-                <CustomCheckbox isChecked={isTourGuide} onPress={toggleCheckbox} />
-                {/*<CheckBox onPress={toggleCheckbox} value={isTourGuide} />*/}
-                <Text style={styles.checkboxLabel}>I’m a certified tour guide</Text>
+            <View style={styles.checkboxContainer}>
+                    <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={setIsTourGuide} color={isTourGuide ? '#FF914D' : undefined}/>
+                    <Text style={styles.text}>I'm a certified tour guide</Text>
+            </View>
+
+            <View style={styles.certContainer}>
+                {isTourGuide && (
+                    <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
+                        <Image source={require('/Users/catarinapedroso/StudioProjects/CityMix/assets/file.png')} style={styles.fileIcon} />
+                        <Text style={styles.text}>
+                            {cert ? cert.name : "Upload Certificate"}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+            </View>
+        
+            <View style={styles.buttonsRow}>
+                <ArrowButton
+                  onPress={() => navigation.goBack()}
+                  iconName={("chevron-left")}
+                />
+                <ArrowButton
+                  onPress={() => navigation.navigate('SignupStep2')}
+                  iconName={("chevron-right")}
+                />
+            </View>
+
         </View>
-
-
-
-      <View style={styles.buttonsRow}>
-          <ArrowButton
-              onPress={() => navigation.goBack()}
-              iconName={("chevron-left")}
-          />
-          <ArrowButton
-              onPress={() => navigation.navigate('SignupStep2')}
-              iconName={("chevron-right")}
-          />
-      </View>
-
-    </View>
   );
 };
 
@@ -180,7 +230,7 @@ const styles = StyleSheet.create({
     },
 
     languageTagSelected: {
-        backgroundColor: '#c0c0c0', // Slightly darker color when selected
+        backgroundColor: '#c0c0c0',
     },
 
     showMore: {
@@ -199,6 +249,9 @@ const styles = StyleSheet.create({
 
     checkbox: {
         alignSelf: 'center',
+        padding: 10,
+        marginRight: 10,
+        marginLeft: 5, 
       },
 
     checkboxLabel: {
@@ -216,6 +269,54 @@ const styles = StyleSheet.create({
         right: 20,
         justifyContent: 'space-between',
     },
+
+    certContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    imageUploadContainer: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        width: 200,
+        borderRadius: 50,
+        backgroundColor: '#EBEBEB',
+        borderColor: '#ccc',
+        borderWidth: 0.7,
+        marginTop: 30,
+        padding: 10,
+
+    },
+
+    image: {
+        width: 90,
+        height: 90,
+        marginTop: 10,
+        alignSelf: 'center',
+
+      },
+
+    text: {
+        fontSize: 16,
+        marginTop: 5,
+    },
+
+    uploadCert: {
+        alignItems: 'center',
+        padding: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 8,
+        backgroundColor: '#EBEBEB',
+        marginTop: 5,
+        width: '100%',
+    },
+
+    fileIcon: {
+    width: 40,
+    height: 40,
+
+    }
 
 });
 

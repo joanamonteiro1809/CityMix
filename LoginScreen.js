@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
 import { useFonts } from 'expo-font'; // Import useFonts
+
+const { width, height } = Dimensions.get('window');
 
 const LoginScreen = ({ navigation }) => {
 
@@ -71,32 +73,37 @@ const styles = StyleSheet.create({
     },
 
     inputContainer: {
-        position: 'absolute', // Position it absolutely within the container
-        bottom: -20,
+        bottom: -30,
+        flex: 1,
         width: '120%',
-        height: 560,
         backgroundColor: '#FFF',
         padding: 30,
-        borderRadius: 65,
+        borderRadius: 70,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 5,
         elevation: 5,
         alignItems: 'center',
-        //justifyContent: 'center',
+        marginTop: 'auto',
 
     },
 
     logo: {
-        width: 400,
+        /*width: 400,
         height: 300,
         marginTop: 20,
         position: 'absolute', // Position it absolutely within the container
         top: 50,
         left: 20,
         alignItems: 'center',
-        resizeMode: 'contain', // Adjusts the image size while maintaining aspect ratio
+        resizeMode: 'contain', // Adjusts the image size while maintaining aspect ratio*/
+
+        width: width * 0.8, // Make the logo responsive
+        height: height * 0.3, // Adjust based on screen height
+        resizeMode: 'contain', // Maintain aspect ratio
+        alignSelf: 'center', // Center horizontally
+        marginTop: height * 0.1, // Adjust top margin
     },
 
     title: {

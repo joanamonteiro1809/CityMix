@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 30,
         backgroundColor: '#EBEBEB',
-        //color: '#333',
     },
 
     arrow: {
