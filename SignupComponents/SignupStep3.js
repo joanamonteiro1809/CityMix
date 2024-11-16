@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
+import CheckBoxCircular from '../GeneralElements/CheckBoxCircular';
+
 
 const screenWidth = Dimensions.get('window').width;
 const elementWidth = (screenWidth - 30 * 2) / 3;
@@ -18,12 +20,29 @@ const SignupStep3 = ({ navigation }) => {
                 </View>
 
                 //TODO: procurar elemento para selecionar
-                <Text style={styles.interest}>INTEREST </Text>
-                <Text style={styles.interest}>INTEREST </Text>
-                <Text style={styles.interest}>INTEREST </Text>
-                <Text style={styles.interest}>INTEREST </Text>
-                <Text style={styles.interest}>INTEREST </Text>
-                <Text style={styles.interest}>INTEREST </Text>
+                <View style={styles.interest}>
+                    <Text style={styles.text}>Culture and museums</Text>
+                    <CheckBoxCircular> </CheckBoxCircular>
+                </View>
+                <View style={styles.interest}>
+                    <Text style={styles.text}>Outdoor activities</Text>
+                    <CheckBoxCircular> </CheckBoxCircular>
+                </View>
+                <View style={styles.interest}>
+                    <Text style={styles.text}>Food</Text>
+                    <CheckBoxCircular> </CheckBoxCircular>
+                </View>
+                <View style={styles.interest}>
+                    <Text style={styles.text}>Nightlife</Text>
+                    <CheckBoxCircular> </CheckBoxCircular>
+                </View>
+                <View style={styles.interest}>
+                    <Text style={styles.text}>Unusual routes</Text>
+                    <CheckBoxCircular> </CheckBoxCircular>
+                </View>
+
+
+                //TODO: adicionar campo que permite a pessoa escrever o próprio interesse
 
                 <View style={styles.buttonsRow}>
                     <ArrowButton
@@ -95,6 +114,15 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 30,
         backgroundColor: '#EBEBEB',
+        justifyContent: 'space-between',
+        //gap:10,
+        flexDirection: 'row',
+        alignItems: 'center',
+
+    },
+
+    text: {
+        fontSize: 18,
     }
 
 });

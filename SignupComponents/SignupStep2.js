@@ -1,6 +1,6 @@
 // screens/SignupStep2.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from 'expo-image-picker';
@@ -90,71 +90,73 @@ const SignupStep2 = ({ navigation }) => {
                 <View style={styles.progressInactive} />
             </View>
 
-            <View style={styles.imageUploadContainer}>
-                <TouchableOpacity onPress={pickImage}>
-                    {!image ? (
-                        <Image source={require('../assets/upload.png')}  style={styles.image}/>
-                    ) : (
-                        <Image source={{ uri: image }} style={styles.image} />)
-                    }
-                </TouchableOpacity>
-            </View>
-
-            {showPicker && (
-                <DateTimePicker
-                    mode="date"
-                    display= "spinner"
-                    value={new Date()}
-                    onChange={onChange}
-                />
-            )}
-
-            <Pressable onPress={toggleDatepicker} >
-                <TextInput style = {styles.input} placeholder = "Date of Birth"
-                    value={date}
-                    onChangeText={setDate}
-                    editable={false}
-                />
-            </Pressable>
-
-            <TextInput style={styles.input} placeholder="City of Residence" />
-      
-            <Text style={styles.subtitle}> Languages </Text>
-
-
-            <View style={styles.languageContainer}>
-                {languagesToShow.map((lang) => (
-                    <TouchableOpacity key={lang} style={[styles.languageTag, selectedLanguages.includes(lang) && styles.languageTagSelected,]}
-                        onPress={() => toggleLanguageSelection(lang)}
-                        >
-                        <Text>{lang}</Text>
-                    </TouchableOpacity>
-                ))}
-
-                <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
-                    <Text style={styles.showMore}>{showAllLanguages ? 'Show less' : 'Show more'}</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-                    <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={setIsTourGuide} color={isTourGuide ? '#FF914D' : undefined}/>
-                    <Text style={styles.text}>I'm a certified tour guide</Text>
-            </View>
-
-            <View style={styles.certContainer}>
-                {isTourGuide && (
-                    <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
-                        {!cert ? (
-                            <>
-                            <Image source={require('../assets/file.png')} style={styles.fileIcon} />
-                            <Text style={styles.text}> Upload Certificate </Text>
-                            </>
+            <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+                <View style={styles.imageUploadContainer}>
+                    <TouchableOpacity onPress={pickImage}>
+                        {!image ? (
+                            <Image source={require('../assets/upload.png')}  style={styles.image}/>
                         ) : (
-                            <Text style={styles.showMore}> {cert.name} </Text>
-                        )}
+                            <Image source={{ uri: image }} style={styles.image} />)
+                        }
                     </TouchableOpacity>
+                </View>
+
+                {showPicker && (
+                    <DateTimePicker
+                        mode="date"
+                        display= "spinner"
+                        value={new Date()}
+                        onChange={onChange}
+                    />
                 )}
-            </View>
+
+                <Pressable onPress={toggleDatepicker} >
+                    <TextInput style = {styles.input} placeholder = "Date of Birth"
+                        value={date}
+                        onChangeText={setDate}
+                        editable={false}
+                    />
+                </Pressable>
+
+                <TextInput style={styles.input} placeholder="City of Residence" />
+
+                <Text style={styles.subtitle}> Languages </Text>
+
+
+                <View style={styles.languageContainer}>
+                    {languagesToShow.map((lang) => (
+                        <TouchableOpacity key={lang} style={[styles.languageTag, selectedLanguages.includes(lang) && styles.languageTagSelected,]}
+                            onPress={() => toggleLanguageSelection(lang)}
+                            >
+                            <Text>{lang}</Text>
+                        </TouchableOpacity>
+                    ))}
+
+                    <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
+                        <Text style={styles.showMore}>{showAllLanguages ? 'Show less' : 'Show more'}</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.checkboxContainer}>
+                        <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={setIsTourGuide} color={isTourGuide ? '#FF914D' : undefined}/>
+                        <Text style={styles.text}>I'm a certified tour guide</Text>
+                </View>
+
+                <View style={styles.certContainer}>
+                    {isTourGuide && (
+                        <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
+                            {!cert ? (
+                                <>
+                                <Image source={require('../assets/file.png')} style={styles.fileIcon} />
+                                <Text style={styles.text}> Upload Certificate </Text>
+                                </>
+                            ) : (
+                                <Text style={styles.showMore}> {cert.name} </Text>
+                            )}
+                        </TouchableOpacity>
+                    )}
+                </View>
+            </ScrollView>
         
             <View style={styles.buttonsRow}>
                 <ArrowButton
@@ -175,8 +177,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        justifyContent: 'flex-start',
+        //justifyContent: 'flex-start',
         paddingTop: 100,
+        paddingBottom: 20,
+    },
+
+    contentContainer: {
+        flexGrow: 1,  // Ensures the content container takes up all available space
+        justifyContent: 'flex-start', // Aligns content at the top of the ScrollView
     },
 
     title: {
@@ -276,6 +284,7 @@ const styles = StyleSheet.create({
         left: 20,
         right: 20,
         justifyContent: 'space-between',
+        marginTop: 'auto',
     },
 
     certContainer: {
