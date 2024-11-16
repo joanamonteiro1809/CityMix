@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InYourAreaScreen from './InYourAreaScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import InYourAreaStack from './InYourAreaStack';
+import ProfileStack from './ProfileScreens/ProfileStack';
+import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +35,7 @@ const MainNavigator = () => {
             <Tab.Screen name="Home" component={InYourAreaStack}/>
             <Tab.Screen name="Messages" component={InYourAreaScreen} />
             <Tab.Screen name="Notifications" component={InYourAreaScreen} />
-            <Tab.Screen name="Profile" component={InYourAreaScreen} />
+            <Tab.Screen name="Profile" component={ProfileStack} />
         </Tab.Navigator>
     );
 };

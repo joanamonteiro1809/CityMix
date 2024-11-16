@@ -1,13 +1,11 @@
-// PaidToursScreen.js
+// PaidToursScreen.js --> all paid tours available
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Dimensions, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import sampleData from '../sampledata';
+import sampleData from '../../sampledata';
 
-const { width } = Dimensions.get('window'); 
-
-const renderPaidToursItem = ({ item }) => (
-    <View style={styles.tourCard}>
+const renderPaidToursItem = ({ item, nav }) => (
+    <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.tourCard}>
         <View style={styles.titleAndPhoto}>
             <Icon name="image" size={50} color="#555" />
             <View style={styles.tourInfo}>
@@ -21,20 +19,18 @@ const renderPaidToursItem = ({ item }) => (
         <View style={styles.priceContainer}>
             <Text style={styles.price}>{item.price}</Text>
         </View>
-    </View>
+    </TouchableOpacity>
 );
 
-const PaidToursScreen = ({ navigation } ) => {
-
+const PaidToursScreen = ({ nav } ) => {
     return (
-        <View>
-            {/* Group tours cards */}
+        <View style={styles.container}>
             <FlatList
-                    data={sampleData.paidTours}
-                    renderItem={renderPaidToursItem}
-                    keyExtractor={item => item.id}
-                    contentContainerStyle={styles.listContainer}
-                />
+                data={sampleData.paidTours}
+                renderItem={({ item }) => renderPaidToursItem({ item, nav })}
+                keyExtractor={item => item.id.toString()}
+                contentContainerStyle={styles.listContainer}
+            />
         </View>
     );
 };
