@@ -12,17 +12,21 @@ const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep2 = ({ navigation }) => {
 
-// CHECKBOX
+// States
     const [isTourGuide, setIsTourGuide] = useState(false);
+    const [date, setDate] = useState('');
+    const [city, setCity] = useState('');
+    const [showPicker, setShowPicker] = useState(false);
+    const [image, setImage] = useState(null);
+    const [cert, setCert] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
+// CHECKBOX
     const toggleCheckbox = () => {
         setIsTourGuide(!isTourGuide);
     };
 
 // DATE OF BIRTH
-    const [date, setDate] = useState('');
-    const [showPicker, setShowPicker] = useState(false);
-
     const toggleDatepicker = () => {
         setShowPicker(!showPicker);
     };
@@ -49,8 +53,6 @@ const SignupStep2 = ({ navigation }) => {
     };
 
 // PROFILE PICTURE
-    const [image, setImage] = useState(null);
-
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -66,8 +68,6 @@ const SignupStep2 = ({ navigation }) => {
     };
 
 // UPLOAD CERTIFICARE
-    const [cert, setCert] = useState(null);
-
     const pickCert = async() => {
         let result = await DocumentPicker.getDocumentAsync({
             type: '*/*',
@@ -78,6 +78,23 @@ const SignupStep2 = ({ navigation }) => {
             setCert(result.assets[0]);
         }
     };
+
+    const validate = () => {
+        if (!date || !image || !city.trim()) return false;
+        if (isTourGuide && !cert) return false;
+        return true;
+    };
+
+    const handleNext = () => {
+        setIsSubmitted(true);
+        if (validate()) {
+            navigation.navigate('SignupStep3');
+        }
+    };
+
+    const isFieldInvalid = (field) => isSubmitted && !field;
+    const isTourGuideCertInvalid = () => isSubmitted && isTourGuide && !cert;
+
 
     return (
         <View style={styles.container}>
@@ -91,7 +108,7 @@ const SignupStep2 = ({ navigation }) => {
             </View>
 
             <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-                <View style={styles.imageUploadContainer}>
+                <View style={[styles.imageUploadContainer, isFieldInvalid(date) && styles.inputError]}>
                     <TouchableOpacity onPress={pickImage}>
                         {!image ? (
                             <Image source={require('../assets/upload.png')}  style={styles.image}/>
@@ -100,6 +117,8 @@ const SignupStep2 = ({ navigation }) => {
                         }
                     </TouchableOpacity>
                 </View>
+                {isFieldInvalid(image) && (<Text style={styles.errorText}>Profile picture is required</Text>)}
+
                 {showPicker && (
                     <DateTimePicker
                         mode="date"
@@ -109,13 +128,23 @@ const SignupStep2 = ({ navigation }) => {
                     />
                 )}
                 <Pressable onPress={toggleDatepicker} >
-                    <TextInput style = {styles.input} placeholder = "Date of Birth"
+                    <TextInput
+                        style={[styles.input, isFieldInvalid(date) && styles.inputError]}
+                        placeholder = "Date of Birth*"
                         value={date}
                         onChangeText={setDate}
                         editable={false}
                     />
                 </Pressable>
-                <TextInput style={styles.input} placeholder="City of Residence" />
+                {isFieldInvalid(date) && (<Text style={styles.errorText}>Date of Birth is required</Text>)}
+
+                <TextInput
+                    style={[styles.input, isFieldInvalid(city) && styles.inputError]}
+                    placeholder="City of Residence*"
+                    value={city}
+                    onChangeText={setCity}
+                />
+                {isFieldInvalid(city) && (<Text style={styles.errorText}>City of residence is required</Text>)}
 
                 <Text style={styles.subtitle}> Languages </Text>
                 <View style={styles.languageContainer}>
@@ -137,20 +166,21 @@ const SignupStep2 = ({ navigation }) => {
                         <Text style={styles.text}>I'm a certified tour guide</Text>
                 </View>
 
+                {isTourGuide && (
                 <View style={styles.certContainer}>
-                    {isTourGuide && (
-                        <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
-                            {!cert ? (
-                                <>
-                                <Image source={require('../assets/file.png')} style={styles.fileIcon} />
-                                <Text style={styles.text}> Upload Certificate </Text>
-                                </>
-                            ) : (
-                                <Text style={styles.showMore}> {cert.name} </Text>
-                            )}
-                        </TouchableOpacity>
-                    )}
+                    <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
+                        {!cert ? (
+                            <>
+                            <Image source={require('../assets/file.png')} style={styles.fileIcon} />
+                            <Text style={styles.text}> Upload Certificate </Text>
+                            </>
+                        ) : (
+                            <Text style={styles.showMore}> {cert.name} </Text>
+                        )}
+                    </TouchableOpacity>
+                    {isTourGuideCertInvalid() && (<Text style={styles.errorText}>Certificate is required</Text>)}
                 </View>
+                )}
             </ScrollView>
         
             <View style={styles.buttonsRow}>
@@ -159,7 +189,7 @@ const SignupStep2 = ({ navigation }) => {
                   iconName={("chevron-left")}
                 />
                 <ArrowButton
-                  onPress={() => navigation.navigate('SignupStep3')}
+                  onPress={handleNext}
                   iconName={("chevron-right")}
                 />
             </View>
@@ -325,9 +355,19 @@ const styles = StyleSheet.create({
     },
 
     fileIcon: {
-    width: 40,
-    height: 40,
+        width: 40,
+        height: 40,
+    },
 
+    inputError: {
+        borderColor: 'red',
+    },
+
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 5,
+        marginLeft: 5,
     }
 
 });

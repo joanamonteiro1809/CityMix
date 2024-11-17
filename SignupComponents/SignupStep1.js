@@ -1,12 +1,40 @@
 // screens/SignupStep1.js
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 
 const screenWidth = Dimensions.get('window').width;
 const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep1 = ({ navigation }) => {
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+    });
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const validate = () => {
+        return (
+            Object.values(formData).every((value) => value.trim()) &&
+            formData.password === formData.confirmPassword
+        );
+    };
+
+    const handleNext = () => {
+        setIsSubmitted(true);
+        if (validate()) {
+            navigation.navigate('SignupStep2');
+        }
+    };
+
+    const isFieldInvalid = (field) => isSubmitted && !formData[field].trim();
+    const isPasswordMismatch = (field) =>
+        isSubmitted && field === 'confirmPassword' && formData.password !== formData.confirmPassword;
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Sign up</Text>
@@ -16,11 +44,57 @@ const SignupStep1 = ({ navigation }) => {
                 <View style={styles.progressInactive} />
             </View>
 
-            <TextInput style={styles.input} placeholder="Name" />
-            <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" />
-            <TextInput style={styles.input} placeholder="Username" />
-            <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-            <TextInput style={styles.input} placeholder="Confirm Password" secureTextEntry />
+            <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+            <TextInput
+                style={[styles.input, isFieldInvalid('name') && styles.inputError]}
+                placeholder="Name*"
+                value={formData.name}
+                onChangeText={(text) => setFormData({ ...formData, name: text })}
+            />
+            {isFieldInvalid('name') && <Text style={styles.errorText}>Name is required.</Text>}
+
+            <TextInput
+                style={[styles.input, isFieldInvalid('email') && styles.inputError]}
+                placeholder="Email*"
+                keyboardType="email-address"
+                value={formData.email}
+                onChangeText={(text) => setFormData({ ...formData, email: text })}
+            />
+            {isFieldInvalid('email') && <Text style={styles.errorText}>Email is required</Text>}
+
+            <TextInput
+                style={[styles.input, isFieldInvalid('username') && styles.inputError]}
+                placeholder="Username*"
+                value={formData.username}
+                onChangeText={(text) => setFormData({ ...formData, username: text })}
+            />
+            {isFieldInvalid('username') && (<Text style={styles.errorText}>Username is required</Text>)}
+
+            <TextInput
+                style={[styles.input, isFieldInvalid('password') && styles.inputError]}
+                placeholder="Password*"
+                secureTextEntry
+                value={formData.password}
+                onChangeText={(text) => setFormData({ ...formData, password: text })}
+            />
+            {isFieldInvalid('password') && <Text style={styles.errorText}>Password is required</Text>}
+
+            <TextInput style={styles.input} placeholder="Confirm Password" secureTextEntry
+                style={[styles.input, (isFieldInvalid('confirmPassword') || isPasswordMismatch('confirmPassword')) &&
+                        styles.inputError,]}
+                placeholder="Confirm Password*"
+                secureTextEntry
+                value={formData.confirmPassword}
+                onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
+            />
+
+            {isFieldInvalid('confirmPassword') && (
+                <Text style={styles.errorText}>Confirm Password is required</Text>
+            )}
+            {isPasswordMismatch('confirmPassword') && (
+                <Text style={styles.errorText}>Passwords do not match</Text>
+            )}
+            </ScrollView>
 
             <View style={styles.buttonsRow}>
                 <ArrowButton
@@ -28,11 +102,10 @@ const SignupStep1 = ({ navigation }) => {
                     iconName={("chevron-left")}
                 />
                 <ArrowButton
-                    onPress={() => navigation.navigate('SignupStep2')}
+                    onPress={handleNext}
                     iconName={("chevron-right")}
                 />
             </View>
-
         </View>
     );
 };
@@ -43,6 +116,11 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'flex-start',
         paddingTop: 90,
+    },
+
+    contentContainer: {
+        flexGrow: 1,
+        justifyContent: 'flex-start',
     },
 
     title: {
@@ -99,6 +177,18 @@ const styles = StyleSheet.create({
         right: 20,
         justifyContent: 'space-between',
     },
+
+    inputError: {
+        borderColor: 'red',
+    },
+
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 5,
+        marginLeft: 5,
+    }
+
 });
 
 export default SignupStep1;

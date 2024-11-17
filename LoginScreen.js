@@ -1,10 +1,22 @@
 import React, { useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
-import { useFonts } from 'expo-font'; // Import useFonts
+import { useFonts } from 'expo-font';
 
 const { width, height } = Dimensions.get('window');
 
+
 const LoginScreen = ({ navigation }) => {
+
+    const [fontsLoaded] = useFonts({
+        'CodecPro-Bold': require('./assets/fonts/CodecPro-Bold.ttf'),
+        'CodecPro-ExtraBold': require('./assets/fonts/CodecPro-ExtraBold.otf'),
+        'CodecPro-Italic': require('./assets/fonts/CodecPro-Italic.ttf'),
+        'CodecPro-Regular': require('./assets/fonts/CodecPro-Regular.ttf'),
+    });
+
+    if (!fontsLoaded) {
+        return null;
+    }
 
     return (
         <View style={styles.container}>
