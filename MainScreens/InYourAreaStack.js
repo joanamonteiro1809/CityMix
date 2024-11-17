@@ -8,6 +8,7 @@ import TourBookingScreen from './PaidScreens/TourBookingScreen';
 import FilterScreen from './FilterScreen';
 import PopupPaid from './PaidScreens/PopupPaid';
 import MyNormalProfile from './ProfileScreens/MyNormalProfile';
+import MapScreen from '../GeneralElements/MapScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="Filter" component={FilterScreen} options={{ presentation: 'modal', headerShown: false}} />
             <Stack.Screen name="PopupPaid" component={PopupPaid} options={{ presentation: 'modal', headerShown: false}} />
             <Stack.Screen name="NormalProfile" component={MyNormalProfile} options={{ headerShown: false }} />
+            <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };

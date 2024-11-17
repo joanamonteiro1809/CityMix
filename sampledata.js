@@ -7,9 +7,36 @@ const sampleData = {
         // Add more items here...
     ],
     group: [
-        { id: '1', title: 'Day in Belém', numPeopl: '...and 5 more' },
-        { id: '2', title: 'Bar hopping in Chiado', numPeopl: '...and 6 more' },
-        { id: '3', title: 'Walk in Sintra', numPeopl: '...and 31 more' },
+        { 
+            id: '1', 
+            title: 'Day in Belém', 
+            numPeopl: 'and 5 more...',
+            location: "Av. Brasília, 1300-598 Lisboa",
+            latitude: 38.69588602464495,
+            longitude: -9.195402120568252,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+        },
+        { 
+            id: '2', 
+            title: 'Bar hopping in Chiado', 
+            numPeopl: 'and 6 more...',
+            location: "Largo do Chiado, 1200-443 Lisboa",
+            latitude: 38.711477586802665,
+            longitude: -9.142375846542347,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+        },
+        { 
+            id: '3', 
+            title: 'Walk in Sintra', 
+            numPeopl: 'and 31 more...',
+            location: "Estrada da Pena, 2710-609 Sintra",
+            latitude: 38.78922817493438,
+            longitude: -9.39070289804973,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+        },
         // Add more items here...
     ],
     paidTours: [
@@ -61,6 +88,23 @@ const sampleData = {
                        ],},
                   // Add more items here...
         ],
+
+    markers: [
+        {
+            latitude: 37.7749,
+            longitude: -122.4194,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+            name: 'San Francisco City Center'
+        },
+        {
+            latitude: 37.8077,
+            longitude: -122.475,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+            name: 'Golden Gate Bridge'
+        }
+    ]
 };
 
 export default sampleData;

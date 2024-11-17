@@ -43,7 +43,7 @@ const InYourAreaScreen = ({navigation}) => {
                     </View>
                     
                     {/* Image next to the search container */}
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Map')}>
                         <Image
                             source={require('../assets/map.png')}
                             style={styles.map}
