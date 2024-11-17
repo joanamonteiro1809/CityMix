@@ -10,8 +10,8 @@ const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
         <View style={styles.card}>
             <Icon name="account-circle" size={24} color="#555" />
-            <Text style={styles.cardTitle}>{item.name}</Text>
-            <Text style={styles.cardSubtitle}>{item.activity}</Text>
+            <Text style={styles.cardTitle}>{item.name}, {item.age}</Text>
+            <Text style={styles.cardSubtitle}>{item.activities.join(', ')}</Text>
         </View>
     );
 
@@ -19,7 +19,7 @@ const InYourAreaScreen = ({navigation}) => {
         <View style={styles.card}>
             <Icon name="image" size={24} color="#555" />
             <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text style={styles.cardSubtitle}>{item.activity}</Text>
+            <Text style={styles.cardSubtitle}>{item.numPeopl}</Text>
         </View>
     );
 
@@ -27,7 +27,7 @@ const InYourAreaScreen = ({navigation}) => {
         <TouchableOpacity onPress={() => navigation.navigate('TourDetails', { tour: item })} style={styles.card}>
             <Icon name="image" size={24} color="#555" />
             <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text style={styles.cardSubtitle}>{item.price}</Text>
+            <Text style={styles.cardSubtitle}>{item.price}€</Text>
         </TouchableOpacity>
     );
 

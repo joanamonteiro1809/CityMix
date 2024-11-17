@@ -17,16 +17,16 @@ const renderPaidToursItem = ({ item, nav }) => (
             </View>
         </View>
         <View style={styles.priceContainer}>
-            <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.price}>{item.price}€</Text>
         </View>
     </TouchableOpacity>
 );
 
-const PaidToursScreen = ({ nav } ) => {
+const PaidToursScreen = ({ nav, tours }) => {
     return (
         <View style={styles.container}>
             <FlatList
-                data={sampleData.paidTours}
+                data={tours}
                 renderItem={({ item }) => renderPaidToursItem({ item, nav })}
                 keyExtractor={item => item.id.toString()}
                 contentContainerStyle={styles.listContainer}

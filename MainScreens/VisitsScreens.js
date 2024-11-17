@@ -7,12 +7,18 @@ import TabControl from '../GeneralElements/TabControl';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import GroupScreen from './GroupScreen';
 import PaidToursScreen from './PaidScreens/PaidToursScreen';
+import sampleData from '../sampledata';
 
 const { width, height } = Dimensions.get('window');
 
 const VisitsScreen = ({ navigation, route }) => {
 
     const initialTab = route.params?.tabSelected || "Individuals";
+
+    const filteredIndividuals = route.params?.filteredTours || sampleData.individual;
+    const filteredGroups = route.params?.filteredTours || sampleData.group;
+    const filteredPaid = route.params?.filteredTours || sampleData.paidTours;
+
     const [activeTab, setActiveTab] = useState(initialTab); // Default tab
     return (
         <View style={styles.container}>
@@ -29,9 +35,26 @@ const VisitsScreen = ({ navigation, route }) => {
                     <Text style={styles.headerTitle}>Lisbon</Text>
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.navigate('Filter')}>
-                    <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
-                </TouchableOpacity>
+                {/** Show age filter on individuals */}
+                {activeTab == 'Individuals' && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Individuals', showAge: true})}>
+                        <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
+                    </TouchableOpacity>
+                )}
+
+                {activeTab == 'Group' && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Group'})}>
+                        <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
+                    </TouchableOpacity>
+                )
+                }
+
+                {activeTab == 'Paid' && (
+                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Paid'})}>
+                        <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
+                    </TouchableOpacity>
+                )
+                }
             </View>
 
 
@@ -45,15 +68,15 @@ const VisitsScreen = ({ navigation, route }) => {
             {/* Tab Content */}
             <View>
                 {activeTab === 'Individuals' && (
-                    <IndividualScreen></IndividualScreen>
+                    <IndividualScreen nav={navigation} tours={filteredIndividuals} />
                 )}
 
                 {activeTab === 'Group' && (
-                    <GroupScreen></GroupScreen>
+                    <GroupScreen nav={navigation} tours={filteredGroups} />
                 )}
 
                 {activeTab === 'Paid' && (
-                    <PaidToursScreen nav={navigation}></PaidToursScreen>
+                    <PaidToursScreen nav={navigation} tours={filteredPaid} />
                 )}
             </View>
         </View>

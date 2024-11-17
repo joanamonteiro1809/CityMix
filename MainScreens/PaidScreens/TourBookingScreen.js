@@ -137,7 +137,7 @@ const TourBookingScreen = ({ navigation, route }) => {
                 ListFooterComponent={() => (
                     <>
                         <View style={styles.priceContainer}>
-                            <Text style={styles.totalPriceText}>Total Price: {tour.price}</Text>
+                            <Text style={styles.totalPriceText}>Total Price: {tour.price}€</Text>
                         </View>
                         <TouchableOpacity style={styles.payButton} onPress={handlePayPress}>
                             <Text style={styles.payButtonText}>Pay</Text>

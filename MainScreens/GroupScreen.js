@@ -16,13 +16,13 @@ const renderGroupItem = ({ item }) => (
     </View>
 );
 
-const GroupScreen = ({ navigation } ) => {
+const GroupScreen = ( { nav, tours } ) => {
 
     return (
         <View>
             {/* Group tours cards */}
             <FlatList
-                    data={sampleData.group}
+                    data={tours}
                     renderItem={renderGroupItem}
                     keyExtractor={item => item.id}
                     contentContainerStyle={styles.listContainer}

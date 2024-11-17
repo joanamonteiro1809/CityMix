@@ -6,8 +6,55 @@ import ArrowButton from '../GeneralElements/ArrowButton';
 import CalendarPicker from '../GeneralElements/CalendarPicker';
 import dayjs from 'dayjs';
 import Slider from '../GeneralElements/Slinder';
+import sampleData from '../sampledata';
+import { routeToScreen } from 'expo-router/build/useScreens';
 
-const FilterScreen = ({ navigation }) => {
+const FilterScreen = ({ navigation, route}) => {
+
+    const showAge = route.params?.showAge;
+    const tabSel = route.params?.tabSel;
+
+    // Filter Logic
+    const applyFilters = () => {
+        let filtered;
+        if(tabSel == 'Individuals'){
+            filtered = sampleData.individual;
+        } else if (tabSel == 'Group'){
+            filtered = sampleData.group;
+        } else{
+            filtered = sampleData.paidTours;
+        }
+
+        if (date) {
+            //filtered = filtered.filter((tour) => dayjs(tour.date).isSame(dayjs(date), 'day'));
+        }
+        if (selectedActivities.length > 0) {
+            filtered = filtered.filter((tour) =>
+                selectedActivities.every((activity) => tour.activities.includes(activity))
+            );
+        }
+
+        if(tabSel == 'Paid'){
+            filtered = filtered.filter(
+                (tour) => tour.price >= priceValues[0] && tour.price <= priceValues[1]
+            );
+        }
+
+        if(showAge){
+            filtered = filtered.filter(
+                (tour) => tour.age >= ageValues[0] && tour.age <= ageValues[1]
+            );
+        }
+
+        if (selectedLanguages.length > 0) {
+            //filtered = filtered.filter((tour) =>
+              //  selectedLanguages.every((language) => tour.languages.includes(language))
+            //);
+        }
+
+        // Navigate to the FilteredToursScreen and pass the filtered tours as a parameter
+        navigation.navigate('VisitsScreen', { tabSelected: tabSel, filteredTours: filtered });
+    };
 
     const [showAllActivities, setShowAllActivities] = useState(false);
     const [selectedActivities, setSelectedActivities] = useState([]);
@@ -120,12 +167,16 @@ const FilterScreen = ({ navigation }) => {
             </View>
 
             {/* Age info */}
-            <View>
-                <Text style={styles.sectionTitle}>Age</Text>
-            </View>
-            <View style={styles.sliderContainer}>
-                <Slider minVal={ageValues[0]} maxVal={ageValues[1]} values={ageValues} onSliderChange={handleAgeChange}></Slider>
-            </View>
+            {showAge && (
+                <View>
+                    <View>
+                        <Text style={styles.sectionTitle}>Age</Text>
+                    </View>
+                    <View style={styles.sliderContainer}>
+                        <Slider minVal={ageValues[0]} maxVal={ageValues[1]} values={ageValues} onSliderChange={handleAgeChange}></Slider>
+                    </View>
+                </View>
+            )}
 
             {/* Languages info */}
             <View>
@@ -174,7 +225,7 @@ const FilterScreen = ({ navigation }) => {
                 <TouchableOpacity onPress={restoreFilters}>
                     <Text style={styles.footerBoxes}>Restore</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={applyFilters}>
                     <Text style={styles.footerBoxes}>Apply filters</Text>
                 </TouchableOpacity>
             </View>

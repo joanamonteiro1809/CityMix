@@ -108,7 +108,7 @@ const TourDetailScreen = ({navigation, route}) => {
 
             {/* Footer with Price and Book Button */}
             <View style={styles.footer}>
-                <Text style={styles.price}>{tourDetails.price} per person</Text>
+                <Text style={styles.price}>{tourDetails.price}€ per person</Text>
                 <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('TourBooking', { tour: tourDetails })}>
                     <Text style={styles.bookButtonText}>Book Tour</Text>
                 </TouchableOpacity>

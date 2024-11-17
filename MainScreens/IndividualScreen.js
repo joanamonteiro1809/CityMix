@@ -17,8 +17,8 @@ const renderIndividualItem = ({ item }) => {
         <View style={styles.profileCard}>
             <Icon name="person" size={40} color="#555" />
             <View style={styles.profileInfo}>
-                <Text style={styles.profileName}>{item.name}</Text>
-                <Text style={styles.profileDescription}>{item.activity}</Text>
+                <Text style={styles.profileName}>{item.name}, {item.age}</Text>
+                <Text style={styles.profileDescription}>{item.activities.join(', ')}</Text>
                 <View style={styles.ratingContainer}>
                     <Text style={styles.ratingText}>{item.rating}</Text>
                     {/* Map over the stars array to render the star icons */}
@@ -36,17 +36,13 @@ const renderIndividualItem = ({ item }) => {
 };
 
 
-const IndividualScreen = ({ navigation } ) => {
+const IndividualScreen = ({ tours }) => {
 
     return (
         <View>
-
-            {/* Toggle Buttons */}
-            {/*<SegmentedControl onOptionSelect={"Individual"} />*/}
-
             {/* Profile Card */}
             <FlatList
-                    data={sampleData.individual}
+                    data={tours}
                     renderItem={renderIndividualItem}
                     keyExtractor={item => item.id}
                     contentContainerStyle={styles.listContainer}
