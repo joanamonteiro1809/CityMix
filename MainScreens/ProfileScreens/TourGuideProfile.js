@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import sampleData from '../../sampledata'
+import AsyncStorage from '@react-native-async-storage/async-storage'; // For persistence
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,7 +14,31 @@ const sampleEvents = [
     // Adicione mais eventos de exemplo aqui
 ];
 
+
 const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
+
+    const [joaoTours, setJoaoTours] = useState([]); // State to hold tours
+
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchTours = async () => {
+                try {
+                    const storedTours = await AsyncStorage.getItem('joaoTours');
+                    if (storedTours) {
+                        setJoaoTours(JSON.parse(storedTours));
+                    } else {
+                        setJoaoTours(sampleData.joaoTours); // Fallback to initial data
+                    }
+                } catch (error) {
+                    console.error('Error fetching tours:', error);
+                }
+            };
+    
+            fetchTours();
+        }, []) // Dependency array ensures this runs every time the screen is focused
+    );
+
     const [activeTab, setActiveTab] = useState('About'); // Aba padrão
     const [isAvailable, setIsAvailable] = useState(true); // Estado de disponibilidade
     const [date, setDate] = useState(null); // Data selecionada no calendário
@@ -102,6 +128,7 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                 );
 
             case 'Tours':
+                console.log(sampleData.joaoTours);
                 return (
                     <View style={styles.toursSection}>
                         <TouchableOpacity
@@ -112,7 +139,7 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                         </TouchableOpacity>
                         <View style={styles.container}>
                             <FlatList
-                                data={sampleData.joaoTours}
+                                data={joaoTours}
                                 renderItem={({ item }) => <ToursItem item={item} nav={navigation} />}
                                 keyExtractor={item => item.id.toString()}
                                 contentContainerStyle={styles.listContainer}
