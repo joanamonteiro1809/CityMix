@@ -22,7 +22,7 @@ const SignupStep3 = ({ navigation }) => {
                 <Text style={styles.subtitle}>Your Interests</Text>
 
                 <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-                //TODO: procurar elemento para selecionar
+                
                 <View style={styles.interest}>
                     <Text style={styles.text}>Culture and museums</Text>
                     <CheckBoxCircular> </CheckBoxCircular>
@@ -50,14 +50,12 @@ const SignupStep3 = ({ navigation }) => {
                 </View>
                 </ScrollView>
 
-                //TODO: adicionar campo que permite a pessoa escrever o próprio interesse
 
                 <View style={styles.buttonsRow}>
                     <ArrowButton
                       onPress={() => navigation.goBack()}
                       iconName={("chevron-left")}
                     />
-                    //TODO: mudar para DONE
                     {/*<ArrowButton
                       onPress={() => navigation.navigate('HomeScreen')}
                       iconName={("chevron-right")}

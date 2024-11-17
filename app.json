@@ -29,7 +29,12 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/CodecPro-Italic", "./assets/fonts/CodecPro-Regular", "./assets/fonts/CodecPro-Bold"]
+          "fonts": [
+          "./assets/fonts/CodecPro-Italic.ttf", 
+          "./assets/fonts/CodecPro-Regular.ttf", 
+          "./assets/fonts/CodecPro-Bold.ttf",
+          "./assets/fonts/CodecPro-ExtraBold.otf"
+        ]
         }
       ]
     ]
