@@ -1,22 +1,10 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
 import { useFonts } from 'expo-font'; // Import useFonts
 
 const { width, height } = Dimensions.get('window');
 
 const LoginScreen = ({ navigation }) => {
-
-    const [fontsLoaded] = useFonts({
-            'CodecPro-Regular': require('./assets/fonts/CodecPro-Regular.ttf'),
-            'CodecPro-Italic': require('./assets/fonts/CodecPro-Italic.ttf'),
-
-        });
-
-
-    // Wait until fonts are loaded
-    if (!fontsLoaded) {
-        return null; // Avoid rendering until font is ready
-    }
 
     return (
         <View style={styles.container}>
@@ -47,7 +35,6 @@ const LoginScreen = ({ navigation }) => {
                         <Text style={styles.signupText}>Sign up</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('HomeScreen') }}>
-                        <Text style={styles.loginButtonText}> </Text>
                         <Image source={require('./assets/arrow.png')} style={styles.arrow}/>
                     </TouchableOpacity>
                 </View>
@@ -86,36 +73,24 @@ const styles = StyleSheet.create({
         elevation: 5,
         alignItems: 'center',
         marginTop: 'auto',
-
     },
 
     logo: {
-        /*width: 400,
-        height: 300,
-        marginTop: 20,
-        position: 'absolute', // Position it absolutely within the container
-        top: 50,
-        left: 20,
-        alignItems: 'center',
-        resizeMode: 'contain', // Adjusts the image size while maintaining aspect ratio*/
-
-        width: width * 0.8, // Make the logo responsive
-        height: height * 0.3, // Adjust based on screen height
-        resizeMode: 'contain', // Maintain aspect ratio
-        alignSelf: 'center', // Center horizontally
-        marginTop: height * 0.1, // Adjust top margin
+        width: width * 0.8,
+        height: height * 0.3,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        marginTop: height * 0.1,
     },
 
     title: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#FF914D', // Gold color
-        marginBottom: 50,
+        fontSize: 32,
+        color: '#FF914D',
+        marginBottom: 40,
         marginTop: 30,
-        //fontFamily: "Gill Sans",       //fontFamily: 'CodecPro-Regular',
-        //fontFamily: 'CodecPro-Italic',
-
+        fontFamily: 'CodecPro-Bold',
     },
+
     input: {
         width: '90%',
         padding: 10,
@@ -124,8 +99,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 20,
         backgroundColor: '#f2f2f2',
-        color: '#333', // Text color for input
-
+        color: '#333',
+        fontFamily: 'CodecPro-Regular',
     },
     actionRow: {
         flexDirection: 'row',
@@ -144,27 +119,25 @@ const styles = StyleSheet.create({
     },
 
     signupText: {
-        color: '#888',
-        fontSize: 16,
-
+        color: '#FF914D',
+        fontSize: 20,
+        fontFamily: 'CodecPro-Italic',
     },
 
     loginButton: {
-        backgroundColor: '#FF914D', // Gold color
+        backgroundColor: '#FF914D',
         width: 40,
         height: 40,
         borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    loginButtonText: {
-        fontSize: 24,
-        color: '#fff',
-    },
+
     forgotPasswordText: {
         color: '#888',
         fontSize: 14,
         textDecorationLine: 'underline',
+        fontFamily: 'CodecPro-Regular',
 
     },
 });

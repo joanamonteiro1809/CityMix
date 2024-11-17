@@ -42,15 +42,14 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         justifyContent: 'flex-start',
-        //alignItems: 'center',
-        paddingTop: 100,
+        paddingTop: 90,
     },
 
     title: {
         fontSize: 30,
-        fontWeight: 'bold',
         color: '#FF914D',
         marginBottom: 20,
+        fontFamily: 'CodecPro-Bold',
     },
 
     progressBar: {
@@ -63,7 +62,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF914D',
         marginHorizontal: 2,
         borderRadius: 10,
-
     },
 
     progressInactive: {
@@ -72,7 +70,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ddd',
         marginHorizontal: 5,
         borderRadius: 10,
-
     },
 
     input: {
@@ -83,6 +80,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 30,
         backgroundColor: '#EBEBEB',
+        fontFamily: 'CodecPro-Regular',
     },
 
     arrow: {

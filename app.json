@@ -23,9 +23,15 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/CodecPro-Italic", "./assets/fonts/CodecPro-Regular", "./assets/fonts/CodecPro-Bold"]
+        }
+      ]
     ]
   }
 }

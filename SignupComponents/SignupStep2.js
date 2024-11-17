@@ -100,7 +100,6 @@ const SignupStep2 = ({ navigation }) => {
                         }
                     </TouchableOpacity>
                 </View>
-
                 {showPicker && (
                     <DateTimePicker
                         mode="date"
@@ -109,7 +108,6 @@ const SignupStep2 = ({ navigation }) => {
                         onChange={onChange}
                     />
                 )}
-
                 <Pressable onPress={toggleDatepicker} >
                     <TextInput style = {styles.input} placeholder = "Date of Birth"
                         value={date}
@@ -117,18 +115,15 @@ const SignupStep2 = ({ navigation }) => {
                         editable={false}
                     />
                 </Pressable>
-
                 <TextInput style={styles.input} placeholder="City of Residence" />
 
                 <Text style={styles.subtitle}> Languages </Text>
-
-
                 <View style={styles.languageContainer}>
                     {languagesToShow.map((lang) => (
                         <TouchableOpacity key={lang} style={[styles.languageTag, selectedLanguages.includes(lang) && styles.languageTagSelected,]}
                             onPress={() => toggleLanguageSelection(lang)}
                             >
-                            <Text>{lang}</Text>
+                            <Text style={{fontFamily:'CodecPro-Regular'}}>{lang}</Text>
                         </TouchableOpacity>
                     ))}
 
@@ -177,21 +172,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        //justifyContent: 'flex-start',
-        paddingTop: 100,
+        paddingTop: 90,
         paddingBottom: 20,
     },
 
     contentContainer: {
-        flexGrow: 1,  // Ensures the content container takes up all available space
-        justifyContent: 'flex-start', // Aligns content at the top of the ScrollView
+        flexGrow: 1,
+        justifyContent: 'flex-start',
     },
 
     title: {
         fontSize: 30,
-        fontWeight: 'bold',
         color: '#FF914D',
         marginBottom: 20,
+        fontFamily: 'CodecPro-Bold'
     },
 
     progressBar: {
@@ -222,6 +216,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 30,
         backgroundColor: '#EBEBEB',
+        fontFamily: 'CodecPro-Regular',
     },
 
     subtitle: {
@@ -229,7 +224,7 @@ const styles = StyleSheet.create({
         color: '#000000',
         marginTop: 30,
         marginBottom: 10,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
     },
 
     languageContainer: {
@@ -240,7 +235,7 @@ const styles = StyleSheet.create({
 
     languageTag: {
         backgroundColor: '#e0e0e0',
-        borderRadius: 20,
+        borderRadius: 30,
         padding: 12,
         margin: 5,
     },
@@ -254,7 +249,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginTop: 5,
         textDecorationLine: 'underline',
-
+        fontFamily: 'CodecPro-Italic',
     },
 
     checkboxContainer: {
@@ -308,7 +303,6 @@ const styles = StyleSheet.create({
     image: {
         width: 90,
         height: 90,
-        //marginTop: 10,
         alignSelf: 'center',
 
       },
@@ -316,6 +310,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         marginTop: 5,
+        fontFamily: 'CodecPro-Regular',
     },
 
     uploadCert: {
