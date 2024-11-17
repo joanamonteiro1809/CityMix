@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import sampleData from '../../sampledata';
+import ArrowButton from '../../GeneralElements/ArrowButton';
 
 const { width, height } = Dimensions.get('window');
 
@@ -54,7 +55,7 @@ const CreateTourScreen = () => {
 
             // Persist the updated array to AsyncStorage
             await AsyncStorage.setItem('joaoTours', JSON.stringify(sampleData.joaoTours));
- 
+
 
             Alert.alert('Success', 'The new tour has been added.');
             navigation.goBack();
@@ -67,10 +68,12 @@ const CreateTourScreen = () => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
+
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-                        <Icon name="arrow-back" size={24} color="#000" />
-                    </TouchableOpacity>
+                    <ArrowButton
+                                                    onPress={() => navigation.goBack()}
+                                                    iconName={("chevron-left")}
+                                                />
                     <Text style={styles.title}>New Tour</Text>
                 </View>
 

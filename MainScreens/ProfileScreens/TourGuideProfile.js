@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -11,14 +11,10 @@ const { width, height } = Dimensions.get('window');
 
 const sampleEvents = [
     { id: '1', date: '16 Oct', title: 'Meetup with Ana', time: '14:00', location: 'Torre de Belém' },
-    // Adicione mais eventos de exemplo aqui
 ];
 
-
-const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
-
-    const [joaoTours, setJoaoTours] = useState([]); // State to hold tours
-
+const TourGuideProfile = ({ navigation }) => {
+    const [joaoTours, setJoaoTours] = useState([]);
 
     useFocusEffect(
         React.useCallback(() => {
@@ -28,28 +24,51 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                     if (storedTours) {
                         setJoaoTours(JSON.parse(storedTours));
                     } else {
-                        setJoaoTours(sampleData.joaoTours); // Fallback to initial data
+                        setJoaoTours(sampleData.joaoTours);
                     }
                 } catch (error) {
                     console.error('Error fetching tours:', error);
                 }
             };
-    
+
             fetchTours();
-        }, []) // Dependency array ensures this runs every time the screen is focused
+        }, [])
     );
 
-    const [activeTab, setActiveTab] = useState('About'); // Aba padrão
-    const [isAvailable, setIsAvailable] = useState(true); // Estado de disponibilidade
-    const [date, setDate] = useState(null); // Data selecionada no calendário
+    const [activeTab, setActiveTab] = useState('About');
+    const [isAvailable, setIsAvailable] = useState(true);
+    const [date, setDate] = useState(null);
 
     const handleDateChange = (newDate) => {
-        setDate(newDate); // Atualiza a data selecionada
+        setDate(newDate);
     };
 
     const toggleAvailability = () => {
         setIsAvailable(!isAvailable);
     };
+
+ // Função para remover um tour
+     const handleDeleteTour = async (tourId) => {
+         try {
+             // Remover o tour das listas em memória
+             sampleData.joaoTours = sampleData.joaoTours.filter(tour => tour.id !== tourId);
+             sampleData.paidTours = sampleData.paidTours.filter(tour => tour.id !== tourId);
+
+             // Persistir as listas atualizadas no AsyncStorage
+             await AsyncStorage.multiSet([
+                 ['joaoTours', JSON.stringify(sampleData.joaoTours)],
+                 ['paidTours', JSON.stringify(sampleData.paidTours)],
+             ]);
+
+             // Atualizar o estado local
+             setJoaoTours(sampleData.joaoTours);
+
+             Alert.alert('Success', 'The tour has been removed.');
+         } catch (error) {
+             console.error('Error removing tour:', error);
+             Alert.alert('Error', 'Failed to delete the tour. Try again.');
+         }
+     };
 
     const renderEventItem = ({ item }) => (
         <View style={styles.eventCard}>
@@ -63,9 +82,9 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
         </View>
     );
 
-    const ToursItem = ({ item, nav}) => (
-    <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.tourCard}>
-            <View style={styles.titleAndPhotoInline}>
+    const ToursItem = ({ item, nav }) => (
+        <View style={styles.tourCard}>
+            <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.titleAndPhotoInline}>
                 <Icon name="image" size={50} color="#555" />
                 <View style={styles.tourInfo}>
                     <Text style={styles.tourName}>{item.title}</Text>
@@ -74,11 +93,12 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                         <Icon name="star" size={16} color="#000" />
                     </View>
                 </View>
-            </View>
-            <View style={styles.priceContainer}>
-                <Text style={styles.price}>{item.price}</Text>
-            </View>
-    </TouchableOpacity>
+            </TouchableOpacity>
+            {/* Botão de deletar */}
+            <TouchableOpacity onPress={() => handleDeleteTour(item.id)} style={styles.deleteButton}>
+                <Icon name="delete" size={24} color="#000" />
+            </TouchableOpacity>
+        </View>
     );
 
     const renderTabContent = () => {
@@ -105,7 +125,7 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                         <FlatList
                             data={sampleEvents}
                             renderItem={renderEventItem}
-                            keyExtractor={item => item.id}
+                            keyExtractor={(item) => item.id}
                             style={styles.eventsList}
                         />
                     </View>
@@ -118,7 +138,7 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                         <FlatList
                             data={sampleEvents}
                             renderItem={renderEventItem}
-                            keyExtractor={item => item.id}
+                            keyExtractor={(item) => item.id}
                         />
                         <Text style={styles.sectionTitle}>Past Events</Text>
                         <View style={styles.pastEventsPlaceholder}>
@@ -128,23 +148,20 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                 );
 
             case 'Tours':
-                console.log(sampleData.joaoTours);
                 return (
                     <View style={styles.toursSection}>
                         <TouchableOpacity
                             style={styles.addTourButton}
-                            onPress={() => navigation.navigate('AddTourProfile')} // Navega para a tela de adição de tours
+                            onPress={() => navigation.navigate('AddTourProfile')}
                         >
                             <Text style={styles.addTourButtonText}>+ Add new tour</Text>
                         </TouchableOpacity>
-                        <View style={styles.container}>
-                            <FlatList
-                                data={joaoTours}
-                                renderItem={({ item }) => <ToursItem item={item} nav={navigation} />}
-                                keyExtractor={item => item.id.toString()}
-                                contentContainerStyle={styles.listContainer}
-                            />
-                        </View>
+                        <FlatList
+                            data={joaoTours}
+                            renderItem={({ item }) => <ToursItem item={item} nav={navigation} />}
+                            keyExtractor={(item) => item.id.toString()}
+                            contentContainerStyle={styles.listContainer}
+                        />
                     </View>
                 );
 
@@ -155,7 +172,6 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
 
     return (
         <View style={styles.container}>
-            {/* Cabeçalho do Perfil */}
             <View style={styles.profileHeader}>
                 <Icon name="account-circle" size={width * 0.3} color="#bbb" />
                 <Text style={styles.profileName}>João Silva, 32</Text>
@@ -163,21 +179,17 @@ const TourGuideProfile = ({ navigation }) => { // Recebe `navigation` como prop
                 <TouchableOpacity style={styles.availabilityContainer} onPress={toggleAvailability}>
                     <Text style={styles.availabilityText}>Available</Text>
                     <Icon
-                        name={isAvailable ? "toggle-on" : "toggle-off"}
+                        name={isAvailable ? 'toggle-on' : 'toggle-off'}
                         size={24}
-                        color={isAvailable ? "green" : "gray"}
+                        color={isAvailable ? 'green' : 'gray'}
                     />
                 </TouchableOpacity>
             </View>
-
-            {/* Tabs */}
             <TabControl
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
                 tabs={['About', 'Tours', 'Calendar', 'Events']}
             />
-
-            {/* Conteúdo da aba */}
             <FlatList
                 data={[{ key: 'tabContent' }]}
                 renderItem={() => <>{renderTabContent()}</>}
@@ -306,7 +318,10 @@ const styles = StyleSheet.create({
             fontWeight: 'bold',
         },
 
-tourCard: {
+    deleteButton: {
+        marginLeft: 10,
+    },
+    tourCard: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -318,9 +333,9 @@ tourCard: {
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
-        justifyContent: 'space-between', // Garante que o preço fique à direita
-        width: '100%',
+        justifyContent: 'space-between',
     },
+
     titleAndPhotoInline: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -348,6 +363,7 @@ tourCard: {
         fontWeight: 'bold',
         color: '#f2b636',
     },
+
 });
 
 export default TourGuideProfile;
