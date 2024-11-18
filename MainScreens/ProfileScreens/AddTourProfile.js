@@ -15,47 +15,50 @@ const CreateTourScreen = () => {
     const [price, setPrice] = useState('');
     const [route, setRoute] = useState('');
     const [routes, setRoutes] = useState([]);
+    const [errors, setErrors] = useState({});
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     // Function to add a route stop to the list
     const addRoute = () => {
         if (route.trim()) {
             setRoutes([...routes, route]);
             setRoute('');
+            if (isSubmitted) setErrors((prev) => ({ ...prev, routes: '' }));
         }
+    };
+
+    // Function to validate fields
+    const validateFields = () => {
+        const newErrors = {};
+
+        if (!title.trim()) newErrors.title = 'Title is required.';
+        if (!description.trim()) newErrors.description = 'Description is required.';
+        if (!price.trim()) newErrors.price = 'Price is required.';
+        if (routes.length === 0) newErrors.routes = 'At least one route is required.';
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     // Function to save the new tour to AsyncStorage
     const saveTour = async () => {
-        if (!title || !description || !price || routes.length === 0) {
-            Alert.alert('Missing Fields', 'Please fill in all the fields and add at least one route.');
-            return;
-        }
+        setIsSubmitted(true);
+        if (!validateFields()) return;
 
         try {
-            // Create a new tour object
             const newTour = {
-                id: Date.now().toString(), // Unique ID based on timestamp
+                id: Date.now().toString(),
                 title,
                 description,
                 price: `${price}€`,
-                //tourGuide: 'Not Assigned', // Optional, can be updated later
-                imageLink: '', // Add image handling if needed
                 routeStops: routes,
-                //reviews: [], // Empty reviews for a new tour
             };
 
-            // Add the new tour to the in-memory sampleData.paidTours
             sampleData.paidTours.push(newTour);
-
-            // Persist the updated array to AsyncStorage
             await AsyncStorage.setItem('paidTours', JSON.stringify(sampleData.paidTours));
 
-            // Add the new tour to the in-memory sampleData.paidTours
             sampleData.joaoTours.push(newTour);
-
-            // Persist the updated array to AsyncStorage
             await AsyncStorage.setItem('joaoTours', JSON.stringify(sampleData.joaoTours));
-
 
             Alert.alert('Success', 'The new tour has been added.');
             navigation.goBack();
@@ -68,12 +71,8 @@ const CreateTourScreen = () => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
-
                 <View style={styles.header}>
-                    <ArrowButton
-                                                    onPress={() => navigation.goBack()}
-                                                    iconName={("chevron-left")}
-                                                />
+                    <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
                     <Text style={styles.title}>New Tour</Text>
                 </View>
 
@@ -83,20 +82,28 @@ const CreateTourScreen = () => {
 
                 <Text style={styles.label}>Title</Text>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, errors.title && styles.inputError]}
                     placeholder="Enter title"
                     value={title}
-                    onChangeText={setTitle}
+                    onChangeText={(text) => {
+                        setTitle(text);
+                        if (isSubmitted) setErrors((prev) => ({ ...prev, title: text.trim() ? '' : 'Title is required.' }));
+                    }}
                 />
+                {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
 
                 <Text style={styles.label}>Description</Text>
                 <TextInput
-                    style={[styles.input, { height: height * 0.1 }]}
+                    style={[styles.input, errors.description && styles.inputError, { height: height * 0.1 }]}
                     placeholder="Enter description"
                     multiline
                     value={description}
-                    onChangeText={setDescription}
+                    onChangeText={(text) => {
+                        setDescription(text);
+                        if (isSubmitted) setErrors((prev) => ({ ...prev, description: text.trim() ? '' : 'Description is required.' }));
+                    }}
                 />
+                {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
 
                 <Text style={styles.label}>Route</Text>
                 <View style={styles.routeInput}>
@@ -110,6 +117,7 @@ const CreateTourScreen = () => {
                         <Icon name="add" size={24} color="#fff" />
                     </TouchableOpacity>
                 </View>
+                {errors.routes && <Text style={styles.errorText}>{errors.routes}</Text>}
 
                 {routes.map((routeItem, index) => (
                     <View key={index} style={styles.routeItem}>
@@ -122,12 +130,16 @@ const CreateTourScreen = () => {
                     <TextInput
                         placeholder="Enter price"
                         keyboardType="numeric"
-                        style={{ flex: 1 }}
+                        style={[{ flex: 1 }, errors.price && styles.inputError]}
                         value={price}
-                        onChangeText={setPrice}
+                        onChangeText={(text) => {
+                            setPrice(text);
+                            if (isSubmitted) setErrors((prev) => ({ ...prev, price: text.trim() ? '' : 'Price is required.' }));
+                        }}
                     />
                     <Text>€</Text>
                 </View>
+                {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
 
                 <TouchableOpacity style={styles.addButton} onPress={saveTour}>
                     <Text style={styles.addButtonText}>Add Tour</Text>
@@ -152,21 +164,12 @@ const styles = StyleSheet.create({
         marginTop: height * 0.05,
         marginBottom: height * 0.02,
     },
-    backButton: {
-        marginRight: width * 0.03,
-    },
     title: {
         fontSize: width * 0.07,
         fontWeight: 'bold',
         color: '#f2b636',
         textAlign: 'center',
         flex: 1,
-    },
-    label: {
-        fontSize: width * 0.045,
-        color: '#000',
-        marginTop: height * 0.02,
-        fontWeight: 'bold',
     },
     coverPicture: {
         width: width * 0.5,
@@ -177,6 +180,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignSelf: 'center',
         marginTop: height * 0.02,
+    },
+    label: {
+        fontSize: width * 0.045,
+        color: '#000',
+        marginTop: height * 0.02,
+        fontWeight: 'bold',
     },
     input: {
         backgroundColor: '#f5f5f5',
@@ -231,6 +240,15 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: width * 0.03,
         marginTop: height * 0.02,
+    },
+    inputError: {
+        borderColor: 'red',
+        borderWidth: 1,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 5,
     },
 });
 
