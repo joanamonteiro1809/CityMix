@@ -28,7 +28,7 @@ const VisitsScreen = ({ navigation, route }) => {
             {/* Custom Header */}
             <View style={styles.header}>
                 <ArrowButton
-                    onPress={() => navigation.navigate('HomeScreen') }
+                    onPress={() => navigation.goBack() }
                     iconName={("chevron-left")}
                 />
                 
