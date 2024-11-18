@@ -15,26 +15,39 @@ import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
-const CommunityScreen = () => {
-  const navigation = useNavigation(); // Hook para acessar o navigation
+const GroupDetail = () => {
+  const navigation = useNavigation();
 
-  const members = ["Ana", "Rita", "Carlos", "Oscar", "João", "Pedro"]; // Lista de membros
+  const members = ["Ana", "Rita", "Carlos", "Oscar", "João", "Pedro"];
 
   // Função para exibir o alerta de confirmação
   const handleExit = () => {
     Alert.alert(
-      "Leave Community", // Título do alerta
-      "Are you sure you want to leave the community?", // Mensagem do alerta
+      "Leave Group",
+      "Are you sure you want to leave the Group?",
       [
         {
-          text: "Cancel", // Opção de cancelar
-          onPress: () => console.log("Cancel Pressed"), // Apenas fecha o alerta
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
         {
-          text: "Exit", // Opção de sair
-          onPress: () => Alert.alert("You left the community"), // Mostra mensagem de saída
-          style: "destructive", // Estilo para ações perigosas
+          text: "Exit",
+          onPress: () => {
+            Alert.alert(
+              "You left the Group", // Mensagem ao sair
+              "",
+              [
+                {
+                  text: "OK",
+                  onPress: () => {
+                   navigation.goBack(); // Navega para a próxima página
+                  },
+                },
+              ]
+            );
+          },
+          style: "destructive",
         },
       ],
       { cancelable: true }
@@ -88,7 +101,7 @@ const CommunityScreen = () => {
   );
 };
 
-export default CommunityScreen;
+export default GroupDetail;
 
 const styles = StyleSheet.create({
   container: {
@@ -132,9 +145,9 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   exitIcon: {
-    position: "absolute", // Torna o botão fixo
-    bottom: height * 0.03, // Define a distância da parte inferior
-    right: width * 0.05, // Define a distância do lado direito
+    position: "absolute",
+    bottom: height * 0.03,
+    right: width * 0.05,
     width: width * 0.12,
     height: width * 0.12,
     justifyContent: "center",
