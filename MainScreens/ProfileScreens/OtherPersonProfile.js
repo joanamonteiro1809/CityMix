@@ -1,12 +1,45 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions, DevSettings } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
+import ArrowButton from '../../GeneralElements/ArrowButton';
 
 const { width, height } = Dimensions.get('window');
 
-const OtherPersonProfile = ({ navigation }) => {
+const OtherPersonProfile = ({ navigation, route }) => {
   const [activeTab, setActiveTab] = useState('About'); // Aba padrão
+  const personDetails = route.params?.tour || sampleProfile;
+
+  const sampleProfile ={
+    id: '1', 
+    name: 'Juliana Soares',
+    age: 23, 
+    activities: ['Food', 'Outdoor Activities'], 
+    rating: '4,0',
+    description: 'I love travelling and meeting new people. I am very sociable.',
+    languages: ['Portuguese', 'English'],
+    location: 'Coimbra, Portugal',
+    reviews: [
+      {
+        user: 'Maria Silva',
+        date: 'Jan 12, 2024',
+        rating: 5,
+        comment: 'Ana was amazing! Super friendly and easy to talk to. I’d love to meet her again.',
+      },
+      {
+        user: 'João Pereira',
+        date: 'Dec 18, 2023',
+        rating: 4,
+        comment: 'Had a great time chatting with Ana. She’s very kind and outgoing.',
+      },
+      {
+        user: 'Clara Rocha',
+        date: 'Nov 5, 2023',
+        rating: 4.5,
+        comment: 'Ana is very fun to be around! I really appreciated her good vibes.',
+      },
+    ]
+  }
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -14,13 +47,11 @@ const OtherPersonProfile = ({ navigation }) => {
         return (
           <ScrollView style={styles.content}>
             <Text style={styles.sectionTitle}>Description</Text>
-            <Text style={styles.sectionContent}>
-              I love traveling and meeting new people. I am very sociable.
-            </Text>
+            <Text style={styles.sectionContent}>{personDetails.description}</Text>
             <Text style={styles.sectionTitle}>Interests</Text>
-            <Text style={styles.sectionContent}>Outdoor activities</Text>
+            <Text style={styles.sectionContent}>{personDetails.activities.join(', ')}</Text>
             <Text style={styles.sectionTitle}>Languages</Text>
-            <Text style={styles.sectionContent}>Portuguese, English</Text>
+            <Text style={styles.sectionContent}>{personDetails.languages.join(', ')}</Text>
           </ScrollView>
         );
       case 'Reviews':
@@ -28,31 +59,12 @@ const OtherPersonProfile = ({ navigation }) => {
           <ScrollView style={styles.content}>
             {/* Média das avaliações */}
             <View style={styles.averageRatingContainer}>
-              <Text style={styles.averageRatingText}>⭐️ 4.7</Text>
-              <Text style={styles.totalReviewsText}>(3 reviews)</Text>
+              <Text style={styles.averageRatingText}>⭐️ {personDetails.rating}</Text>
+              <Text style={styles.totalReviewsText}>({personDetails.reviews.length} reviews)</Text>
             </View>
 
             <Text style={styles.sectionTitle}>Reviews</Text>
-            {[
-              {
-                user: 'Maria Silva',
-                date: 'Jan 12, 2024',
-                rating: 5,
-                comment: 'Ana was amazing! Super friendly and easy to talk to. I’d love to meet her again.',
-              },
-              {
-                user: 'João Pereira',
-                date: 'Dec 18, 2023',
-                rating: 4,
-                comment: 'Had a great time chatting with Ana. She’s very kind and outgoing.',
-              },
-              {
-                user: 'Clara Rocha',
-                date: 'Nov 5, 2023',
-                rating: 4.5,
-                comment: 'Ana is very fun to be around! I really appreciated her good vibes.',
-              },
-            ].map((review, index) => (
+            {personDetails.reviews.map((review, index) => (
               <View key={index} style={styles.reviewContainer}>
                 <View style={styles.reviewHeader}>
                   <Icon
@@ -79,11 +91,15 @@ const OtherPersonProfile = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {/* Back button */}
+      <View style={styles.backButton}>
+        <ArrowButton
+            onPress={() => navigation.goBack()}
+            iconName={("chevron-left")}
+        />
+      </View>
       {/* Cabeçalho */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Icon name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
         <View style={styles.profilePictureContainer}>
           <Icon
             name="account-circle"
@@ -92,8 +108,8 @@ const OtherPersonProfile = ({ navigation }) => {
             style={styles.profileIcon}
           />
         </View>
-        <Text style={styles.profileName}>Ana Soares, 23</Text>
-        <Text style={styles.profileLocation}>Lisboa, Portugal</Text>
+        <Text style={styles.profileName}>{personDetails.name}, {personDetails.age}</Text>
+        <Text style={styles.profileLocation}>{personDetails.location}</Text>
         <TouchableOpacity style={styles.messageButton}>
           <Text style={styles.messageButtonText}>Message</Text>
         </TouchableOpacity>
@@ -117,20 +133,20 @@ const OtherPersonProfile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FF914D',
+    backgroundColor: '#fff',
+    paddingTop: 35,
+  },
+  backButton:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    paddingHorizontal: 20,
   },
   header: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: height * 0.05, 
+    //paddingTop: height * 0.05, 
     paddingBottom: height * 0.02, 
-  },
-  backButton: {
-    position: 'relative',
-    backgroundColor: '#FF914D',
-    left: -160,
-    borderRadius: 50,
-    top: 20,
   },
   profilePictureContainer: {
     alignItems: 'center',

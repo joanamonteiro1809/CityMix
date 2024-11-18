@@ -4,29 +4,109 @@ const sampleData = {
             id: '1', 
             name: 'Juliana Soares',
             age: 23, 
-            activities: ['Food', 'Outdoor Activities'], 
-            rating: '4,0'
+            activities: ['Food', 'Outdoor activities'], 
+            rating: '4,0',
+            description: 'I love travelling and meeting new people. I am very sociable.',
+            languages: ['Portuguese', 'English'],
+            location: 'Coimbra, Portugal',
+            reviews: [
+                {
+                    user: 'Maria Silva',
+                    date: 'Jan 12, 2024',
+                    rating: 5.0,
+                    comment: 'Juliana was amazing! Super friendly and easy to talk to. I’d love to meet her again.',
+                },
+                {
+                    user: 'João Pereira',
+                    date: 'Dec 18, 2023',
+                    rating: 4.0,
+                    comment: 'Had a great time chatting with Juliana. She’s very kind and outgoing.',
+                },
+                {
+                    user: 'Clara Rocha',
+                    date: 'Nov 5, 2023',
+                    rating: 4.5,
+                    comment: 'Juliana is very fun to be around! I really appreciated her good vibes.',
+                },
+            ]
         },
         { 
             id: '2',
             name: 'João Silva',
-            age: '32', 
+            age: 32, 
             activities: ['Nightlife', 'Arts', 'Museums'], 
-            rating: '3,5' 
+            rating: '3,5',
+            description: 'I love travelling and meeting new people. I am very sociable.',
+            languages: ['Portuguese', 'English', 'Dutch'],
+            location: 'Porto, Portugal',
+            reviews: [
+                {
+                    user: 'João Santos',
+                    date: 'Fev, 2024',
+                    rating: 3.0,
+                    comment: 'João was amazing! Super friendly and easy to talk to. I’d love to meet him again.',
+                },
+                {
+                    user: 'João Pereira',
+                    date: 'Dec 18, 2023',
+                    rating: 4,
+                    comment: 'Had a great time chatting with João. He’s very kind and outgoing.',
+                },
+            ]
         },
         { 
             id: '3', 
             name: 'Francisco Coelho',
             age: 24, 
             activities: ['Unsusual routes', 'Sports'], 
-            rating: '3,0' 
+            rating: '3,0',
+            description: 'I love travelling and meeting new people. I am very sociable.',
+            languages: ['Portuguese', 'Spanish'],
+            location: 'Algarve, Portugal',
+            reviews: [
+                {
+                    user: 'Maria Silva',
+                    date: 'Jan 12, 2024',
+                    rating: 5,
+                    comment: 'Ana was amazing! Super friendly and easy to talk to. I’d love to meet her again.',
+                },
+                {
+                    user: 'João Pereira',
+                    date: 'Dec 18, 2023',
+                    rating: 4,
+                    comment: 'Had a great time chatting with Ana. She’s very kind and outgoing.',
+                },
+                {
+                    user: 'Clara Rocha',
+                    date: 'Nov 5, 2023',
+                    rating: 4.5,
+                    comment: 'Ana is very fun to be around! I really appreciated her good vibes.',
+                },
+            ]
         },
         { 
             id: '4', 
             name: 'Joana Santos',
             age: 25, 
             activities: ['Nature'], 
-            rating: '4,0' 
+            rating: '4,0' ,
+            description: 'I love travelling and meeting new people. I am very sociable.',
+            languages: ['Portuguese'],
+            location: 'Lisboa, Portugal',
+            reviews: [
+                {
+                    user: 'Maria Silva',
+                    date: 'Jan 12, 2024',
+                    rating: 5,
+                    comment: 'Ana was amazing! Super friendly and easy to talk to. I’d love to meet her again.',
+                },
+                {
+                    user: 'Diogo Moreira',
+                    date: 'Jan 30, 2024',
+                    rating: 5,
+                    comment: 'Ana was amazing! Super friendly and easy to talk to. I’d love to meet her again.',
+                },
+            ]
         },
         // Add more items here...
     ],

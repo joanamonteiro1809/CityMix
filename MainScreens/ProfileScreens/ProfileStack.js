@@ -3,7 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import TourGuideProfile from './TourGuideProfile';
 import AddTourProfile from './AddTourProfile';
-import TourDetailScreen from '../PaidScreens/TourDetailScreen'
+import TourDetailScreen from '../PaidScreens/TourDetailScreen';
 
 const Stack = createStackNavigator();
 

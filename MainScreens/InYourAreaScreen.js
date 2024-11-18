@@ -11,11 +11,11 @@ const cardHeight = height * 0.18;
 
 const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
-        <View style={styles.card}>
+        <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={styles.card}>
             <Icon name="account-circle" size={24} color="#555" />
             <Text style={styles.cardTitle}>{item.name}, {item.age}</Text>
             <Text style={styles.cardSubtitle}>{item.activities.join(', ')}</Text>
-        </View>
+        </TouchableOpacity>
     );
 
     const renderGroupItem = ({ item }) => (

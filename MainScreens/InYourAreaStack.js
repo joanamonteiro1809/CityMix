@@ -9,7 +9,8 @@ import FilterScreen from './FilterScreen';
 import PopupPaid from './PaidScreens/PopupPaid';
 import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 import MapScreen from '../GeneralElements/MapScreen';
-import GroupDetail from './GroupScreens/GroupDetail'
+import GroupDetail from './GroupScreens/GroupDetail';
+import OtherPersonProfile from './ProfileScreens/OtherPersonProfile';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="NormalProfile" component={MyNormalProfile} options={{ headerShown: false }} />
             <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: false }} />
             <Stack.Screen name="GroupDetail" component={GroupDetail} options={{ headerShown: false }} />
+            <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };
