@@ -10,13 +10,11 @@ const Slider = ({ minVal, maxVal, values, onSliderChange}) => {
             {/* Displaying the slider values below the slider */}
             <View style={styles.valueContainer}>
                 <View style={styles.valueBox}>
-                    <Text style={styles.sliderValueText}>{minVal}</Text>
+                    <Text style={styles.sliderValueText}>{values[0]}</Text>
                 </View>
                 
-                
-                
                 <View style={styles.valueBox}>
-                    <Text style={styles.sliderValueText}>{maxVal}</Text>
+                    <Text style={styles.sliderValueText}>{values[1]}</Text>
                 </View>
             </View>
 

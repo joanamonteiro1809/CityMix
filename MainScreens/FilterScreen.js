@@ -7,15 +7,22 @@ import CalendarPicker from '../GeneralElements/CalendarPicker';
 import dayjs from 'dayjs';
 import Slider from '../GeneralElements/Slinder';
 import sampleData from '../sampledata';
-import { routeToScreen } from 'expo-router/build/useScreens';
 
-const FilterScreen = ({ navigation, route}) => {
+const FilterScreen = ({ navigation, route }) => {
 
-    const showAge = route.params?.showAge;
+    const prevFilters = route.params?.filters || {};
     const tabSel = route.params?.tabSel;
 
     // Filter Logic
     const applyFilters = () => {
+        const filters = {
+            selectedActivities,
+            selectedLanguages,
+            priceValues,
+            ageValues,
+            date,
+        };
+
         let filtered;
         if(tabSel == 'Individuals'){
             filtered = sampleData.individual;
@@ -40,7 +47,7 @@ const FilterScreen = ({ navigation, route}) => {
             );
         }
 
-        if(showAge){
+        if(tabSel == 'Individuals'){
             filtered = filtered.filter(
                 (tour) => tour.age >= ageValues[0] && tour.age <= ageValues[1]
             );
@@ -53,11 +60,11 @@ const FilterScreen = ({ navigation, route}) => {
         }
 
         // Navigate to the FilteredToursScreen and pass the filtered tours as a parameter
-        navigation.navigate('VisitsScreen', { tabSelected: tabSel, filteredTours: filtered });
+        navigation.navigate('VisitsScreen', { tabSelected: tabSel, filteredTours: filtered, selectedFilters: filters });
     };
 
     const [showAllActivities, setShowAllActivities] = useState(false);
-    const [selectedActivities, setSelectedActivities] = useState([]);
+    const [selectedActivities, setSelectedActivities] = useState(prevFilters.selectedActivities || []);
     const activities = ['Museums', 'Art', 'Famous Spots', 'Nature', 'Nightlife', 'Food'];
     const activitiesToShow = showAllActivities ? activities : activities.slice(0, 4);
 
@@ -65,8 +72,8 @@ const FilterScreen = ({ navigation, route}) => {
     const defaultAge = [18, 100]; 
 
     // State for the slider values
-    const [priceValues, setPriceValues] = useState(defaultPrice);
-    const [ageValues, setAgeValues] = useState(defaultAge);
+    const [priceValues, setPriceValues] = useState(prevFilters.priceValues ||defaultPrice);
+    const [ageValues, setAgeValues] = useState(prevFilters.ageValues ||defaultAge);
 
     const toggleActivitiesSelection = (activity) => {
         setSelectedActivities((prevSelected) =>
@@ -76,9 +83,8 @@ const FilterScreen = ({ navigation, route}) => {
         );
     };
 
-
     const [showAllLanguages, setShowAllLanguages] = useState(false);
-    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [selectedLanguages, setSelectedLanguages] = useState(prevFilters.selectedLanguages || []);
     const languages = ['English', 'Portuguese', 'Spanish', 'French', 'Chinese', 'Dutch', 'Italian', 'Japanese'];
     const languagesToShow = showAllLanguages ? languages : languages.slice(0, 4);
 
@@ -90,7 +96,7 @@ const FilterScreen = ({ navigation, route}) => {
         );
     };
 
-    const [date, setDate] = useState(null); // Store the selected date
+    const [date, setDate] = useState(prevFilters.date || null); // Store the selected date
     const [showCalendar, setShowCalendar] = useState(false); // Track visibility of CalendarPicker
     
     // Toggle CalendarPicker visibility
@@ -159,21 +165,25 @@ const FilterScreen = ({ navigation, route}) => {
             </View>
 
             {/* Price info */}
-            <View> 
-                <Text style={styles.sectionTitle}>Price</Text>
-            </View>
-            <View style={styles.sliderContainer}>
-                <Slider minVal={priceValues[0]} maxVal={priceValues[1]} values={priceValues} onSliderChange={handlePriceChange}></Slider>
-            </View>
+            {tabSel == "Paid" && (
+                <View>
+                    <View> 
+                        <Text style={styles.sectionTitle}>Price</Text>
+                    </View>
+                    <View style={styles.sliderContainer}>
+                        <Slider minVal={defaultPrice[0]} maxVal={defaultPrice[1]} values={priceValues} onSliderChange={handlePriceChange}></Slider>
+                    </View>
+                </View>
+            )}
 
             {/* Age info */}
-            {showAge && (
+            {tabSel == "Individuals" && (
                 <View>
                     <View>
                         <Text style={styles.sectionTitle}>Age</Text>
                     </View>
                     <View style={styles.sliderContainer}>
-                        <Slider minVal={ageValues[0]} maxVal={ageValues[1]} values={ageValues} onSliderChange={handleAgeChange}></Slider>
+                        <Slider minVal={defaultAge[0]} maxVal={defaultAge[1]} values={ageValues} onSliderChange={handleAgeChange}></Slider>
                     </View>
                 </View>
             )}
@@ -223,7 +233,7 @@ const FilterScreen = ({ navigation, route}) => {
              {/* Footer*/}
             <View style={styles.footerContainer}>
                 <TouchableOpacity onPress={restoreFilters}>
-                    <Text style={styles.footerBoxes}>Restore</Text>
+                    <Text style={styles.footerBoxes}>Reset all</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={applyFilters}>
                     <Text style={styles.footerBoxes}>Apply filters</Text>

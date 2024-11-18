@@ -15,18 +15,20 @@ const VisitsScreen = ({ navigation, route }) => {
 
     const initialTab = route.params?.tabSelected || "Individuals";
 
-    const filteredIndividuals = route.params?.filteredTours || sampleData.individual;
-    const filteredGroups = route.params?.filteredTours || sampleData.group;
-    const filteredPaid = route.params?.filteredTours || sampleData.paidTours;
+    const filteredIndividuals = (initialTab =="Individuals" && route.params?.filteredTours) || sampleData.individual;
+    const filteredGroups = (initialTab =="Group" && route.params?.filteredTours) || sampleData.group;
+    const filteredPaid = (initialTab == "Paid" && route.params?.filteredTours) || sampleData.paidTours;
+
+    const filters = route.params?.selectedFilters || {};
 
     const [activeTab, setActiveTab] = useState(initialTab); // Default tab
+
     return (
         <View style={styles.container}>
-            
             {/* Custom Header */}
             <View style={styles.header}>
                 <ArrowButton
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate('HomeScreen') }
                     iconName={("chevron-left")}
                 />
                 
@@ -37,20 +39,20 @@ const VisitsScreen = ({ navigation, route }) => {
 
                 {/** Show age filter on individuals */}
                 {activeTab == 'Individuals' && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Individuals', showAge: true})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Individuals', filters: filters})}>
                         <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                     </TouchableOpacity>
                 )}
 
                 {activeTab == 'Group' && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Group'})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Group', filters: filters})}>
                         <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                     </TouchableOpacity>
                 )
                 }
 
                 {activeTab == 'Paid' && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Paid'})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Paid', filters: filters})}>
                         <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                     </TouchableOpacity>
                 )
