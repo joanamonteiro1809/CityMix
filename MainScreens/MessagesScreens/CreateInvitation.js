@@ -12,7 +12,6 @@ const CreateInvitation = ({ navigation, route }) => {
 // Date picker
     const [date, setDate] = useState(null); // Store the selected date
     const [showCalendar, setShowCalendar] = useState(false); // Track visibility of CalendarPicker
-    const [dateError, setDateError] = useState(false); // Error for date
 
     // Toggle CalendarPicker visibility
     const handleToggleCalendar = () => {
@@ -22,13 +21,11 @@ const CreateInvitation = ({ navigation, route }) => {
     // Function to handle date selection without hiding the calendar
     const handleDateChange = (newDate) => {
         setDate(newDate); // Set selected date
-        setDateError(false); // Clear error when user selects a date
     };
 
 //Time Picker
     const [time, setTime] = useState(''); // Store the selected time
     const [showTimePicker, setShowTimePicker] = useState(false); // Track visibility of TimePicker
-    const [timeError, setTimeError] = useState(false); // Error for time
 
     // Track visibility of TimePicker
     const handleToggleTimepicker = () => {
@@ -40,33 +37,26 @@ const CreateInvitation = ({ navigation, route }) => {
         if (selectedTime) {
             setTime(dayjs(selectedTime).format('HH:mm')); // Format time as "HH:mm"
         }
-        setTimeError(false); // Clear error when user selects a date
     };
 
 // Meeting Point picker
     const [meetingPoint, setMeetingPoint] = useState(''); // Store the selected time
-    const [meetingPointError, setMeetingPointError] = useState(false); // Error for time
 
-    // Handle meeting point input change
-    const handleMeetingPointChange = (text) => {
-        setMeetingPoint(text);
-        setMeetingPointError(false); // Clear error when user types
+// Validate input
+    const isFieldInvalid = (field) => isSubmitted && !field;
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const validate = () => {
+        if (!date || !time || !meetingPoint) return false;
+        return true;
     };
 
-    const handleCreateInvitePress = () => {
-        if (!date || !time) {
-            if (!date) setDateError(true);
-            if (!time) setTimeError(true);
-            if(!meetingPoint) setMeetingPointError(true);
-        } else {
-            /*navigation.navigate("PopupPaid", 
-                {selectedDate: dayjs(date).format('MMMM D, YYYY'), 
-                    selectedTime: time,
-                    title: tour.title, 
-                    guide: tour.tourGuide});*/
+    const handleNext = () => {
+        setIsSubmitted(true);
+        if (validate()) {
+            //navigation.navigate('');
         }
     };
-
 
     const renderContent = () => (
         <View>
@@ -78,14 +68,15 @@ const CreateInvitation = ({ navigation, route }) => {
                 <Text style={styles.sectionTitle}>Date</Text>
                 <TouchableOpacity onPress={handleToggleCalendar}>
                     <View style={styles.selectionContainer}>
-                        <Text style={[styles.input, dateError && styles.errorContainer]}>
-                            {date ? dayjs(date).format('MMMM D, YYYY') : 'Select a Date'}
+                        <Text style={[styles.input, isFieldInvalid(date) && styles.inputError]}>
+                            {date ? dayjs(date).format('MMMM D, YYYY') : 'Select Date'}
                         </Text>
                         <Icon name="calendar-month" size={24} color="#555" />
                     </View>
                 </TouchableOpacity>
+                {isFieldInvalid(date) && <Text style={styles.errorText}>Date is required.</Text>}
             </View>
-
+        
             {/* Conditionally Render Calendar */}
             {showCalendar && (
                 <CalendarPicker date={date} onDateChange={handleDateChange} disableMode={true} />
@@ -96,12 +87,13 @@ const CreateInvitation = ({ navigation, route }) => {
                 <Text style={styles.sectionTitle}>Time</Text>
                 <TouchableOpacity onPress={handleToggleTimepicker}>
                     <View style={styles.selectionContainer}>
-                        <Text style={[styles.input, timeError && styles.errorContainer]}>
-                                {time ? time : 'Select a Time'}
+                        <Text style={[styles.input, isFieldInvalid(time) && styles.inputError]}>
+                                {time ? time : 'Select Time'}
                             </Text>
                         <Icon name="access-time" size={24} color="#555" />
                     </View>
                 </TouchableOpacity>
+                {isFieldInvalid(time) && <Text style={styles.errorText}>Time is required.</Text>}
             </View>
 
             {/* Conditionally Render TIme Picker */}
@@ -119,12 +111,19 @@ const CreateInvitation = ({ navigation, route }) => {
             <View style={styles.infoContainer}>
                 <Text style={styles.sectionTitle}>Meeting Point</Text>
                     <View style={styles.selectionContainer}>
-                        <TextInput style={[styles.input, meetingPointError && styles.errorContainer]} placeholder="Enter Location" placeholderTextColor="#aaa"></TextInput>
+                        <TextInput 
+                            style={[styles.input, isFieldInvalid(meetingPoint) && styles.inputError]} 
+                            placeholder="Select a location" 
+                            placeholderTextColor="#aaa"
+                            value={meetingPoint}
+                            onChangeText={setMeetingPoint}
+                        />
                         <TouchableOpacity>
                             <Icon name="location-pin" size={24} color="#555" />
                         </TouchableOpacity>
                     </View>
-            </View>
+                    {isFieldInvalid(meetingPoint) && <Text style={styles.errorText}>Meeting point is required.</Text>}
+            </View>       
         </View>
     );
 
@@ -145,7 +144,7 @@ const CreateInvitation = ({ navigation, route }) => {
                     contentContainerStyle={styles.scrollContainer}
                 />
 
-                <TouchableOpacity onPress={handleCreateInvitePress}>
+                <TouchableOpacity onPress={handleNext}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>Create Invite</Text>
                         </View>
@@ -213,9 +212,15 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     // Red border when missing input
-    errorContainer:{
-        borderWidth: 2,
+    inputError: {
         borderColor: 'red',
+        borderWidth: 1,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginTop: 5,
+        marginLeft: 10,
     },
     // Create invite button
     button: {

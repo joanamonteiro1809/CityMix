@@ -79,8 +79,7 @@ const SignupStep1 = ({ navigation }) => {
             />
             {isFieldInvalid('password') && <Text style={styles.errorText}>Password is required</Text>}
 
-            <TextInput style={styles.input} placeholder="Confirm Password" secureTextEntry
-                style={[styles.input, (isFieldInvalid('confirmPassword') || isPasswordMismatch('confirmPassword')) &&
+            <TextInput style={[styles.input, (isFieldInvalid('confirmPassword') || isPasswordMismatch('confirmPassword')) &&
                         styles.inputError,]}
                 placeholder="Confirm Password*"
                 secureTextEntry
