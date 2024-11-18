@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     sectionHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 15,
+        marginTop: 10,
     },
     sectionTitle: {
         fontSize: 22,
@@ -208,14 +208,14 @@ const styles = StyleSheet.create({
         color: '#888',
     },
     listContainer: {
-        paddingVertical: 10,
+        paddingVertical: 5,
     },
     card: {
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 10,
         marginHorizontal: 5,
-        width: width * 0.35,
+        width: width * 0.4,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -226,14 +226,20 @@ const styles = StyleSheet.create({
     },
     cardTitle: {
         fontSize: Math.min(cardWidth, cardHeight) * 0.12,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         textAlign: 'center',
         marginVertical: 5,
+        lineHeight: 20,
+
     },
     cardSubtitle: {
         fontSize: Math.min(cardWidth, cardHeight) * 0.08,
         color: '#666',
         textAlign: 'center',
+        fontFamily: 'CodecPro-Regular',
+        lineHeight: 17,
+        letterSpacing: 0.6,
     },
 });
 
