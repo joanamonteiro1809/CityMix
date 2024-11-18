@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -172,19 +172,25 @@ const TourGuideProfile = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.profileHeader}>
-                <Icon name="account-circle" size={width * 0.3} color="#bbb" />
-                <Text style={styles.profileName}>João Silva, 32</Text>
-                <Text style={styles.profileLocation}>Lisboa</Text>
-                <TouchableOpacity style={styles.availabilityContainer} onPress={toggleAvailability}>
-                    <Text style={styles.availabilityText}>Available</Text>
-                    <Icon
-                        name={isAvailable ? 'toggle-on' : 'toggle-off'}
-                        size={24}
-                        color={isAvailable ? 'green' : 'gray'}
-                    />
-                </TouchableOpacity>
-            </View>
+          <View style={styles.profileHeader}>
+              <Icon name="account-circle" size={width * 0.3} color="#bbb" />
+              <View style={styles.nameContainerRow}>
+                  <Text style={styles.profileName}>João Silva, 32</Text>
+                  <Image
+                       source={require('../../assets/tourGuide.png')}
+                      style={styles.guideImage}
+                  />
+              </View>
+              <Text style={styles.profileLocation}>Lisboa</Text>
+              <TouchableOpacity style={styles.availabilityContainer} onPress={toggleAvailability}>
+                  <Text style={styles.availabilityText}>Available</Text>
+                  <Icon
+                      name={isAvailable ? 'toggle-on' : 'toggle-off'}
+                      size={24}
+                      color={isAvailable ? 'green' : 'gray'}
+                  />
+              </TouchableOpacity>
+          </View>
             <TabControl
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
@@ -363,7 +369,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#f2b636',
     },
-
+nameContainerRow: {
+    flexDirection: 'row', // Alinha os elementos lado a lado
+    alignItems: 'center', // Centraliza verticalmente
+    marginTop: height * 0.01, // Espaçamento superior
+},
+guideImage: {
+    width: width * 0.08, // Tamanho ajustado para a imagem
+    height: width * 0.08,
+    marginLeft: 8, // Espaço entre o nome e a imagem
+},
 });
 
 export default TourGuideProfile;

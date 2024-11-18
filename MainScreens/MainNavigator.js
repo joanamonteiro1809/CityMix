@@ -21,14 +21,15 @@ const MainNavigator = () => {
                     else if (route.name === 'Profile') iconName = 'person';
                     return <Icon name={iconName} size={size} color={color} />;
                 },
-                tabBarActiveTintColor: '#f2b636',
-                tabBarInactiveTintColor: '#888',
+                tabBarActiveTintColor: '#FF914D',
+                tabBarInactiveTintColor: '#ccc',
                 headerShown: false,
                 tabBarShowLabel: false, 
                 tabBarItemStyle: {
                     alignItems: 'center',
                     justifyContent: 'center',
-                    paddingTop: 10,
+                    paddingTop: 5,
+                    backgroundColor: '#fff',
                 }
             })}
         >

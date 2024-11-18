@@ -10,6 +10,7 @@ import MainNavigator from './MainScreens/MainNavigator';
 import TourGuideProfile from './MainScreens/ProfileScreens/TourGuideProfile';
 import OtherPersonProfile from './MainScreens/ProfileScreens/OtherPersonProfile';
 import MyNormalProfile from './MainScreens/ProfileScreens/MyNormalProfile';
+import GroupDetail from './MainScreens/GroupScreens/GroupDetail'
 
 const Stack = createStackNavigator();
 

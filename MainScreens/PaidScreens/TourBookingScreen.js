@@ -28,9 +28,6 @@ const TourBookingScreen = ({ navigation, route }) => {
     const[time, setTime] = useState(null); // Store the selected time
     const [showTime, setShowTime] = useState(false); // Track visibility of TimePicker
 
-    const [dateError, setDateError] = useState(false); // Error for date
-    const [timeError, setTimeError] = useState(false); // Error for time
-
     // Toggle CalendarPicker visibility
     const handleToggleCalendar = () => {
         setShowCalendar((prev) => !prev); // Toggle showCalendar state
@@ -44,22 +41,26 @@ const TourBookingScreen = ({ navigation, route }) => {
     // Function to handle date selection without hiding the calendar
     const handleDateChange = (newDate) => {
         setDate(newDate); // Set selected date
-        setDateError(false); // Clear error when user selects a date
     };
 
     // Function to handle time selection
     const handleTimeChange = (newTime) => {
         setTime(newTime); // Set selected time
-        setTimeError(false); // Clear error when user selects a date
     };
 
+// VALIDATE INPUT
+    const isFieldInvalid = (field) => isSubmitted && !field;
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const validate = () => {
+        if (!date || !time ) return false;
+        return true;
+    };
 
     // Function to validate inputs before navigating to the PopupPaid screen
-    const handlePayPress = () => {
-        if (!date || !time) {
-            if (!date) setDateError(true);
-            if (!time) setTimeError(true);
-        } else {
+    const handleNext = () => {
+        setIsSubmitted(true);
+        if (validate()) {
             navigation.navigate("PopupPaid", 
                 {selectedDate: dayjs(date).format('MMMM D, YYYY'), 
                     selectedTime: time,
@@ -81,13 +82,14 @@ const TourBookingScreen = ({ navigation, route }) => {
             {/* Date Input */}
             <View style={styles.infoContainer}>
                 <Text style={styles.sectionTitle}>Date:</Text>
-                <Text style={[styles.input, dateError && styles.errorContainer]}>
+                <Text style={[styles.input, isFieldInvalid(date) && styles.inputError]}>
                     {date ? dayjs(date).format('MMMM D, YYYY') : 'MMMM D, YYYY'}
                 </Text>
                 <TouchableOpacity onPress={handleToggleCalendar}>
                     <Icon name="calendar-month" size={24} color="#555" />
                 </TouchableOpacity>
             </View>
+            {isFieldInvalid(date) && <Text style={styles.errorText}>Date is required.</Text>}
 
             {/* Conditionally render CalendarPicker */}
             {showCalendar && (
@@ -97,13 +99,14 @@ const TourBookingScreen = ({ navigation, route }) => {
             {/* Time Input */}
             <View style={styles.selectContainer}>
                 <Text style={styles.sectionTitle}>Time:</Text>
-                <Text style={[styles.input, timeError && styles.errorContainer]}>
+                <Text style={[styles.input, isFieldInvalid(time) && styles.inputError]}>
                     {time ? time : '00:00'}
                 </Text>
                 <TouchableOpacity onPress={handleToggleTime}>
                     <Icon name="access-time" size={24} color="#555" />
                 </TouchableOpacity>
             </View>
+            {isFieldInvalid(time) && <Text style={styles.errorText}>Time is required.</Text>}
 
             {/* Conditionally render TimePicker */}
             {showTime && (
@@ -139,7 +142,7 @@ const TourBookingScreen = ({ navigation, route }) => {
                         <View style={styles.priceContainer}>
                             <Text style={styles.totalPriceText}>Total Price: {tour.price}€</Text>
                         </View>
-                        <TouchableOpacity style={styles.payButton} onPress={handlePayPress}>
+                        <TouchableOpacity style={styles.payButton} onPress={handleNext}>
                             <Text style={styles.payButtonText}>Pay</Text>
                         </TouchableOpacity>
                     </>
@@ -240,13 +243,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
     },
-    disabledPayButton: {
-        backgroundColor: '#ccc', // Gray color for disabled button
-    },
-    errorContainer:{
-        borderWidth: 2,
+    // Red border when missing input
+    inputError: {
         borderColor: 'red',
-    }
+        borderWidth: 1,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginBottom: 10,
+    },
 });
 
 export default TourBookingScreen;
