@@ -29,7 +29,7 @@ const TabControl = ({ activeTab, setActiveTab, tabs }) => {
 const styles = StyleSheet.create({
   tabsContainer: {
     flexDirection: 'row',
-    backgroundColor: '#FFD36E', // Background color for the segmented control
+    backgroundColor: '#FF914D', // Background color for the segmented control
     borderRadius: 25,
     padding: 4,
     marginVertical: 20,
