@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from '
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
+import dayjs from 'dayjs';
 
 const { width, height } = Dimensions.get('window');
 
@@ -42,6 +43,12 @@ const MyNormalProfile = ({ route }) => {
         </View>
     );
 
+    const formatDate = (date) => {
+        if (!date) return null;
+        const selectedDate = dayjs(date).format('D MMM');
+        return selectedDate;
+    };
+
     const renderTabContent = () => {
         switch (activeTab) {
             case 'About':
@@ -60,18 +67,30 @@ const MyNormalProfile = ({ route }) => {
                 );
 
             case 'Calendar':
+
+                const filteredEvents = date
+                ? sampleEvents.filter(event => event.date === formatDate(date)) // Compare selected date
+                : []; // If no date selected, show all events
+
+                console.log(filteredEvents);
                 return (
                     <View style={styles.calendarSection}>
                         {/* Calendar Picker */}
-                        <CalendarPicker date={date} onDateChange={handleDateChange} />
+                        <CalendarPicker date={date} onDateChange={handleDateChange}/>
                         
-                        {/* Events List */}
-                        <FlatList
-                            data={sampleEvents}
-                            renderItem={renderEventItem}
-                            keyExtractor={item => item.id}
-                            style={styles.eventsList}
-                        />
+                        {filteredEvents.length > 0 ? (
+                            <FlatList
+                                data={filteredEvents}
+                                renderItem={renderEventItem}
+                                keyExtractor={item => item.id}
+                                style={styles.eventsList}
+                            />
+                        ) : (
+                            <View style={styles.noEventsPlaceholder}>
+                                <Text>No events on this date</Text>
+                            </View>
+                        )}
+
                     </View>
                 );
 
@@ -227,6 +246,10 @@ const styles = StyleSheet.create({
         marginTop: height * 0.01,
         alignItems: 'center',
     },
+    noEventsPlaceholder:{
+        alignItems: 'center',
+        paddingBottom: 10,
+    }
 });
 
 export default MyNormalProfile;

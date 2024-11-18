@@ -6,6 +6,7 @@ import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import sampleData from '../../sampledata'
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For persistence
+import dayjs from 'dayjs';
 
 const { width, height } = Dimensions.get('window');
 
@@ -82,6 +83,12 @@ const TourGuideProfile = ({ navigation }) => {
         </View>
     );
 
+    const formatDate = (date) => {
+        if (!date) return null;
+        const selectedDate = dayjs(date).format('D MMM');
+        return selectedDate;
+    };
+
     const ToursItem = ({ item, nav }) => (
         <View style={styles.tourCard}>
             <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.titleAndPhotoInline}>
@@ -119,15 +126,27 @@ const TourGuideProfile = ({ navigation }) => {
                 );
 
             case 'Calendar':
+                const filteredEvents = date
+                ? sampleEvents.filter(event => event.date === formatDate(date)) // Compare selected date
+                : []; // If no date selected, show all events
+
                 return (
                     <View style={styles.calendarSection}>
                         <CalendarPicker date={date} onDateChange={handleDateChange} />
-                        <FlatList
-                            data={sampleEvents}
-                            renderItem={renderEventItem}
-                            keyExtractor={(item) => item.id}
-                            style={styles.eventsList}
-                        />
+                        
+                        {filteredEvents.length > 0 ? (
+                            <FlatList
+                                data={filteredEvents}
+                                renderItem={renderEventItem}
+                                keyExtractor={item => item.id}
+                                style={styles.eventsList}
+                            />
+                        ) : (
+                            <View style={styles.noEventsPlaceholder}>
+                                <Text>No events on this date</Text>
+                            </View>
+                        )}
+
                     </View>
                 );
 
@@ -278,7 +297,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: width * 0.04,
-        marginVertical: height * 0.05,
+        //marginVertical: height * 0.01,
         borderRadius: width * 0.02,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -379,6 +398,10 @@ guideImage: {
     height: width * 0.08,
     marginLeft: 8, // Espaço entre o nome e a imagem
 },
+noEventsPlaceholder:{
+    alignItems: 'center',
+    paddingBottom: 10,
+}
 });
 
 export default TourGuideProfile;
