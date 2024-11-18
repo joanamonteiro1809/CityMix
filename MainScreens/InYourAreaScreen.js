@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         right: 5,
     },
     titleRect: {
-        backgroundColor: '#fff',
+        backgroundColor: '#fff4ee',
         borderRadius: 40,
         borderWidth: 2,
         borderColor: '#FF914D',
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     },
     iconStyle: {
         fontSize: 25,
-        color: '#888',
+        color: '#FF914D',
     },
     listContainer: {
         paddingVertical: 5,
@@ -219,10 +219,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.2,
-        shadowRadius: 1.41,
+        shadowOpacity: 0.5,
+        shadowRadius: 1.5,
         elevation: 2,
         justifyContent: 'center',
+        borderColor: '#888',
+        borderWidth: 0.5,
     },
     cardTitle: {
         fontSize: Math.min(cardWidth, cardHeight) * 0.12,
