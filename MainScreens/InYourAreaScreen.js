@@ -16,11 +16,11 @@ const InYourAreaScreen = ({navigation}) => {
     );
 
     const renderGroupItem = ({ item }) => (
-        <View style={styles.card}>
+        <TouchableOpacity onPress={() => navigation.navigate('GroupDetail', { tour: item })} style={styles.card}>
             <Icon name="image" size={24} color="#555" />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.numPeopl}</Text>
-        </View>
+        </TouchableOpacity>
     );
 
     const renderPaidToursItem = ({ navigation, item }) => (
