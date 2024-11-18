@@ -59,11 +59,12 @@ const OtherPersonProfile = ({ navigation, route }) => {
           <ScrollView style={styles.content}>
             {/* Média das avaliações */}
             <View style={styles.averageRatingContainer}>
-              <Text style={styles.averageRatingText}>⭐️ {personDetails.rating}</Text>
-              <Text style={styles.totalReviewsText}>({personDetails.reviews.length} reviews)</Text>
+              <View style={styles.ratingRow}>
+                <Text style={styles.averageRatingText}>4.7</Text>
+                <Image source={require('../../assets/star.png')} style={styles.starIcon} />
+              </View>
+              <Text style={styles.totalReviewsText}>(3 reviews)</Text>
             </View>
-
-            <Text style={styles.sectionTitle}>Reviews</Text>
             {personDetails.reviews.map((review, index) => (
               <View key={index} style={styles.reviewContainer}>
                 <View style={styles.reviewHeader}>
@@ -77,7 +78,10 @@ const OtherPersonProfile = ({ navigation, route }) => {
                     <Text style={styles.reviewUserName}>{review.user}</Text>
                     <Text style={styles.reviewDate}>{review.date}</Text>
                   </View>
-                  <Text style={styles.reviewRating}>⭐️ {review.rating}</Text>
+                  <View style={styles.reviewRatingContainer}>
+                    <Text style={styles.reviewRating}>{review.rating}</Text>
+                    <Image source={require('../../assets/star.png')} style={styles.starIcon} />
+                  </View>
                 </View>
                 <Text style={styles.reviewBody}>{review.comment}</Text>
               </View>
@@ -185,6 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF914D',
     paddingVertical: -5, // Use valores iguais para cima e baixo
   },
+
   content: {
     flex: 1,
   },
@@ -224,6 +229,10 @@ const styles = StyleSheet.create({
     fontSize: width * 0.045,
     fontWeight: 'bold',
     color: '#000',
+  },  
+  reviewRatingContainer: {
+    flexDirection: 'row', // Alinha estrela e número lado a lado
+    alignItems: 'center', // Centraliza verticalmente
   },
   reviewDate: {
     fontSize: width * 0.035,
@@ -239,18 +248,30 @@ const styles = StyleSheet.create({
     color: '#555',
     lineHeight: 20,
   },
+
   averageRatingContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
+    alignItems: 'center', // Centraliza horizontalmente
+    marginBottom: 20, // Espaçamento inferior
+  },
+  ratingRow: {
+    flexDirection: 'row', // Alinha "4.7" e a estrela lado a lado
+    alignItems: 'center', // Centraliza verticalmente os itens
   },
   averageRatingText: {
-    fontSize: width * 0.08,
+    fontSize: width * 0.08, // Tamanho do número
     fontWeight: 'bold',
     color: '#f2b636',
+    marginRight: 5, // Espaço entre o texto e a estrela
+  },
+  starIcon: {
+    width: 22, // Largura da estrela
+    height: 22, // Altura da estrela
   },
   totalReviewsText: {
-    fontSize: width * 0.04,
+    fontSize: width * 0.04, // Tamanho do texto de reviews
     color: '#555',
+    textAlign: 'center', // Centraliza o texto
+    marginTop: 5, // Espaço entre o número/estrela e o texto de reviews
   },
 });
 

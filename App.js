@@ -8,6 +8,7 @@ import SignupStep3 from './SignupComponents/SignupStep3';
 import LoginScreen from './LoginScreen';
 import MainNavigator from './MainScreens/MainNavigator';
 import TourGuideProfile from './MainScreens/ProfileScreens/TourGuideProfile';
+import OtherPersonProfile from './MainScreens/ProfileScreens/OtherPersonProfile';
 
 const Stack = createStackNavigator();
 
