@@ -152,12 +152,14 @@ const styles = StyleSheet.create({
         position: 'relative',
         alignSelf: 'flex-start',
         marginVertical: 10,
+        width: '61.5%',
+
     },
     shadowRect: {
         position: 'absolute',
         backgroundColor: '#FF914D',
         borderRadius: 40,
-        width: '61.5%',
+        width: '100%',
         height: '100%',
         top: 6,
         right: 5,
@@ -170,13 +172,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 0,
         alignSelf: 'flex-start',
+        width: '100%',
     },
     inYourAreaTag: {
-        fontSize: 32,
+        fontSize: 28,
         //fontWeight: 'bold',
         fontFamily: 'CodecPro-ExtraBold',
         color: '#FF914D',
-        marginVertical: 5,
+        marginVertical: 2,
+        textAlign: 'center',
     },
     sectionContainer: {
         //flex: 1,
@@ -185,7 +189,7 @@ const styles = StyleSheet.create({
     },
     section: {
         height: height * 0.23, // mexer aqui para mudar divisao do screen pelos 3 grupos
-        marginBottom: 10,
+        marginBottom: 15,
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -193,8 +197,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     sectionTitle: {
-        fontSize: 24,
-        //fontWeight: 'bold',
+        fontSize: 22,
         fontFamily: 'CodecPro-Bold',
     },
     iconStyle: {
@@ -216,13 +219,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
+        justifyContent: 'center',
     },
     cardTitle: {
+        fontSize: (width * 0.35) * 0.12,
         fontWeight: 'bold',
         textAlign: 'center',
         marginVertical: 5,
     },
     cardSubtitle: {
+        fontSize: (width * 0.35) * 0.08,
         color: '#666',
         textAlign: 'center',
     },
