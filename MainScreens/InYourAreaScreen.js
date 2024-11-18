@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#FF914D',
         paddingHorizontal: 20,
-        paddingVertical: 0,
+        paddingVertical: 5,
         alignSelf: 'flex-start',
         width: '100%',
     },
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
         //fontWeight: 'bold',
         fontFamily: 'CodecPro-ExtraBold',
         color: '#FF914D',
-        marginVertical: 2,
+        marginVertical: 5,
         textAlign: 'center',
     },
     sectionContainer: {
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
     sectionHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10,
+        marginTop: 15,
+        marginBottom: 5,
     },
     sectionTitle: {
         fontSize: 22,
