@@ -177,7 +177,7 @@ const TourGuideProfile = ({ navigation }) => {
               <View style={styles.nameContainerRow}>
                   <Text style={styles.profileName}>João Silva, 32</Text>
                   <Image
-                       source={require('../../assets/tourguide.png')}
+                       source={require('../../assets/tourGuide.png')}
                       style={styles.guideImage}
                   />
               </View>
