@@ -143,7 +143,7 @@ const CreateTourScreen = () => {
 
                 <TouchableOpacity style={styles.addButton} onPress={saveTour}>
                     <Text style={styles.addButtonText}>Add Tour</Text>
-                </TouchableOpacity>
+                 </TouchableOpacity>
             </View>
         </ScrollView>
     );
