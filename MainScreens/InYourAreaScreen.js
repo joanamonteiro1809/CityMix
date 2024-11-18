@@ -52,52 +52,65 @@ const InYourAreaScreen = ({navigation}) => {
                 </View>
 
                 {/* In Your Area Tag */}
-                <Text style={styles.inYourAreaTag}>In Your Area</Text>
-
-                {/* Individual Section */}
-                <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Individual</Text>
-                        <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                <View style={styles.titleContainer}>
+                    <View style={styles.shadowRect}></View>
+                    <View style={styles.titleRect}>
+                        <Text style={styles.inYourAreaTag}>In Your Area</Text>
                     </View>
-                </TouchableOpacity>
-                <FlatList
-                    horizontal
-                    data={sampleData.individual}
-                    renderItem={renderIndividualItem}
-                    keyExtractor={item => item.id}
-                    contentContainerStyle={styles.listContainer}
-                />
+                </View>
+
+                <View style={styles.sectionsContainer}>
+                {/* Individual Section */}
+                <View style={styles.section}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Individual</Text>
+                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                        </View>
+                    </TouchableOpacity>
+                    <FlatList
+                        horizontal
+                        data={sampleData.individual}
+                        renderItem={renderIndividualItem}
+                        keyExtractor={item => item.id}
+                        contentContainerStyle={styles.listContainer}
+                    />
+                </View>
 
                 {/* Group Section */}
-                <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Group' })}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Group</Text>
-                        <Icon name={"chevron-right"} style={styles.iconStyle}  />
-                    </View>
-                </TouchableOpacity>
-                <FlatList
-                    horizontal
-                    data={sampleData.group}
-                    renderItem={renderGroupItem}
-                    keyExtractor={item => item.id}
-                    contentContainerStyle={styles.listContainer}
-                />
+                <View style={styles.section}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Group' })}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Group Meetups</Text>
+                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                        </View>
+                    </TouchableOpacity>
+                    <FlatList
+                        horizontal
+                        data={sampleData.group}
+                        renderItem={renderGroupItem}
+                        keyExtractor={item => item.id}
+                        contentContainerStyle={styles.listContainer}
+                    />
+                </View>
 
                 {/* Paid Tours Section */}
-                <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Paid</Text>
-                        <Icon name={"chevron-right"} style={styles.iconStyle}  />
-                    </View>
-                </TouchableOpacity>
-                <FlatList
-                    horizontal
-                    data={sampleData.paidTours}
-                    renderItem={({ item }) => renderPaidToursItem({ item, navigation })}
-                    keyExtractor={item => item.id.toString()}
-                    contentContainerStyle={styles.listContainer}
-                />
+                <View style={styles.section}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Paid Tours</Text>
+                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                        </View>
+                    </TouchableOpacity>
+                    <FlatList
+                        horizontal
+                        data={sampleData.paidTours}
+                        renderItem={({ item }) => renderPaidToursItem({ item, navigation })}
+                        keyExtractor={item => item.id.toString()}
+                        contentContainerStyle={styles.listContainer}
+                    />
+                </View>
+            </View>
             </View>
         </ScrollView>
     );
@@ -132,23 +145,57 @@ const styles = StyleSheet.create({
     map: {
         width: height * 0.06,
         height: height * 0.06,
-        marginLeft: 10, // Adds some space between the search bar and the map image
-        resizeMode: 'contain', // Ensures the image is resized to fit within the given area
+        marginLeft: 10,
+        resizeMode: 'contain',
+    },
+    titleContainer: {
+        position: 'relative',
+        alignSelf: 'flex-start',
+        marginVertical: 10,
+    },
+    shadowRect: {
+        position: 'absolute',
+        backgroundColor: '#FF914D',
+        borderRadius: 40,
+        width: '61.5%',
+        height: '100%',
+        top: 6,
+        right: 5,
+    },
+    titleRect: {
+        backgroundColor: '#fff',
+        borderRadius: 40,
+        borderWidth: 2,
+        borderColor: '#FF914D',
+        paddingHorizontal: 20,
+        paddingVertical: 0,
+        alignSelf: 'flex-start',
     },
     inYourAreaTag: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#f2b636',
-        marginVertical: 10,
+        fontSize: 32,
+        //fontWeight: 'bold',
+        fontFamily: 'CodecPro-ExtraBold',
+        color: '#FF914D',
+        marginVertical: 5,
+    },
+    sectionContainer: {
+        //flex: 1,
+         height: height * 0.8,
+         justifyContent: 'space-between',
+    },
+    section: {
+        height: height * 0.23, // mexer aqui para mudar divisao do screen pelos 3 grupos
+        marginBottom: 10,
     },
     sectionHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 15,
     },
     sectionTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 24,
+        //fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
     },
     iconStyle: {
         fontSize: 25,
@@ -162,7 +209,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         marginHorizontal: 5,
-        width: 120,
+        width: width * 0.35,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
