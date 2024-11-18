@@ -6,6 +6,9 @@ import sampleData from '../sampledata';
 
 const { width, height } = Dimensions.get('window');
 
+const cardWidth = width * 0.35;
+const cardHeight = height * 0.18;
+
 const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
         <View style={styles.card}>
@@ -222,13 +225,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     cardTitle: {
-        fontSize: (width * 0.35) * 0.12,
+        fontSize: Math.min(cardWidth, cardHeight) * 0.12,
         fontWeight: 'bold',
         textAlign: 'center',
         marginVertical: 5,
     },
     cardSubtitle: {
-        fontSize: (width * 0.35) * 0.08,
+        fontSize: Math.min(cardWidth, cardHeight) * 0.08,
         color: '#666',
         textAlign: 'center',
     },
