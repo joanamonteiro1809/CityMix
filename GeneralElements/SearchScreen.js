@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -17,17 +17,36 @@ const { width, height } = Dimensions.get("window");
 const cardWidth = width * 0.35;
 const cardHeight = height * 0.18;
 
-const SearchScreen = ({navigation}) => {
+const SearchScreen = ({navigation, route}) => {
   const [searchText, setSearchText] = useState("");
 
   // Example data
-  const recentItems = ["Chiado", "Alfama", "Sintra"];
+  const defaultRecent = ["Chiado", "Alfama", "Sintra"];
   const suggestionItems = ["Alcântara", "Saldanha", "Marquês de Pombal"];
+  const allLocations = ["Braga", "Lisboa", "Porto", "Portoalegre", "Belém", "Marques"];
+  const [recentItems, setRecentItems] = useState(defaultRecent);
+
+  // Filter locations based on searchText
+  const filteredLocations = allLocations.filter((location) =>
+    location.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (route.params?.recentSearch) {
+      const { recentSearch } = route.params;
+
+      // Add the recent search to the beginning of the list if it's not already present
+      if (!recentItems.includes(recentSearch)) {
+        setRecentItems((prev) => [recentSearch, ...prev].slice(0, 5)); // Limit to 5 recent items
+      }
+    }
+  }, [route.params?.recentSearch]);
+
 
   const renderListItem = (item) => (
-    <View style={styles.listItem}>
+    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', {location: item})} style={styles.listItem}>
       <Text style={styles.listText}>{item}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -55,12 +74,26 @@ const SearchScreen = ({navigation}) => {
             </TouchableOpacity>
         </View>
 
-        {/* Filter Icon */}
-        <TouchableOpacity onPress={() => navigation.navigate('Filter')} style={styles.filterButton}>
-            <Icon name="tune" size={24} color="#000" />
-        </TouchableOpacity>
+        {searchText && (
+          <View style={styles.sections}>
+            {/* Recent section*/}
+            <View>
+                <Text style={styles.sectionTitle}>Locations</Text>
+                {filteredLocations.length > 0 ? (
+                <FlatList
+                    data={filteredLocations}
+                    renderItem={({ item }) => renderListItem(item)}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+                ) : (
+                <Text style={styles.emptyText}>No locations available.</Text>
+                )}
+            </View>
+          </View>
+        )}
 
-        <View style={styles.sections}>
+        {!searchText  && (
+          <View style={styles.sections}>
             {/* Recent section*/}
             <View>
                 <Text style={styles.sectionTitle}>Recent</Text>
@@ -88,7 +121,8 @@ const SearchScreen = ({navigation}) => {
                 <Text style={styles.emptyText}>No suggestions</Text>
                 )}
             </View>
-        </View>
+          </View>          
+        )}
     </View>
   );
 };

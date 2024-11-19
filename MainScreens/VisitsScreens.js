@@ -23,6 +23,8 @@ const VisitsScreen = ({ navigation, route }) => {
 
     const [activeTab, setActiveTab] = useState(initialTab); // Default tab
 
+    const location = route.params?.location || "Lisbon";
+
     return (
         <View style={styles.container}>
             {/* Custom Header */}
@@ -32,10 +34,15 @@ const VisitsScreen = ({ navigation, route }) => {
                     iconName={("chevron-left")}
                 />
                 
-                <View style={styles.headerTitleContainer}>
-                    <Icon name="search" size={20} color="#000" style={styles.searchIcon} />
-                    <Text style={styles.headerTitle}>Lisbon</Text>
-                </View>
+               
+                    <TouchableOpacity onPress={() => navigation.navigate('Search', { recentSearch: location })}>
+                        <View style={styles.headerTitleContainer}>
+                            <Icon name="search" size={20} color="#000" style={styles.searchIcon} />
+                            <Text style={styles.headerTitle}>{location}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    
+                
 
                 {/** Show age filter on individuals */}
                 {activeTab == 'Individuals' && (
