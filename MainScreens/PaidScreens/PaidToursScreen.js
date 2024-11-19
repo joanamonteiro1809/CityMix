@@ -1,17 +1,21 @@
 // PaidToursScreen.js --> all paid tours available
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const { width, height } = Dimensions.get('window');
 
 const renderPaidToursItem = ({ item, nav }) => (
     <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.tourCard}>
         <View style={styles.titleAndPhoto}>
-            <Icon name="image" size={50} color="#555" />
+            <Image source={{uri : item.imageLink}} style={styles.image} />
             <View style={styles.tourInfo}>
                 <Text style={styles.tourName}>{item.title}</Text>
+                <Text style={styles.description}>{item.description}</Text>
                 <View style={styles.ratingContainer}>
                     <Text>{item.rating}</Text>
-                    <Icon name="star" size={16} color="#000" />
+                    <Image source={require('../../assets/star.png')} style={styles.star}/>
+
                 </View>
             </View>
         </View>
@@ -43,16 +47,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7f7f7',
         borderRadius: 10,
         marginVertical: 10,
+        height: height * 0.12,
+        overflow: 'hidden',
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 0.5,
+        shadowRadius: 1.5,
+        elevation: 2,
+        position: 'relative',
     },
     titleAndPhoto:{
         flexDirection: 'row',
+        flex: 1,
     },
     tourInfo: {
         marginLeft: 10,
+        flex: 1,
     },
     tourName: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
+    },
+    description: {
+        fontSize: 12,
+        fontFamily: 'CodecPro-Regular',
+        lineHeight: 20,
+        //flex: 2,
     },
     ratingContainer: {
         flexDirection: 'row',
@@ -63,14 +83,30 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#333',
         marginRight: 4,
+        fontFamily: 'CodecPro-Regular',
+    },
+    star: {
+        width: 16,
+        height: 16,
+        marginLeft: 4,
+        resizeMode: 'contain',
     },
     priceContainer: {
-        alignItems: 'flex-end', 
+        alignSelf: 'flex-end',
+        marginRight: 10,
     },
     price: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#333',
+    },
+
+    image: {
+        width: width*0.27,
+        height: height*0.10,
+        borderRadius: 10,
+        //marginBottom: 0,
+        //marginLeft: -15,
     },
 });
 
