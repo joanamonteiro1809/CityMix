@@ -18,7 +18,6 @@ const ProfileStack = () => {
             <Stack.Screen name="TourDetails" component={TourDetailScreen} options={{ headerShown: false }} />
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
             <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ headerShown: false }} />
-            <Stack.Screen name="CreateInvitation" component={CreateInvitation} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };

@@ -11,6 +11,8 @@ import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 import MapScreen from '../GeneralElements/MapScreen';
 import GroupDetail from './GroupScreens/GroupDetail';
 import OtherPersonProfile from './ProfileScreens/OtherPersonProfile';
+import GroupMessage from './MessagesScreens/GroupMessage';
+import CreateInvitation from './MessagesScreens/CreateInvitation';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +29,8 @@ const InYourAreaStack = () => {
             <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: false }} />
             <Stack.Screen name="GroupDetail" component={GroupDetail} options={{ headerShown: false }} />
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
+            <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ headerShown: false }} />
+            <Stack.Screen name="CreateInvitation" component={CreateInvitation} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };

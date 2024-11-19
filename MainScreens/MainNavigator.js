@@ -5,7 +5,6 @@ import InYourAreaScreen from './InYourAreaScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import InYourAreaStack from './InYourAreaStack';
 import ProfileStack from './ProfileScreens/ProfileStack';
-import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 
 const Tab = createBottomTabNavigator();
 
