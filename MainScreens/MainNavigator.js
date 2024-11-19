@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import InYourAreaStack from './InYourAreaStack';
 import ProfileStack from './ProfileScreens/ProfileStack';
 import sampleData from '../sampledata';
-import TourGuideProfile from './ProfileScreens/TourGuideProfile';
+import TourGuideNotifications from './TourGuideNotifications';
+import NormalUserNotifications from './UserNotifications';
 import MyNormalProfile from './ProfileScreens/MyNormalProfile';
-import Notifications from './Notifications';
 
 const Tab = createBottomTabNavigator();
 

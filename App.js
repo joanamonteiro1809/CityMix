@@ -7,9 +7,8 @@ import SignupStep2 from './SignupComponents/SignupStep2';
 import SignupStep3 from './SignupComponents/SignupStep3';
 import LoginScreen from './LoginScreen';
 import MainNavigator from './MainScreens/MainNavigator';
+import TourGuideNotifications from './MainScreens/TourGuideNotifications';
 import TourGuideProfile from './MainScreens/ProfileScreens/TourGuideProfile';
-import Notifications from './MainScreens/Notifications';
-import OtherPersonProfile from './MainScreens/ProfileScreens/OtherPersonProfile';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +21,7 @@ export default function App() {
                 <Stack.Screen name="SignupStep2" component={SignupStep2} options={{ headerShown: false }} />
                 <Stack.Screen name="SignupStep3" component={SignupStep3} options={{ headerShown: false }} />
                 <Stack.Screen name="HomeScreen" component={MainNavigator} options={{ headerShown: false }} /> 
-                <Stack.Screen name="Notifications" component={Notifications} options={{ headerShown: false }} /> 
+                <Stack.Screen name="UserNotifications" component={TourGuideNotifications} options={{ headerShown: false }} /> 
                 <Stack.Screen name="Profile" component={TourGuideProfile} options={{ headerShown: false }} />
             </Stack.Navigator>
     </NavigationContainer>
