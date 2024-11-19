@@ -20,6 +20,7 @@ const OtherPersonProfile = ({ navigation, route }) => {
     description: 'I love travelling and meeting new people. I am very sociable.',
     languages: ['Portuguese', 'English'],
     location: 'Coimbra, Portugal',
+    picture: require('../../assets/user1.jpg'),
     reviews: [
       {
         user: 'Maria Silva',
@@ -106,12 +107,8 @@ const OtherPersonProfile = ({ navigation, route }) => {
       {/* Cabeçalho */}
       <View style={styles.header}>
         <View style={styles.profilePictureContainer}>
-          <Icon
-            name="account-circle"
-            size={width * 0.3}
-            color="#bbb"
-            style={styles.profileIcon}
-          />
+
+          <Image source={personDetails.picture} style={styles.profileIcon} />
         </View>
         <Text style={styles.profileName}>{personDetails.name}, {personDetails.age}</Text>
         <Text style={styles.profileLocation}>{personDetails.location}</Text>
@@ -140,144 +137,151 @@ const OtherPersonProfile = ({ navigation, route }) => {
 
 // Estilos
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 35,
-  },
-  backButton:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingHorizontal: 20,
-  },
-  header: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    //paddingTop: height * 0.05, 
-    paddingBottom: height * 0.02, 
-  },
-  profilePictureContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 0,
-    marginTop: 0,
-    backgroundColor: 'transparent',
-  },
-  profileName: {
-    fontSize: width * 0.07,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-  profileLocation: {
-    fontSize: width * 0.04,
-    color: '#000',
-    marginBottom: 10,
-  },
-  messageButton: {
-    backgroundColor: '#FF914D',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-  },
-  messageButtonText: {
-    color: '#000',
-    fontWeight: 'bold',
-  },
-  tabContent: {
-    flex: 1,
-    padding: 20, 
-    backgroundColor: '#ffeadd',
-    marginTop: 0, // Certifique-se de que não há valores desiguais
-  },
-  tabBarContainer: {
-    backgroundColor: '#FF914D',
-    paddingVertical: -5, // Use valores iguais para cima e baixo
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 35,
+    },
+    backButton:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+        paddingHorizontal: 20,
+    },
+    header: {
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        //paddingTop: height * 0.05,
+        paddingBottom: height * 0.02,
+    },
+    profilePictureContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 0,
+        marginTop: 0,
+        backgroundColor: 'transparent',
+    },
+    profileName: {
+        fontSize: width * 0.07,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    profileLocation: {
+        fontSize: width * 0.04,
+        color: '#000',
+        marginBottom: 10,
+    },
+    messageButton: {
+        backgroundColor: '#FF914D',
+        paddingVertical: 8,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+    },
+    messageButtonText: {
+        color: '#000',
+        fontWeight: 'bold',
+    },
+    tabContent: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: '#ffeadd',
+        marginTop: 0, // Certifique-se de que não há valores desiguais
+    },
+    tabBarContainer: {
+        backgroundColor: '#FF914D',
+        paddingVertical: -5, // Use valores iguais para cima e baixo
+    },
 
-  content: {
-    flex: 1,
-  },
-  sectionTitle: {
-    fontSize: width * 0.05,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  sectionContent: {
-    fontSize: width * 0.04,
-    color: '#555',
-    marginBottom: 20,
-  },
-  reviewContainer: {
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 15,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  reviewHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  reviewIcon: {
-    marginRight: 10,
-  },
-  reviewUserDetails: {
-    flex: 1,
-  },
-  reviewUserName: {
-    fontSize: width * 0.045,
-    fontWeight: 'bold',
-    color: '#000',
-  },  
-  reviewRatingContainer: {
-    flexDirection: 'row', // Alinha estrela e número lado a lado
-    alignItems: 'center', // Centraliza verticalmente
-  },
-  reviewDate: {
-    fontSize: width * 0.035,
-    color: '#888',
-  },
-  reviewRating: {
-    fontSize: width * 0.045,
-    fontWeight: 'bold',
-    color: '#f2b636',
-  },
-  reviewBody: {
-    fontSize: width * 0.04,
-    color: '#555',
-    lineHeight: 20,
-  },
+    content: {
+        flex: 1,
+    },
+    sectionTitle: {
+        fontSize: width * 0.05,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    sectionContent: {
+        fontSize: width * 0.04,
+        color: '#555',
+        marginBottom: 20,
+    },
+    reviewContainer: {
+        backgroundColor: '#fff',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    reviewHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    reviewIcon: {
+        marginRight: 10,
+    },
+    reviewUserDetails: {
+        flex: 1,
+    },
+    reviewUserName: {
+        fontSize: width * 0.045,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    reviewRatingContainer: {
+        flexDirection: 'row', // Alinha estrela e número lado a lado
+        alignItems: 'center', // Centraliza verticalmente
+    },
+    reviewDate: {
+        fontSize: width * 0.035,
+        color: '#888',
+    },
+    reviewRating: {
+        fontSize: width * 0.045,
+        fontWeight: 'bold',
+        color: '#f2b636',
+    },
+    reviewBody: {
+        fontSize: width * 0.04,
+        color: '#555',
+        lineHeight: 20,
+    },
 
-  averageRatingContainer: {
-    alignItems: 'center', // Centraliza horizontalmente
-    marginBottom: 20, // Espaçamento inferior
-  },
-  ratingRow: {
-    flexDirection: 'row', // Alinha "4.7" e a estrela lado a lado
-    alignItems: 'center', // Centraliza verticalmente os itens
-  },
-  averageRatingText: {
-    fontSize: width * 0.08, // Tamanho do número
-    fontWeight: 'bold',
-    color: '#f2b636',
-    marginRight: 5, // Espaço entre o texto e a estrela
-  },
-  starIcon: {
-    width: 22, // Largura da estrela
-    height: 22, // Altura da estrela
-  },
-  totalReviewsText: {
-    fontSize: width * 0.04, // Tamanho do texto de reviews
-    color: '#555',
-    textAlign: 'center', // Centraliza o texto
-    marginTop: 5, // Espaço entre o número/estrela e o texto de reviews
-  },
+    averageRatingContainer: {
+        alignItems: 'center', // Centraliza horizontalmente
+        marginBottom: 20, // Espaçamento inferior
+    },
+    ratingRow: {
+        flexDirection: 'row', // Alinha "4.7" e a estrela lado a lado
+        alignItems: 'center', // Centraliza verticalmente os itens
+    },
+    averageRatingText: {
+        fontSize: width * 0.08, // Tamanho do número
+        fontWeight: 'bold',
+        color: '#f2b636',
+        marginRight: 5, // Espaço entre o texto e a estrela
+    },
+    starIcon: {
+        width: 22, // Largura da estrela
+        height: 22, // Altura da estrela
+    },
+    totalReviewsText: {
+        fontSize: width * 0.04, // Tamanho do texto de reviews
+        color: '#555',
+        textAlign: 'center', // Centraliza o texto
+        marginTop: 5, // Espaço entre o número/estrela e o texto de reviews
+    },
+    profileIcon: {
+      width: width * 0.3,
+      height: width * 0.3,
+      borderRadius: (width * 0.3) / 2,
+      borderWidth: 1,
+      borderColor: '#888',
+    },
 });
 
 export default OtherPersonProfile;

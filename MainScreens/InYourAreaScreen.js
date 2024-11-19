@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
         borderRadius: (cardWidth * 0.6) / 2,
         borderWidth: 1,
         borderColor: '#888',
-        marginTop: 10,
+        marginTop: 15,
     },
     image: {
         width: '100%',

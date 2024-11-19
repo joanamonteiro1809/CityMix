@@ -191,8 +191,8 @@ const TourGuideProfile = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-          <View style={styles.profileHeader}>
-              <Icon name="account-circle" size={width * 0.3} color="#bbb" />
+            <View style={styles.profileHeader}>
+              <Image source={require('../../assets/user2.png')} style={styles.profilePicture} />
               <View style={styles.nameContainerRow}>
                   <Text style={styles.profileName}>João Silva, 32</Text>
                   <Image
@@ -226,7 +226,6 @@ const TourGuideProfile = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-
 
     container: {
         flex: 1,
@@ -313,11 +312,11 @@ const styles = StyleSheet.create({
         marginRight: width * 0.03,
     },
     tourPhoto: {
-            fontSize: width * 0.05,
-            fontWeight: 'bold',
-            color: '#f2b636',
-            marginRight: width * 0.07,
-        },
+        fontSize: width * 0.05,
+        fontWeight: 'bold',
+        color: '#f2b636',
+        marginRight: width * 0.07,
+    },
     eventTitle: {
         fontWeight: 'bold',
         fontSize: width * 0.04,
@@ -331,17 +330,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     addTourButton: {
-            backgroundColor: '#f2d8a5',
-            padding: width * 0.04,
-            borderRadius: 10,
-            alignItems: 'center',
-            marginTop: height * 0.02,
-        },
-        addTourButtonText: {
-            color: '#000',
-            fontSize: width * 0.04,
-            fontWeight: 'bold',
-        },
+        backgroundColor: '#f2d8a5',
+        padding: width * 0.04,
+        borderRadius: 10,
+        alignItems: 'center',
+        marginTop: height * 0.02,
+    },
+    addTourButtonText: {
+        color: '#000',
+        fontSize: width * 0.04,
+        fontWeight: 'bold',
+    },
 
     deleteButton: {
         marginLeft: 10,
@@ -388,20 +387,28 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#f2b636',
     },
-nameContainerRow: {
-    flexDirection: 'row', // Alinha os elementos lado a lado
-    alignItems: 'center', // Centraliza verticalmente
-    marginTop: height * 0.01, // Espaçamento superior
-},
-guideImage: {
-    width: width * 0.08, // Tamanho ajustado para a imagem
-    height: width * 0.08,
-    marginLeft: 8, // Espaço entre o nome e a imagem
-},
-noEventsPlaceholder:{
-    alignItems: 'center',
-    paddingBottom: 10,
-}
+    nameContainerRow: {
+        flexDirection: 'row', // Alinha os elementos lado a lado
+        alignItems: 'center', // Centraliza verticalmente
+        marginTop: height * 0.01, // Espaçamento superior
+    },
+    guideImage: {
+        width: width * 0.08, // Tamanho ajustado para a imagem
+        height: width * 0.08,
+        marginLeft: 8, // Espaço entre o nome e a imagem
+    },
+    noEventsPlaceholder:{
+        alignItems: 'center',
+        paddingBottom: 10,
+    },
+
+    profilePicture: {
+        width: width * 0.3,
+        height: width * 0.3,
+        borderRadius: (width * 0.3) / 2,
+        borderWidth: 1,
+        borderColor: '#888',
+    }
 });
 
 export default TourGuideProfile;
