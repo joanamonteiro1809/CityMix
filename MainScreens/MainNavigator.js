@@ -15,9 +15,9 @@ const MainNavigator = () => {
 
     const handleProfile = () => {
         if(sampleData.currentUser.role == "tour_guide"){
-            return TourGuideProfile;
+            return ProfileStack;
         } else{
-            return  MyNormalProfile;
+            return MyNormalProfile;
         }
     }
 
