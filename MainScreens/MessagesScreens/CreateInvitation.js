@@ -1,12 +1,11 @@
 // CreateInvitation.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
 import dayjs from 'dayjs';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 
 const CreateInvitation = ({ navigation, route }) => {
 
@@ -42,6 +41,10 @@ const CreateInvitation = ({ navigation, route }) => {
 
 // Meeting Point picker
     const [meetingPoint, setMeetingPoint] = useState(''); // Store the selected time
+
+    const handleMeetingPChange = (text) => {
+        setMeetingPoint(text);
+    };
 
 // Validate input
     const isFieldInvalid = (field) => isSubmitted && !field;
@@ -117,7 +120,7 @@ const CreateInvitation = ({ navigation, route }) => {
                             placeholder="Select a location" 
                             placeholderTextColor="#aaa"
                             value={meetingPoint}
-                            onChangeText={setMeetingPoint}
+                            onChangeText={handleMeetingPChange}
                         />
                         <TouchableOpacity>
                             <Icon name="location-pin" size={24} color="#555" />
@@ -129,29 +132,35 @@ const CreateInvitation = ({ navigation, route }) => {
     );
 
     return (
-        <View style={styles.container}>
-            <View style={styles.popup}>
-                
-                {/* Header */}
-                <View style={styles.header}>
-                    <ArrowButton onPress={() => navigation.navigate("InYourArea")} iconName="close" />
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        >
+            <View style={styles.container}>
+                <View style={styles.popup}>
+                    
+                    {/* Header */}
+                    <View style={styles.header}>
+                        <ArrowButton onPress={() => navigation.navigate("InYourArea")} iconName="close" />
+                    </View>
+
+                    {/* Scrollable Content */}
+                    <FlatList
+                        data={[]}
+                        renderItem={null}
+                        ListHeaderComponent={renderContent}
+                        contentContainerStyle={styles.scrollContainer}
+                    />
+
+                    <TouchableOpacity onPress={handleNext}>
+                            <View style={styles.button}>
+                                <Text style={styles.buttonText}>Create Invite</Text>
+                            </View>
+                    </TouchableOpacity>
                 </View>
-
-                {/* Scrollable Content */}
-                <FlatList
-                    data={[]}
-                    renderItem={null}
-                    ListHeaderComponent={renderContent}
-                    contentContainerStyle={styles.scrollContainer}
-                />
-
-                <TouchableOpacity onPress={handleNext}>
-                        <View style={styles.button}>
-                            <Text style={styles.buttonText}>Create Invite</Text>
-                        </View>
-                </TouchableOpacity>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
