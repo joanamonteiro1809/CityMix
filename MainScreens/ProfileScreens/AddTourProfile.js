@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Alert } from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    Dimensions,
+    ScrollView,
+    Alert,
+    KeyboardAvoidingView,
+    Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +19,7 @@ import ArrowButton from '../../GeneralElements/ArrowButton';
 
 const { width, height } = Dimensions.get('window');
 
-const CreateTourScreen = ({route}) => {
+const CreateTourScreen = ({ route }) => {
     const navigation = useNavigation();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -20,7 +31,6 @@ const CreateTourScreen = ({route}) => {
 
     const guideName = route.params?.guideName;
 
-    // Function to add a route stop to the list
     const addRoute = () => {
         if (routeLocation.trim()) {
             setRoutes([...routes, routeLocation]);
@@ -29,7 +39,6 @@ const CreateTourScreen = ({route}) => {
         }
     };
 
-    // Function to validate fields
     const validateFields = () => {
         const newErrors = {};
 
@@ -42,7 +51,6 @@ const CreateTourScreen = ({route}) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    // Function to save the new tour to AsyncStorage
     const saveTour = async () => {
         setIsSubmitted(true);
         if (!validateFields()) return;
@@ -59,7 +67,7 @@ const CreateTourScreen = ({route}) => {
                 routeStops: routes,
                 reviews: [],
                 activities: [],
-                availableTimes:[],
+                availableTimes: [],
             };
 
             sampleData.paidTours.push(newTour);
@@ -77,83 +85,105 @@ const CreateTourScreen = ({route}) => {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
-                    <Text style={styles.title}>New Tour</Text>
-                </View>
-
-                <View style={styles.coverPicture}>
-                    <Icon name="photo-camera" size={40} color="#888" />
-                </View>
-
-                <Text style={styles.label}>Title</Text>
-                <TextInput
-                    style={[styles.input, errors.title && styles.inputError]}
-                    placeholder="Enter title"
-                    value={title}
-                    onChangeText={(text) => {
-                        setTitle(text);
-                        if (isSubmitted) setErrors((prev) => ({ ...prev, title: text.trim() ? '' : 'Title is required.' }));
-                    }}
-                />
-                {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
-
-                <Text style={styles.label}>Description</Text>
-                <TextInput
-                    style={[styles.input, errors.description && styles.inputError, { height: height * 0.1 }]}
-                    placeholder="Enter description"
-                    multiline
-                    value={description}
-                    onChangeText={(text) => {
-                        setDescription(text);
-                        if (isSubmitted) setErrors((prev) => ({ ...prev, description: text.trim() ? '' : 'Description is required.' }));
-                    }}
-                />
-                {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
-
-                <Text style={styles.label}>Route</Text>
-                <View style={styles.routeInput}>
-                    <TextInput
-                        placeholder="Add route"
-                        value={routeLocation}
-                        onChangeText={setRoute}
-                        style={{ flex: 1 }}
-                    />
-                    <TouchableOpacity onPress={addRoute} style={styles.addRouteIcon}>
-                        <Icon name="add" size={24} color="#fff" />
-                    </TouchableOpacity>
-                </View>
-                {errors.routes && <Text style={styles.errorText}>{errors.routes}</Text>}
-
-                {routes.map((routeItem, index) => (
-                    <View key={index} style={styles.routeItem}>
-                        <Text style={styles.routeText}>{routeItem}</Text>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        >
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
+                        <Text style={styles.title}>New Tour</Text>
                     </View>
-                ))}
 
-                <Text style={styles.label}>Price</Text>
-                <View style={styles.priceInput}>
+                    <View style={styles.coverPicture}>
+                        <Icon name="photo-camera" size={40} color="#888" />
+                    </View>
+
+                    <Text style={styles.label}>Title</Text>
                     <TextInput
-                        placeholder="Enter price"
-                        keyboardType="numeric"
-                        style={[{ flex: 1 }, errors.price && styles.inputError]}
-                        value={price}
+                        style={[styles.input, errors.title && styles.inputError]}
+                        placeholder="Enter title"
+                        value={title}
                         onChangeText={(text) => {
-                            setPrice(text);
-                            if (isSubmitted) setErrors((prev) => ({ ...prev, price: text.trim() ? '' : 'Price is required.' }));
+                            setTitle(text);
+                            if (isSubmitted)
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    title: text.trim() ? '' : 'Title is required.',
+                                }));
                         }}
                     />
-                    <Text>€</Text>
-                </View>
-                {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
+                    {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
 
-                <TouchableOpacity style={styles.addButton} onPress={saveTour}>
-                    <Text style={styles.addButtonText}>Add Tour</Text>
-                 </TouchableOpacity>
-            </View>
-        </ScrollView>
+                    <Text style={styles.label}>Description</Text>
+                    <TextInput
+                        style={[
+                            styles.input,
+                            errors.description && styles.inputError,
+                            { height: height * 0.1 },
+                        ]}
+                        placeholder="Enter description"
+                        multiline
+                        value={description}
+                        onChangeText={(text) => {
+                            setDescription(text);
+                            if (isSubmitted)
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    description: text.trim() ? '' : 'Description is required.',
+                                }));
+                        }}
+                    />
+                    {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
+
+                    <Text style={styles.label}>Route</Text>
+                    <View style={styles.routeInput}>
+                        <TextInput
+                            placeholder="Add route"
+                            value={routeLocation}
+                            onChangeText={setRoute}
+                            style={{ flex: 1 }}
+                        />
+                        <TouchableOpacity onPress={addRoute} style={styles.addRouteIcon}>
+                            <Icon name="add" size={24} color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+                    {errors.routes && <Text style={styles.errorText}>{errors.routes}</Text>}
+
+                    {routes.map((routeItem, index) => (
+                        <View key={index} style={styles.routeItem}>
+                            <Text style={styles.routeText}>{routeItem}</Text>
+                        </View>
+                    ))}
+
+                    <Text style={styles.label}>Price</Text>
+                    <View style={styles.priceInput}>
+                        <TextInput
+                            placeholder="Enter price"
+                            keyboardType="numeric"
+                            style={[{ flex: 1 }, errors.price && styles.inputError]}
+                            value={price}
+                            onChangeText={(text) => {
+                                setPrice(text);
+                                if (isSubmitted)
+                                    setErrors((prev) => ({
+                                        ...prev,
+                                        price: text.trim() ? '' : 'Price is required.',
+                                    }));
+                            }}
+                        />
+                        <Text>€</Text>
+                    </View>
+                    {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
+
+                    <TouchableOpacity style={styles.addButton} onPress={saveTour}>
+                        <Text style={styles.addButtonText}>Add Tour</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
@@ -225,6 +255,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginTop: height * 0.04,
+        marginBottom: height * 0.01,
     },
     addButtonText: {
         color: '#fff',
