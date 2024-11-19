@@ -60,7 +60,7 @@ const FilterScreen = ({ navigation, route }) => {
         }
 
         // Navigate to the FilteredToursScreen and pass the filtered tours as a parameter
-        navigation.navigate('VisitsScreen', { tabSelected: tabSel, filteredTours: filtered, selectedFilters: filters });
+        navigation.popTo('VisitsScreen', { tabSelected: tabSel, filteredTours: filtered, selectedFilters: filters });
     };
 
     const [showAllActivities, setShowAllActivities] = useState(false);

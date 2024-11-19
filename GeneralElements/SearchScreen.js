@@ -23,11 +23,12 @@ const SearchScreen = ({navigation}) => {
   // Example data
   const recentItems = ["Chiado", "Alfama", "Sintra"];
   const suggestionItems = ["Alcântara", "Saldanha", "Marquês de Pombal"];
+  //const locations = ["Braga", "Lisboa", "Porto", "Portoalegre", "Belém", "Marques"];
 
   const renderListItem = (item) => (
-    <View style={styles.listItem}>
+    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', {location: item})} style={styles.listItem}>
       <Text style={styles.listText}>{item}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
