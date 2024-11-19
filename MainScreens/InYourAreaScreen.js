@@ -4,7 +4,7 @@ import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensio
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import sampleData from '../sampledata';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('screen');
 
 const cardWidth = width * 0.35;
 const cardHeight = height * 0.18;
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
         fontFamily: 'CodecPro-Bold',
         textAlign: 'center',
         marginTop: 5,
-        marginHorizontal: 5,
+        marginHorizontal: 15,
         lineHeight: 20,
     },
     cardSubtitle: {

@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('screen');
 
 const renderPaidToursItem = ({ item, nav }) => (
     <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.tourCard}>
@@ -32,7 +32,6 @@ const PaidToursScreen = ({ nav, tours }) => {
                 data={tours}
                 renderItem={({ item }) => renderPaidToursItem({ item, nav })}
                 keyExtractor={item => item.id.toString()}
-                contentContainerStyle={styles.listContainer}
             />
         </View>
     );
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7f7f7',
         borderRadius: 10,
         marginVertical: 10,
-        height: height * 0.12,
+        height: height * 0.14,
         overflow: 'hidden',
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 1 },
@@ -55,14 +54,17 @@ const styles = StyleSheet.create({
         shadowRadius: 1.5,
         elevation: 2,
         position: 'relative',
+        
     },
     titleAndPhoto:{
         flexDirection: 'row',
         flex: 1,
+        alignItems: 'center'
     },
     tourInfo: {
         marginLeft: 10,
         flex: 1,
+        //borderWidth: 2,
     },
     tourName: {
         fontSize: 16,
@@ -103,10 +105,8 @@ const styles = StyleSheet.create({
 
     image: {
         width: width*0.27,
-        height: height*0.10,
+        height: height*0.11,
         borderRadius: 10,
-        //marginBottom: 0,
-        //marginLeft: -15,
     },
 });
 
