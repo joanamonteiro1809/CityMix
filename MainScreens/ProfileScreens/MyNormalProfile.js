@@ -13,7 +13,7 @@ const sampleEvents = [
     // Add more sample events here
 ];
 
-const MyNormalProfile = ({ route }) => {
+const MyNormalProfile = ({ navigation, route }) => {
     const initialTab = route.params?.tabSelected || "Events";
     const [activeTab, setActiveTab] = useState(initialTab); // Default tab
     const [isAvailable, setIsAvailable] = useState(true); // Availability toggle state
@@ -119,6 +119,9 @@ const MyNormalProfile = ({ route }) => {
         <View style={styles.container}>
             {/* Profile Header */}
             <View style={styles.profileHeader}>
+                <TouchableOpacity onPress={() => navigation.navigate("Login")}style={styles.logoutButton}>
+                    <Icon name={'logout'} size={26} color={'red'}/>
+                </TouchableOpacity>
                 <Icon name="account-circle" size={width * 0.3} color="#bbb" />
                 <Text style={styles.profileName}>Rita, 25</Text>
                 <Text style={styles.profileLocation}>Lisboa</Text>
@@ -160,6 +163,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: height * 0.05,
     },
+    logoutButton:{
+        position: 'absolute',
+        right: 0
+    }, 
     profileName: {
         fontSize: width * 0.07, 
         fontWeight: 'bold',

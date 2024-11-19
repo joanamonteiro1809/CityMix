@@ -106,9 +106,12 @@ const InYourAreaScreen = ({navigation}) => {
                                 <MaterialIcons name={"chevron-right"} style={styles.iconStyle}  />
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate('AddTour', {guideName: "João Silva"})}>
-                            <AntDesign name={"pluscircle"} style={styles.iconStyle}  />
-                        </TouchableOpacity>
+
+                        {sampleData.currentUser.role == "tour_guide" && (
+                            <TouchableOpacity onPress={() => navigation.navigate('AddTour', {guideName: "João Silva"})}>
+                                <AntDesign name={"pluscircle"} style={styles.iconStyle}  />
+                            </TouchableOpacity>
+                        )}
                     </View>
                     <FlatList
                         horizontal
