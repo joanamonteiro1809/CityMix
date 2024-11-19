@@ -35,7 +35,7 @@ const VisitsScreen = ({ navigation, route }) => {
                 />
                 
                
-                    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Search', { recentSearch: location })}>
                         <View style={styles.headerTitleContainer}>
                             <Icon name="search" size={20} color="#000" style={styles.searchIcon} />
                             <Text style={styles.headerTitle}>{location}</Text>
