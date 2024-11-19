@@ -11,10 +11,9 @@ const cardHeight = height * 0.18;
 
 const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
-        <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={styles.card}>
-            <Image source={item.picture} style={styles.profilePicture} />
+        <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={[styles.card, styles.individual]}>            <Image source={item.picture} style={styles.profilePicture} />
             <Text style={styles.cardTitle}>{item.name}, {item.age}</Text>
-            <Text style={styles.cardSubtitle}>{item.activities.join(', ')}</Text>
+           <Text style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.activities.join(', ')}</Text>
         </TouchableOpacity>
     );
 
@@ -42,13 +41,9 @@ const InYourAreaScreen = ({navigation}) => {
                 <View style={styles.header}>
                     <View style={styles.searchContainer}>
                         <Icon name="search" size={24} color="#555" />
-                        <TextInput 
-                            style={styles.searchInput} 
-                            placeholder="Search" 
-                            onFocus={() => navigation.navigate('SearchScreen')}
-                        />
+                        <TextInput style={styles.searchInput} placeholder="Search" />
                     </View>
-                    
+
                     {/* Image next to the search container */}
                     <TouchableOpacity onPress={() => navigation.navigate('Map')}>
                         <Image
@@ -196,7 +191,7 @@ const styles = StyleSheet.create({
     },
     section: {
         height: height * 0.23, // mexer aqui para mudar divisao do screen pelos 3 grupos
-        marginBottom: 15,
+        marginBottom: 10,
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -220,7 +215,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         //padding: 10,
         marginHorizontal: 5,
-        width: width * 0.4,
+        width: width * 0.45,
+        //height: height * 0.2,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -230,17 +226,23 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         borderColor: '#888',
         borderWidth: 0.5,
+        //position: 'relative',
+        paddingBottom: 10,
+        marginBottom: -2,
         overflow: 'hidden',
+    },
+
+    individual: {
+        justifyContent: 'center',
     },
     cardTitle: {
         fontSize: Math.min(cardWidth, cardHeight) * 0.12,
         //fontWeight: 'bold',
         fontFamily: 'CodecPro-Bold',
         textAlign: 'center',
-        marginVertical: 5,
-        marginHorizontal: 10,
+        marginTop: 5,
+        marginHorizontal: 5,
         lineHeight: 20,
-
     },
     cardSubtitle: {
         fontSize: Math.min(cardWidth, cardHeight) * 0.08,
@@ -248,17 +250,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'CodecPro-Regular',
         lineHeight: 17,
-        letterSpacing: 0.6,
         marginHorizontal: 10,
+        //flexWrap: 'wrap',
+        //marginBottom: 5,
+        //flex: 1,
+        justifySelf: 'center',
     },
 
     profilePicture: {
-        width: cardWidth * 0.32,
-        height: cardWidth * 0.32,
+        width: cardWidth * 0.35,
+        height: cardWidth * 0.35,
         borderRadius: (cardWidth * 0.6) / 2,
         borderWidth: 1,
         borderColor: '#888',
         marginTop: 15,
+
     },
     image: {
         width: '100%',

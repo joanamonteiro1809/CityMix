@@ -4,7 +4,7 @@ const sampleData = {
             id: '1', 
             name: 'Juliana Soares',
             age: 23, 
-            activities: ['Food', 'Outdoor activities'], 
+            activities: ['Food', 'Outdoor activities'],
             rating: '4,0',
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'English'],
