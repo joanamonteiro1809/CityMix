@@ -192,6 +192,9 @@ const TourGuideProfile = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.profileHeader}>
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}style={styles.logoutButton}>
+                 <Icon name={'logout'} size={26} color={'red'}/>
+              </TouchableOpacity>
               <Image source={require('../../assets/user2.png')} style={styles.profilePicture} />
               <View style={styles.nameContainerRow}>
                   <Text style={styles.profileName}>João Silva, 32</Text>
@@ -234,8 +237,12 @@ const styles = StyleSheet.create({
     },
     profileHeader: {
         alignItems: 'center',
-        marginTop: height * 0.05,
+        marginTop: height * 0.07,
     },
+    logoutButton:{
+        position: 'absolute',
+        right: 0
+    }, 
     profileName: {
         fontSize: width * 0.07,
         fontWeight: 'bold',
