@@ -8,6 +8,7 @@ import ProfileStack from './ProfileScreens/ProfileStack';
 import sampleData from '../sampledata';
 import TourGuideProfile from './ProfileScreens/TourGuideProfile';
 import MyNormalProfile from './ProfileScreens/MyNormalProfile';
+import Notifications from './Notifications';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,6 +21,14 @@ const MainNavigator = () => {
             return MyNormalProfile;
         }
     }
+
+    const handleNotifications = () => {
+        if (sampleData.currentUser.role === "tour_guide") {
+            return TourGuideNotifications;
+        } else {
+            return NormalUserNotifications;
+        }
+    };
 
     return (
         <Tab.Navigator
@@ -46,7 +55,7 @@ const MainNavigator = () => {
         >
             <Tab.Screen name="Home" component={InYourAreaStack}/>
             <Tab.Screen name="Messages" component={InYourAreaScreen} />
-            <Tab.Screen name="Notifications" component={InYourAreaScreen} />
+            <Tab.Screen name="Notifications" component={handleNotifications()} />
             <Tab.Screen name="Profile" component={handleProfile()} />
         </Tab.Navigator>
     );
