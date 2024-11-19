@@ -162,6 +162,7 @@ const sampleData = {
             ],
             activities: ["Famous Spots"],
             availableTimes: ["10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"],
+            languages: ['Portuguese', 'English'],
         },
             
         { id: '2', title: 'Alfama Walking Tour', price: 19, rating: '3.5', tourGuide: 'Inês Dias', 
@@ -174,6 +175,7 @@ const sampleData = {
             ],
             activities: ["Famous Spots"],
             availableTimes: ["11:00", "12:00", "13:00", "14:00", "15:00"],
+            languages: ['Portuguese', 'English', 'Spanish'],
         },
 
         { id: '3', title: 'Taste of Lisbon Experience', price: 60, rating: '4.5', tourGuide: 'Alice Pires', 
@@ -186,20 +188,25 @@ const sampleData = {
             ],
             activities: ["Food"],
             availableTimes: ["11:00", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"],
+            languages: ['Spanish', 'Portuguese'],
         },
         // Add more items here...
     ],
 
     joaoTours: [
            { id: '1', title: "St. George's Castle Tour", price: '20€', rating: '4.0', tourGuide: 'Rúben Santos',
-                       description: 'Come visit the principal castle of Lisbon.',
-                       imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
-                       routeStops: ["St. George's Castle"],
-                       reviews: [
-                           { reviewer: 'Maria Oliveira', rating: '5,0', comment: 'Amazing tour! The guide was very knowledgeable.' },
-                           { reviewer: 'Carlos Silva', rating: '4,0', comment: 'Great experience, but a bit crowded.' },
-                           { reviewer: 'Joana Pereira', rating: '4,0', comment: "The castle is huge but it's very beautiful." },
-                       ],},
+                    description: 'Come visit the principal castle of Lisbon.',
+                    imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
+                    routeStops: ["St. George's Castle"],
+                    reviews: [
+                        { reviewer: 'Maria Oliveira', rating: '5,0', comment: 'Amazing tour! The guide was very knowledgeable.' },
+                        { reviewer: 'Carlos Silva', rating: '4,0', comment: 'Great experience, but a bit crowded.' },
+                        { reviewer: 'Joana Pereira', rating: '4,0', comment: "The castle is huge but it's very beautiful." },
+                    ],
+                    activities: ["Famous Spots"],
+                    availableTimes: ["10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"],
+                    languages: ['Portuguese', 'English'],      
+            },
                   // Add more items here...
         ],
 
