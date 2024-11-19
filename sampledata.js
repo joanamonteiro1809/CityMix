@@ -9,6 +9,7 @@ const sampleData = {
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'English'],
             location: 'Coimbra, Portugal',
+            picture: require('./assets/user1.jpg'),
             reviews: [
                 {
                     user: 'Maria Silva',
@@ -39,6 +40,7 @@ const sampleData = {
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'English', 'Dutch'],
             location: 'Porto, Portugal',
+            picture: require('./assets/user2.png'),
             reviews: [
                 {
                     user: 'João Santos',
@@ -63,6 +65,7 @@ const sampleData = {
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'Spanish'],
             location: 'Algarve, Portugal',
+            picture: require('./assets/user3.jpg'),
             reviews: [
                 {
                     user: 'Maria Silva',
@@ -93,6 +96,7 @@ const sampleData = {
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese'],
             location: 'Lisboa, Portugal',
+            picture: require('./assets/user4.jpg'),
             reviews: [
                 {
                     user: 'Maria Silva',
@@ -116,6 +120,7 @@ const sampleData = {
             title: 'Day in Belém', 
             numPeopl: 'and 5 more...',
             location: "Av. Brasília, 1300-598 Lisboa",
+            image: require('./assets/group1.jpg'),
             latitude: 38.69588602464495,
             longitude: -9.195402120568252,
             latitudeDelta: 0.01,
@@ -126,6 +131,7 @@ const sampleData = {
             title: 'Bar hopping in Chiado', 
             numPeopl: 'and 6 more...',
             location: "Largo do Chiado, 1200-443 Lisboa",
+            image: require('./assets/group2.jpg'),
             latitude: 38.711477586802665,
             longitude: -9.142375846542347,
             latitudeDelta: 0.01,
@@ -136,6 +142,7 @@ const sampleData = {
             title: 'Walk in Sintra', 
             numPeopl: 'and 31 more...',
             location: "Estrada da Pena, 2710-609 Sintra",
+            image: require('./assets/group3.jpg'),
             latitude: 38.78922817493438,
             longitude: -9.39070289804973,
             latitudeDelta: 0.01,

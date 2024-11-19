@@ -12,7 +12,7 @@ const cardHeight = height * 0.18;
 const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={styles.card}>
-            <Icon name="account-circle" size={24} color="#555" />
+            <Image source={item.picture} style={styles.profilePicture} />
             <Text style={styles.cardTitle}>{item.name}, {item.age}</Text>
             <Text style={styles.cardSubtitle}>{item.activities.join(', ')}</Text>
         </TouchableOpacity>
@@ -20,7 +20,7 @@ const InYourAreaScreen = ({navigation}) => {
 
     const renderGroupItem = ({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('GroupDetail', { tour: item })} style={styles.card}>
-            <Icon name="image" size={24} color="#555" />
+            <Image source={item.image} style={styles.image} />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.numPeopl}</Text>
         </TouchableOpacity>
@@ -28,7 +28,7 @@ const InYourAreaScreen = ({navigation}) => {
 
     const renderPaidToursItem = ({ navigation, item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('TourDetails', { tour: item })} style={styles.card}>
-            <Icon name="image" size={24} color="#555" />
+            <Image source={{uri: item.imageLink}} style={styles.image} />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.price}€</Text>
         </TouchableOpacity>
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#fff',
         borderRadius: 10,
-        padding: 10,
+        //padding: 10,
         marginHorizontal: 5,
         width: width * 0.4,
         alignItems: 'center',
@@ -223,9 +223,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 1.5,
         elevation: 2,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         borderColor: '#888',
         borderWidth: 0.5,
+        overflow: 'hidden',
     },
     cardTitle: {
         fontSize: Math.min(cardWidth, cardHeight) * 0.12,
@@ -233,6 +234,7 @@ const styles = StyleSheet.create({
         fontFamily: 'CodecPro-Bold',
         textAlign: 'center',
         marginVertical: 5,
+        marginHorizontal: 10,
         lineHeight: 20,
 
     },
@@ -243,7 +245,24 @@ const styles = StyleSheet.create({
         fontFamily: 'CodecPro-Regular',
         lineHeight: 17,
         letterSpacing: 0.6,
+        marginHorizontal: 10,
     },
+
+    profilePicture: {
+        width: cardWidth * 0.32,
+        height: cardWidth * 0.32,
+        borderRadius: (cardWidth * 0.6) / 2,
+        borderWidth: 1,
+        borderColor: '#888',
+        marginTop: 10,
+    },
+    image: {
+        width: '100%',
+        height: cardHeight * 0.4,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        marginBottom: 5,
+    }
 });
 
 export default InYourAreaScreen;
