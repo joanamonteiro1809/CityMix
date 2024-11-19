@@ -1,4 +1,4 @@
-// PopupPaid.js
+// CreateInvitation.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -6,6 +6,7 @@ import ArrowButton from '../../GeneralElements/ArrowButton';
 import dayjs from 'dayjs';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 
 const CreateInvitation = ({ navigation, route }) => {
 

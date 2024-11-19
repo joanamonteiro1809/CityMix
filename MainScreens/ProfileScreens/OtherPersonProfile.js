@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import ArrowButton from '../../GeneralElements/ArrowButton';
+import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 
 const { width, height } = Dimensions.get('window');
 
@@ -114,7 +115,11 @@ const OtherPersonProfile = ({ navigation, route }) => {
         </View>
         <Text style={styles.profileName}>{personDetails.name}, {personDetails.age}</Text>
         <Text style={styles.profileLocation}>{personDetails.location}</Text>
-        <TouchableOpacity style={styles.messageButton}>
+        <TouchableOpacity
+        style={styles.messageButton}
+        onPress={() => navigation.navigate('GroupMessage')}
+        >
+
           <Text style={styles.messageButtonText}>Message</Text>
         </TouchableOpacity>
       </View>
