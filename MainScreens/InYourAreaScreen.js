@@ -1,7 +1,8 @@
 // screens/InYourAreaScreen.js
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { AntDesign } from '@expo/vector-icons';
 import sampleData from '../sampledata';
 
 const { width, height } = Dimensions.get('screen');
@@ -40,7 +41,7 @@ const InYourAreaScreen = ({navigation}) => {
                 {/* Search Bar */}
                 <View style={styles.header}>
                     <View style={styles.searchContainer}>
-                        <Icon name="search" size={24} color="#555" />
+                        <MaterialIcons name="search" size={24} color="#555" />
                         <TextInput style={styles.searchInput} placeholder="Search" />
                     </View>
 
@@ -67,7 +68,7 @@ const InYourAreaScreen = ({navigation}) => {
                     <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
                         <View style={styles.sectionHeader}>
                             <Text style={styles.sectionTitle}>Individual</Text>
-                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                            <MaterialIcons name={"chevron-right"} style={styles.iconStyle}  />
                         </View>
                     </TouchableOpacity>
                     <FlatList
@@ -84,7 +85,7 @@ const InYourAreaScreen = ({navigation}) => {
                     <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Group' })}>
                         <View style={styles.sectionHeader}>
                             <Text style={styles.sectionTitle}>Group Meetups</Text>
-                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
+                            <MaterialIcons name={"chevron-right"} style={styles.iconStyle}  />
                         </View>
                     </TouchableOpacity>
                     <FlatList
@@ -98,12 +99,17 @@ const InYourAreaScreen = ({navigation}) => {
 
                 {/* Paid Tours Section */}
                 <View style={styles.section}>
-                    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionTitle}>Paid Tours</Text>
-                            <Icon name={"chevron-right"} style={styles.iconStyle}  />
-                        </View>
-                    </TouchableOpacity>
+                    <View style={styles.addButton}>
+                        <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
+                            <View style={styles.sectionHeader}>
+                                <Text style={styles.sectionTitle}>Paid Tours</Text>
+                                <MaterialIcons name={"chevron-right"} style={styles.iconStyle}  />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('AddTour', {guideName: "João Silva"})}>
+                            <AntDesign name={"pluscircle"} style={styles.iconStyle}  />
+                        </TouchableOpacity>
+                    </View>
                     <FlatList
                         horizontal
                         data={sampleData.paidTours}
@@ -272,6 +278,11 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         marginBottom: 5,
+    }, 
+    addButton:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     }
 });
 

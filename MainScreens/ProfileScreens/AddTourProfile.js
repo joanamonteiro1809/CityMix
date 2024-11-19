@@ -8,20 +8,22 @@ import ArrowButton from '../../GeneralElements/ArrowButton';
 
 const { width, height } = Dimensions.get('window');
 
-const CreateTourScreen = () => {
+const CreateTourScreen = ({route}) => {
     const navigation = useNavigation();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
-    const [route, setRoute] = useState('');
+    const [routeLocation, setRoute] = useState('');
     const [routes, setRoutes] = useState([]);
     const [errors, setErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    const guideName = route.params?.guideName;
+
     // Function to add a route stop to the list
     const addRoute = () => {
-        if (route.trim()) {
-            setRoutes([...routes, route]);
+        if (routeLocation.trim()) {
+            setRoutes([...routes, routeLocation]);
             setRoute('');
             if (isSubmitted) setErrors((prev) => ({ ...prev, routes: '' }));
         }
@@ -49,9 +51,15 @@ const CreateTourScreen = () => {
             const newTour = {
                 id: Date.now().toString(),
                 title,
+                price,
+                rating: '0.0',
+                tourGuide: guideName,
                 description,
-                price: `${price}€`,
+                imageLink: '',
                 routeStops: routes,
+                reviews: [],
+                activities: [],
+                availableTimes:[],
             };
 
             sampleData.paidTours.push(newTour);
@@ -109,7 +117,7 @@ const CreateTourScreen = () => {
                 <View style={styles.routeInput}>
                     <TextInput
                         placeholder="Add route"
-                        value={route}
+                        value={routeLocation}
                         onChangeText={setRoute}
                         style={{ flex: 1 }}
                     />

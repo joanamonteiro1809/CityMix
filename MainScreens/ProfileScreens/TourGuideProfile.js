@@ -171,7 +171,7 @@ const TourGuideProfile = ({ navigation }) => {
                     <View style={styles.toursSection}>
                         <TouchableOpacity
                             style={styles.addTourButton}
-                            onPress={() => navigation.navigate('AddTourProfile')}
+                            onPress={() => navigation.navigate('AddTourProfile', {guideName: "João Silva"})}
                         >
                             <Text style={styles.addTourButtonText}>+ Add new tour</Text>
                         </TouchableOpacity>
