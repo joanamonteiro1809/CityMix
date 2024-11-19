@@ -1,11 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
 import { useFonts } from 'expo-font';
+import sampleData from './sampledata';
 
 const { width, height } = Dimensions.get('window');
 
 
 const LoginScreen = ({ navigation }) => {
+
+    const [email, setEmail] = useState('');
 
     {/*const [fontsLoaded] = useFonts({
         'CodecPro-Bold': require('./assets/fonts/CodecPro-Bold.ttf'),
@@ -52,6 +55,20 @@ const LoginScreen = ({ navigation }) => {
         ]).start();
     }, []);
 
+    const handleEmail = (newEmail) => {
+        setEmail(newEmail);
+    }
+
+    const handleNext = () => {
+        console.log('Before: ', email)
+        if(email == "Rita"){
+            sampleData.currentUser.role = 'normal_user';
+        } else {
+            sampleData.currentUser.role = 'tour_guide';
+        }
+        console.log('After: ', sampleData.currentUser)
+        navigation.navigate('HomeScreen');
+    }
 
     return (
         <View style={styles.container}>
@@ -80,7 +97,13 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.title}>Login</Text>
 
                 {/* Email and Password Input */}
-                <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#888" />
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Email" 
+                    placeholderTextColor="#888" 
+                    value={email}
+                    onChangeText={handleEmail}
+                />
                 <TextInput
                     style={styles.input}
                     placeholder="Password"
@@ -93,7 +116,7 @@ const LoginScreen = ({ navigation }) => {
                     <TouchableOpacity onPress={() => navigation.navigate('SignupStep1')}>
                         <Text style={styles.signupText}>Sign up</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.loginButton} onPress={() => { navigation.navigate('HomeScreen') }}>
+                    <TouchableOpacity style={styles.loginButton} onPress={handleNext}>
                         <Image source={require('./assets/arrow.png')} style={styles.arrow}/>
                     </TouchableOpacity>
                 </View>

@@ -218,7 +218,10 @@ const sampleData = {
             longitudeDelta: 0.01,
             name: 'Golden Gate Bridge'
         }
-    ]
+    ],
+    currentUser: {
+        role: 'normal_user',
+    }
 };
 
 export default sampleData;

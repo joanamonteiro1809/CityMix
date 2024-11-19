@@ -5,10 +5,22 @@ import InYourAreaScreen from './InYourAreaScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import InYourAreaStack from './InYourAreaStack';
 import ProfileStack from './ProfileScreens/ProfileStack';
+import sampleData from '../sampledata';
+import TourGuideProfile from './ProfileScreens/TourGuideProfile';
+import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
+
+    const handleProfile = () => {
+        if(sampleData.currentUser.role == "tour_guide"){
+            return TourGuideProfile;
+        } else{
+            return  MyNormalProfile;
+        }
+    }
+
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -35,7 +47,7 @@ const MainNavigator = () => {
             <Tab.Screen name="Home" component={InYourAreaStack}/>
             <Tab.Screen name="Messages" component={InYourAreaScreen} />
             <Tab.Screen name="Notifications" component={InYourAreaScreen} />
-            <Tab.Screen name="Profile" component={ProfileStack} />
+            <Tab.Screen name="Profile" component={handleProfile()} />
         </Tab.Navigator>
     );
 };
