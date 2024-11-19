@@ -13,6 +13,7 @@ import GroupDetail from './GroupScreens/GroupDetail';
 import OtherPersonProfile from './ProfileScreens/OtherPersonProfile';
 import GroupMessage from './MessagesScreens/GroupMessage';
 import CreateInvitation from './MessagesScreens/CreateInvitation';
+import SearchScreen from '../GeneralElements/SearchScreen';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
             <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ headerShown: false }} />
             <Stack.Screen name="CreateInvitation" component={CreateInvitation} options={{ headerShown: false }} />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };

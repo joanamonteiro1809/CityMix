@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF914D', // Background color for the segmented control
     borderRadius: 25,
     padding: 4,
-    marginVertical: 20,
+    marginVertical: 5,
   },
   tab: {
     flex: 1,

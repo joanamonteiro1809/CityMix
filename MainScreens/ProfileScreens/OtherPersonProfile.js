@@ -107,7 +107,6 @@ const OtherPersonProfile = ({ navigation, route }) => {
       {/* Cabeçalho */}
       <View style={styles.header}>
         <View style={styles.profilePictureContainer}>
-
           <Image source={personDetails.picture} style={styles.profileIcon} />
         </View>
         <Text style={styles.profileName}>{personDetails.name}, {personDetails.age}</Text>
@@ -185,13 +184,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#ffeadd',
-        marginTop: 0, // Certifique-se de que não há valores desiguais
     },
     tabBarContainer: {
         backgroundColor: '#FF914D',
-        paddingVertical: -5, // Use valores iguais para cima e baixo
     },
-
     content: {
         flex: 1,
     },
