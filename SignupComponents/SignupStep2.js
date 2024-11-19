@@ -111,7 +111,7 @@ const SignupStep2 = ({ navigation }) => {
                 <View style={[styles.imageUploadContainer, isFieldInvalid(date) && styles.inputError]}>
                     <TouchableOpacity onPress={pickImage}>
                         {!image ? (
-                            <Image source={require('../assets/upload.png')}  style={styles.image}/>
+                            <Image source={require('../assets/upload.png')}  style={styles.imagePlaceholder}/>
                         ) : (
                             <Image source={{ uri: image }} style={styles.image} />)
                         }
@@ -318,23 +318,32 @@ const styles = StyleSheet.create({
     },
 
     imageUploadContainer: {
+        width: screenWidth * 0.30,
+        height: screenWidth * 0.30,
         alignSelf: 'center',
         justifyContent: 'center',
-        width: 130,
-        borderRadius: 20,
         backgroundColor: '#EBEBEB',
         borderColor: '#ccc',
         borderWidth: 0.7,
         marginTop: 30,
         padding: 10,
+        borderRadius: (screenWidth * 0.3) / 2,
+        overflow: 'hidden',
+    },
 
+    imagePlaceholder: {
+        width: screenWidth * 0.20,
+        height: screenWidth * 0.20,
+        resizeMode: 'contain',
+        alignSelf: 'center',
     },
 
     image: {
-        width: 90,
-        height: 90,
+        width: screenWidth * 0.30,
+        height: screenWidth * 0.30,
+        borderRadius: (screenWidth * 0.3) / 2,
+        resizeMode: 'cover',
         alignSelf: 'center',
-
       },
 
     text: {

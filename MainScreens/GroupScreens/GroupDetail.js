@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-  Alert,
-} from "react-native";
-
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert, Image, } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ArrowButton from "../../GeneralElements/ArrowButton";
 import { useNavigation } from "@react-navigation/native";
@@ -69,15 +60,16 @@ const GroupDetail = () => {
       <Text style={styles.address}>Av. Brasília, 1400-038 Lisboa</Text>
 
       {/* Botão Photos */}
-      <TouchableOpacity style={styles.photoButton}>
-        <Icon
+      {/*<TouchableOpacity style={styles.photoButton}>*/}
+        {/*<Icon
           name="photo-camera"
           size={width * 0.1}
           color="#888"
           style={styles.photoIcon}
         />
-        <Text style={styles.photoText}>Photos</Text>
-      </TouchableOpacity>
+        <Text style={styles.photoText}>Photos</Text>*/}
+        <Image source={require('../../assets/group1.jpg')} style={styles.photoButton} />
+      {/*</TouchableOpacity>*/}
 
       {/* Lista de Membros */}
       <Text style={styles.sectionTitle}>Members</Text>
