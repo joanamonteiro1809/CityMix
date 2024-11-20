@@ -91,40 +91,75 @@ const TourGuideProfile = ({ navigation }) => {
 
     const ToursItem = ({ item, nav }) => (
         <View style={styles.tourCard}>
-            <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.titleAndPhotoInline}>
-                <Icon name="image" size={50} color="#555" />
+            {/* Navegar para os detalhes do Tour */}
+            <TouchableOpacity 
+                onPress={() => nav.navigate('TourDetails', { tour: item })} 
+                style={styles.titleAndPhotoInline}
+            >
+                {/* Substituir com a imagem do tour */}
+                <Image 
+                    source={{
+                        uri: 'https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces',
+                    }}
+                    style={styles.tourImage}
+                />
                 <View style={styles.tourInfo}>
                     <Text style={styles.tourName}>{item.title}</Text>
                     <View style={styles.ratingContainer}>
+                        {/* Exibir o número seguido por um símbolo da estrela */}
                         <Text style={styles.ratingText}>{item.rating}</Text>
-                        <Icon name="star" size={16} color="#000" />
+                        <Image
+                            source={require('../../assets/star.png')} // Estrela personalizada
+                            style={styles.starIcon}
+                        />
                     </View>
                 </View>
             </TouchableOpacity>
-            {/* Botão de deletar */}
+            {/* Botão para deletar o Tour */}
             <TouchableOpacity onPress={() => handleDeleteTour(item.id)} style={styles.deleteButton}>
                 <Icon name="delete" size={24} color="#000" />
             </TouchableOpacity>
         </View>
     );
+    
 
     const renderTabContent = () => {
         switch (activeTab) {
             case 'About':
-                return (
-                    <View style={styles.aboutSection}>
-                        <Text style={styles.sectionTitle}>Description</Text>
-                        <Text style={styles.sectionText}>Add a description here...</Text>
-                        <Text style={styles.sectionTitle}>Interests</Text>
-                        <Text style={styles.sectionText}>Add interests here...</Text>
-                        <Text style={styles.sectionTitle}>Reviews</Text>
-                        <View style={styles.reviewPlaceholder}>
-                            <Text style={styles.sectionText}>Review 1</Text>
-                            <Text style={styles.sectionText}>Review 2</Text>
+    return (
+        <View style={styles.aboutSection}>
+            <Text style={styles.sectionTitle}>Description</Text>
+            <Text style={styles.sectionText}>
+                Hi, I'm João Silva, a passionate and experienced tour guide based in Lisbon. I have been guiding travelers 
+                through the rich history and culture of Lisbon for over 5 years. 
+            </Text>
+            <Text style={styles.sectionTitle}>Interests</Text>
+            <Text style={styles.sectionText}>
+                Museums, Art
+            </Text>
+            <Text style={styles.sectionTitle}>Reviews</Text>
+            <FlatList
+                data={[
+                    { id: '1', reviewer: 'Maria Carvalho', review: 'The guide was very friendly and sociable.', rating: 5 },
+                    { id: '2', reviewer: 'José Silva', review: 'Lovely experience, but a bit overpriced.', rating: 4 },
+                ]}
+                renderItem={({ item }) => (
+                    <View style={styles.reviewCard}>
+                        <Text style={styles.reviewerName}>{item.reviewer}</Text>
+                        <Text style={styles.reviewText}>{item.review}</Text>
+                        <View style={styles.ratingContainer}>
+                            <Text style={styles.ratingText}>{item.rating}</Text>
+                            <Icon name="star" size={16} color="#f2b636" />
                         </View>
                     </View>
-                );
-
+                )}
+                keyExtractor={(item) => item.id}
+                horizontal={true} // Faz com que a lista seja horizontal
+                showsHorizontalScrollIndicator={false} // Oculta a barra de rolagem horizontal
+                contentContainerStyle={styles.reviewsList}
+            />
+        </View>
+    );
             case 'Calendar':
                 const filteredEvents = date
                 ? sampleEvents.filter(event => event.date === formatDate(date)) // Compare selected date
@@ -237,7 +272,7 @@ const styles = StyleSheet.create({
     },
     profileHeader: {
         alignItems: 'center',
-        marginTop: height * 0.07,
+        marginTop: height * 0.1,
     },
     logoutButton:{
         position: 'absolute',
@@ -256,7 +291,8 @@ const styles = StyleSheet.create({
     availabilityContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: height * 0.02,
+        marginTop: height * 0.01,
+        marginBottom: height * 0.01,
     },
     availabilityText: {
         fontSize: 18,
@@ -265,12 +301,13 @@ const styles = StyleSheet.create({
     tabContentContainer: {
         flexGrow: 1,
         //paddingBottom: height * 0.02, // Ensure there’s padding at the bottom
-        backgroundColor: '#f8e4b8',
+        backgroundColor: '#ffeadd',
         padding: 10,
         borderRadius: 20, // Borda arredondada
         marginBottom: 20,
-        //marginHorizontal: width * 0.01,
         width: width * 0.9,
+        marginTop: 10,
+        
     },
     aboutSection: {
         flex: 1,
@@ -280,20 +317,26 @@ const styles = StyleSheet.create({
     },
     eventsSection: {
         padding: width * 0.03,
+        marginBottom: height * 0.5,
     },
     sectionTitle: {
-        fontSize: width * 0.04,
+        fontSize: width * 0.05,
         fontWeight: 'bold',
-        marginTop: height * 0.01,
+        marginBottom: 15,
+        marginTop: 15,
+
+
     },
     sectionText: {
-        color: '#666',
         fontSize: width * 0.04,
+        color: '#555',
+        marginBottom: 20,
     },
     reviewPlaceholder: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginVertical: height * 0.01,
+        
     },
     eventsList: {
         marginTop: height * 0.01,
@@ -310,6 +353,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
+        
     },
 
     eventDate: {
@@ -324,6 +368,11 @@ const styles = StyleSheet.create({
         color: '#f2b636',
         marginRight: width * 0.07,
     },
+    starIcon: {
+        width: 16, // Ajuste o tamanho da estrela
+        height: 16,
+        marginRight: 4,
+    },
     eventTitle: {
         fontWeight: 'bold',
         fontSize: width * 0.04,
@@ -337,12 +386,54 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     addTourButton: {
-        backgroundColor: '#f2d8a5',
+        backgroundColor: '#FF914D',
         padding: width * 0.04,
         borderRadius: 10,
         alignItems: 'center',
         marginTop: height * 0.02,
     },
+    reviewsList: {
+        marginVertical: 10,
+        paddingHorizontal: 10,
+    },
+    
+    reviewCard: {
+        backgroundColor: '#fff',
+        padding: 10,
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        marginHorizontal: 10,
+        width: width * 0.55, 
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2, // Para sombra em dispositivos Android
+    },
+    
+    reviewerName: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    
+    reviewText: {
+        fontSize: 14,
+        color: '#555',
+        marginBottom: 10,
+    },
+    
+    ratingContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    
+    ratingText: {
+        fontSize: 14,
+        marginRight: 5,
+        color: '#FF914D',
+    },
+    
     addTourButtonText: {
         color: '#000',
         fontSize: width * 0.04,
@@ -380,6 +471,14 @@ const styles = StyleSheet.create({
         fontSize: width * 0.045, // Ajusta a fonte para caber melhor
         fontWeight: 'bold',
     },
+    tourImage: {
+        width: width * 0.2, // Ajuste para o tamanho desejado
+        height: width * 0.2,
+        borderRadius: 10, // Deixe as bordas arredondadas, se necessário
+        marginRight: 10, // Espaço entre a imagem e o texto
+        backgroundColor: '#ddd',
+    },
+    
     ratingContainer: {
         flexDirection: 'row',
         alignItems: 'center',
