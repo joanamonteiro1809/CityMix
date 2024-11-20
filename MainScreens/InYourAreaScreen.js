@@ -66,7 +66,7 @@ const InYourAreaScreen = ({navigation}) => {
                     </View>
                 </View>
 
-                <View style={styles.section}>
+                <View style={styles.sectionContainer}>
                 {/* Individual Section */}
                 <View style={styles.section}>
                     <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
@@ -199,12 +199,12 @@ const styles = StyleSheet.create({
     },
     sectionContainer: {
         //flex: 1,
-         height: height * 0.8,
+         height: height * 0.7,
          justifyContent: 'space-between',
     },
     section: {
         height: height * 0.23, 
-        marginBottom: 10,
+        marginBottom: 0,
     },
     sectionHeader: {
         flexDirection: 'row',

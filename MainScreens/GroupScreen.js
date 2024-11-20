@@ -8,7 +8,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { width, height } = Dimensions.get('window');
 
-// TODO: adicionar os 2 icons das pessoas e da localizaçao + por texto em cima
+
 const renderGroupItem = ({nav, item }) => (
     <TouchableOpacity onPress={() => nav.navigate('GroupEntry', {group: item}) } style={styles.groupCard}>
             <Image source={item.image} style={styles.image} />

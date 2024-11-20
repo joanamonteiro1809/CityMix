@@ -7,8 +7,8 @@ import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import sampleData from '../../sampledata'
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For persistence
 import dayjs from 'dayjs';
-import { getEvents } from '../../GeneralElements/asyncStorage';
-import { saveEvents } from '../../GeneralElements/asyncStorage';
+//import { getEvents } from '../../GeneralElements/asyncStorage';
+//import { saveEvents } from '../../GeneralElements/asyncStorage';
 
 const { width, height } = Dimensions.get('window');
 
