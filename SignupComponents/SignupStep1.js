@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     },
 
     contentContainer: {
-        flexGrow: 1,
+        //flexGrow: 1,
         justifyContent: 'flex-start',
     },
 
@@ -175,14 +175,15 @@ const styles = StyleSheet.create({
     buttonsRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20,
-        position: 'absolute',
-        bottom: 10,
-        left: 20,
-        right: 20,
+        marginBottom: 10,
+        //position: 'absolute',
+        //bottom: 10,
+        //left: 20,
+        //right: 20,
         justifyContent: 'space-between',
+        marginTop: 10,
+        
     },
-
     inputError: {
         borderColor: 'red',
     },
