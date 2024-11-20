@@ -40,7 +40,7 @@ const CreateInvitation = ({ navigation, route }) => {
     };
 
 // Meeting Point picker
-    const [meetingPoint, setMeetingPoint] = useState(''); // Store the selected time
+    const [meetingPoint, setMeetingPoint] = useState(''); // Store the selected meeting Point
 
     const handleMeetingPChange = (text) => {
         setMeetingPoint(text);
@@ -58,15 +58,12 @@ const CreateInvitation = ({ navigation, route }) => {
     const handleNext = () => {
         setIsSubmitted(true);
         if (validate()) {
-            //navigation.navigate('');
+            navigation.popTo('IndividualMessage', {date: dayjs(date).format('D-MMM'), time: time, meetingPoint: meetingPoint})
         }
     };
 
     const renderContent = () => (
         <View>
-            {/* Title */}
-            <Text style={styles.title}>Invite</Text>
-
             {/* Date Input */}
             <View style={styles.infoContainer}>
                 <Text style={styles.sectionTitle}>Date</Text>
@@ -109,25 +106,7 @@ const CreateInvitation = ({ navigation, route }) => {
                         is24Hour={true}
                         onChange={handleTimeChange}
                     />
-            )}
-
-            {/* Meeting Point Input */}
-            <View style={styles.infoContainer}>
-                <Text style={styles.sectionTitle}>Meeting Point</Text>
-                    <View style={styles.selectionContainer}>
-                        <TextInput 
-                            style={[styles.input, isFieldInvalid(meetingPoint) && styles.inputError]} 
-                            placeholder="Select a location" 
-                            placeholderTextColor="#aaa"
-                            value={meetingPoint}
-                            onChangeText={handleMeetingPChange}
-                        />
-                        <TouchableOpacity>
-                            <Icon name="location-pin" size={24} color="#555" />
-                        </TouchableOpacity>
-                    </View>
-                    {isFieldInvalid(meetingPoint) && <Text style={styles.errorText}>Meeting point is required.</Text>}
-            </View>       
+            )}    
         </View>
     );
 
@@ -145,16 +124,36 @@ const CreateInvitation = ({ navigation, route }) => {
                         <ArrowButton onPress={() => navigation.goBack()} iconName="close" />
                     </View>
 
+                    {/* Title */}
+                    <Text style={styles.title}>Invite</Text>
+
+                    {/* Meeting Point Input */}
+                    <View style={styles.infoContainer}>
+                        <Text style={styles.sectionTitle}>Meeting Point</Text>
+                            <View style={styles.selectionContainer}>
+                                <TextInput 
+                                    style={[styles.input, isFieldInvalid(meetingPoint) && styles.inputError]} 
+                                    placeholder="Select a location" 
+                                    placeholderTextColor="#aaa"
+                                    value={meetingPoint}
+                                    onChangeText={handleMeetingPChange}
+                                />
+                                <TouchableOpacity>
+                                    <Icon name="location-pin" size={24} color="#555" />
+                                </TouchableOpacity>
+                            </View>
+                            {isFieldInvalid(meetingPoint) && <Text style={styles.errorText}>Meeting point is required.</Text>}
+                    </View>               
+
                     {/* Scrollable Content */}
                     <FlatList
                         data={[]}
                         renderItem={null}
                         ListHeaderComponent={renderContent}
-                        contentContainerStyle={styles.scrollContainer}
                     />
 
                     <TouchableOpacity onPress={handleNext}>
-                            <TouchableOpacity onPress={() => navigation.popTo('IndividualMessage', {date: dayjs(date).format('D-MMM'), time: time, meetingPoint: meetingPoint})}style={styles.button}>
+                            <TouchableOpacity onPress={handleNext} style={styles.button}>
                                 <Text style={styles.buttonText}>Create Invite</Text>
                             </TouchableOpacity>
                     </TouchableOpacity>
@@ -187,6 +186,7 @@ const styles = StyleSheet.create({
         position: 'absolute', // Position close button at the top right
         top: 10,
         right: 10,
+        
     },
     // Invite title
     title: {
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     // Each selection section
     infoContainer: {
         marginBottom: 15,
+        
     },
     selectionContainer: {
         flexDirection: 'row',
