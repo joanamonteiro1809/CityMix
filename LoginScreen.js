@@ -79,8 +79,6 @@ const LoginScreen = ({ navigation }) => {
             enableOnAndroid={true}
         >
             <View style={styles.container}>
-                {/* Top Section with Background and Illustration */}
-
                 <Animated.Image
                     source={require('./assets/Logo.png')}
                     style={[styles.logo, {transform: [{translateY: logoAnim.interpolate({

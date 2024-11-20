@@ -231,7 +231,40 @@ const sampleData = {
     ],
     currentUser: {
         role: 'normal_user',
-    }
+    },
+
+    ritaEvents: [
+        {
+            id: 1,
+            title: 'Meetup with Alice',
+            date: '2024-11-13',
+            time: '11:30',
+            location: 'Saldanha',            
+        },
+        {
+            id: 2,
+            title: 'Discover the wonders of Lisbon',
+            date: '2024-09-27',
+            time: '14:00',
+            location: 'Praça do Comércio',     
+        },
+    ],
+    joaoEvents: [
+        {
+            id: 1,
+            title: 'Meetup with Diogo',
+            date: '2024-11-01',
+            time: '16:00',
+            location: 'Chiado',            
+        },
+        {
+            id: 2, 
+            title: 'Meetup with Ana', 
+            date: '2024-10-11', 
+            time: '14:00', 
+            location: 'Torre de Belém',
+        },
+    ],
 };
 
 export default sampleData;
