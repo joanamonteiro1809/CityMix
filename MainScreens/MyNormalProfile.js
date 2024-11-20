@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../GeneralElements/TabControl';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Ou o ícone de sua escolha
+
 
 const { width, height } = Dimensions.get('window');
 
