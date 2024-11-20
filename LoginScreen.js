@@ -60,13 +60,12 @@ const LoginScreen = ({ navigation }) => {
     }
 
     const handleNext = () => {
-        console.log('Before: ', email)
         if(email == "Rita"){
             sampleData.currentUser.role = 'normal_user';
         } else {
             sampleData.currentUser.role = 'tour_guide';
         }
-        console.log('After: ', sampleData.currentUser)
+        
         navigation.navigate('HomeScreen');
     }
 

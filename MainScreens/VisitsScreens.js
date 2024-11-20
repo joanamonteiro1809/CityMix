@@ -15,9 +15,9 @@ const VisitsScreen = ({ navigation, route }) => {
 
     const initialTab = route.params?.tabSelected || "Individuals";
 
-    const filteredIndividuals = (initialTab =="Individuals" && route.params?.filteredTours) || sampleData.individual;
-    const filteredGroups = (initialTab =="Group" && route.params?.filteredTours) || sampleData.group;
-    const filteredPaid = (initialTab == "Paid" && route.params?.filteredTours) || sampleData.paidTours;
+    const filteredIndividuals = route.params?.filteredIndividuals || sampleData.individual;
+    const filteredGroups = route.params?.filteredGroups || sampleData.group;
+    const filteredPaid = route.params?.filteredPaid || sampleData.paidTours;
 
     const filters = route.params?.selectedFilters || {};
 
@@ -42,20 +42,35 @@ const VisitsScreen = ({ navigation, route }) => {
 
                 {/** Show age filter on individuals */}
                 {activeTab == 'Individuals' && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Individuals', filters: filters})}>
+                    <TouchableOpacity onPress={() => 
+                        navigation.navigate('Filter', 
+                            {tabSel: 'Individuals', 
+                            filters: filters, 
+                            recentSearch: location, 
+                            })}>
                         <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                     </TouchableOpacity>
                 )}
 
                 {activeTab == 'Group' && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Group', filters: filters})}>
+                    <TouchableOpacity onPress={() => 
+                        navigation.navigate('Filter', 
+                        {tabSel: 'Group', 
+                        filters: filters, 
+                        recentSearch: location,
+                        })}>
                         <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                     </TouchableOpacity>
                 )
                 }
 
                 {activeTab == 'Paid' && (
-                    <TouchableOpacity onPress={() => navigation.navigate('Filter', {tabSel: 'Paid', filters: filters})}>
+                    <TouchableOpacity onPress={() => 
+                        navigation.navigate('Filter', 
+                        {tabSel: 'Paid', 
+                        filters: filters, 
+                        recentSearch: location,
+                        })}>
                         <Icon name="tune" size={24} color="#000" style={styles.filterIcon} />
                     </TouchableOpacity>
                 )
@@ -72,15 +87,51 @@ const VisitsScreen = ({ navigation, route }) => {
             {/* Tab Content */}
             <View>
                 {activeTab === 'Individuals' && (
-                    <IndividualScreen nav={navigation} tours={filteredIndividuals} />
+                    filteredIndividuals.length > 0 ? (
+                        <IndividualScreen nav={navigation} tours={filteredIndividuals} />
+                    ) : (
+                        <View style={styles.noDataContainer}>
+                            <Text style={styles.noDataTitle}>No Users Found</Text>
+                            <Text style={styles.noDataSubtitle}>
+                                It seems like there are no users available in your selected location or with your current filters.
+                            </Text>
+                            <Text style={styles.noDataAction}>
+                                Try adjusting the filters or searching for a different location.
+                            </Text>
+                        </View>
+                    )
                 )}
 
                 {activeTab === 'Group' && (
-                    <GroupScreen nav={navigation} tours={filteredGroups} />
+                    filteredGroups.length > 0 ? (
+                        <GroupScreen nav={navigation} tours={filteredGroups} />
+                    ) : (
+                        <View style={styles.noDataContainer}>
+                            <Text style={styles.noDataTitle}>No Users Found</Text>
+                            <Text style={styles.noDataSubtitle}>
+                                It seems like there are no users available in your selected location or with your current filters.
+                            </Text>
+                            <Text style={styles.noDataAction}>
+                                Try adjusting the filters or searching for a different location.
+                            </Text>
+                        </View>
+                    )
                 )}
 
                 {activeTab === 'Paid' && (
-                    <PaidToursScreen nav={navigation} tours={filteredPaid} />
+                    filteredPaid.length > 0 ? (
+                        <PaidToursScreen nav={navigation} tours={filteredPaid} />
+                    ) : (
+                        <View style={styles.noDataContainer}>
+                            <Text style={styles.noDataTitle}>No Users Found</Text>
+                            <Text style={styles.noDataSubtitle}>
+                                It seems like there are no users available in your selected location or with your current filters.
+                            </Text>
+                            <Text style={styles.noDataAction}>
+                                Try adjusting the filters or searching for a different location.
+                            </Text>
+                        </View>
+                    )
                 )}
             </View>
         </View>
@@ -110,6 +161,32 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: '#000',
+    },
+    noDataContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 25,
+        paddingVertical: 20,
+        //borderWidth:2,
+        
+    },
+    noDataTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#555',
+        marginBottom: 10,
+    },
+    noDataSubtitle: {
+        fontSize: 16,
+        color: '#777',
+        textAlign: 'center',
+        marginBottom: 10,
+    },
+    noDataAction: {
+        fontSize: 14,
+        color: '#888',
+        textAlign: 'center',
+        fontStyle: 'italic',
     },
 });
 

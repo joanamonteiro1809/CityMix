@@ -8,7 +8,7 @@ const sampleData = {
             rating: '4,0',
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'English'],
-            location: 'Coimbra, Portugal',
+            location: 'Lisbon, Portugal',
             picture: require('./assets/user1.jpg'),
             reviews: [
                 {
@@ -39,7 +39,7 @@ const sampleData = {
             rating: '3,5',
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'English', 'Dutch'],
-            location: 'Porto, Portugal',
+            location: 'Lisbon, Portugal',
             picture: require('./assets/user2.png'),
             reviews: [
                 {
@@ -64,7 +64,7 @@ const sampleData = {
             rating: '3,0',
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese', 'Spanish'],
-            location: 'Algarve, Portugal',
+            location: 'Lisbon, Portugal',
             picture: require('./assets/user3.jpg'),
             reviews: [
                 {
@@ -95,7 +95,7 @@ const sampleData = {
             rating: '4,0' ,
             description: 'I love travelling and meeting new people. I am very sociable.',
             languages: ['Portuguese'],
-            location: 'Lisboa, Portugal',
+            location: 'Lisbon, Portugal',
             picture: require('./assets/user4.jpg'),
             reviews: [
                 {
@@ -119,7 +119,7 @@ const sampleData = {
             id: '1', 
             title: 'Day in Belém', 
             numPeopl: '10 members',
-            location: "Av. Brasília, 1300-598 Lisboa",
+            location: "Av. Brasília, 1300-598 Lisbon",
             image: require('./assets/group1.jpg'),
             latitude: 38.69588602464495,
             longitude: -9.195402120568252,
@@ -130,7 +130,7 @@ const sampleData = {
             id: '2', 
             title: 'Bar hopping in Chiado', 
             numPeopl: '15 members',
-            location: "Largo do Chiado, 1200-443 Lisboa",
+            location: "Largo do Chiado, 1200-443 Lisbon",
             image: require('./assets/group2.jpg'),
             latitude: 38.711477586802665,
             longitude: -9.142375846542347,
@@ -141,7 +141,7 @@ const sampleData = {
             id: '3', 
             title: 'Walk in Sintra', 
             numPeopl: '32 members',
-            location: "Estrada da Pena, 2710-609 Sintra",
+            location: "Estrada da Pena, 2710-609 Lisbon",
             image: require('./assets/group3.jpg'),
             latitude: 38.78922817493438,
             longitude: -9.39070289804973,
@@ -163,6 +163,7 @@ const sampleData = {
             activities: ["Famous Spots"],
             availableTimes: ["10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"],
             languages: ['Portuguese', 'English'],
+            location: ['Lisbon'],
         },
             
         { id: '2', title: 'Alfama Walking Tour', price: 19, rating: '3.5', tourGuide: 'Inês Dias', 
@@ -176,6 +177,7 @@ const sampleData = {
             activities: ["Famous Spots"],
             availableTimes: ["11:00", "12:00", "13:00", "14:00", "15:00"],
             languages: ['Portuguese', 'English', 'Spanish'],
+            location: ['Lisbon', 'Alfama'],
         },
 
         { id: '3', title: 'Taste of Lisbon Experience', price: 60, rating: '4.5', tourGuide: 'Alice Pires', 
@@ -189,6 +191,7 @@ const sampleData = {
             activities: ["Food"],
             availableTimes: ["11:00", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30"],
             languages: ['Spanish', 'Portuguese'],
+            location: ['Lisbon', 'Chiado'],
         },
         // Add more items here...
     ],

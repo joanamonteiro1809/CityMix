@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ArrowButton from "./ArrowButton";
+import sampleData from "../sampledata";
 
 const { width, height } = Dimensions.get("window");
 const cardWidth = width * 0.35;
@@ -23,7 +24,7 @@ const SearchScreen = ({navigation, route}) => {
   // Example data
   const defaultRecent = ["Chiado", "Alfama", "Sintra"];
   const suggestionItems = ["Alcântara", "Saldanha", "Marquês de Pombal"];
-  const allLocations = ["Braga", "Lisboa", "Porto", "Portoalegre", "Belém", "Marques"];
+  const allLocations = ["Braga", "Lisbon", "Porto", "Portoalegre", "Belém"];
   const [recentItems, setRecentItems] = useState(defaultRecent);
 
   // Filter locations based on searchText
@@ -44,10 +45,25 @@ const SearchScreen = ({navigation, route}) => {
 
 
   const renderListItem = (item) => (
-    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', {location: item})} style={styles.listItem}>
+    <TouchableOpacity onPress={() => handlePress(item) } style={styles.listItem}>
       <Text style={styles.listText}>{item}</Text>
     </TouchableOpacity>
   );
+
+  const handlePress = (item) => {
+    let individual = sampleData.individual;
+    let group = sampleData.group;
+    let paid = sampleData.paidTours;
+
+    individual = individual.filter((tour) => tour.location.includes(item));
+    group = group.filter((tour) => tour.location.includes(item));
+    
+    paid = paid.filter((tour) => tour.location.includes(item));
+    
+
+    navigation.navigate('VisitsScreen', {location: item, filteredIndividuals: individual, filteredGroups: group, filteredPaid: paid})
+
+  }
 
   return (
     

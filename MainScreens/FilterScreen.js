@@ -12,6 +12,7 @@ const FilterScreen = ({ navigation, route }) => {
 
     const prevFilters = route.params?.filters || {};
     const tabSel = route.params?.tabSel;
+    const recentSearch = route.params?.recentSearch;
 
     // Filter Logic
     const applyFilters = () => {
@@ -23,47 +24,57 @@ const FilterScreen = ({ navigation, route }) => {
             date,
         };
 
-        let filtered;
-        if(tabSel == 'Individuals'){
+        let individual = sampleData.individual.filter((tour) => tour.location.includes(recentSearch));
+        let group = sampleData.group.filter((tour) => tour.location.includes(recentSearch));
+        let paid = sampleData.paidTours.filter((tour) => tour.location.includes(recentSearch));
+       
+        /*if(tabSel == 'Individuals'){
             filtered = sampleData.individual;
         } else if (tabSel == 'Group'){
             filtered = sampleData.group;
         } else{
             filtered = sampleData.paidTours;
-        }
+        }*/
 
         if (date) {
             //filtered = filtered.filter((tour) => dayjs(tour.date).isSame(dayjs(date), 'day'));
         }
-        if(tabSel != 'Group'){
-            
-            if (selectedActivities.length > 0) {
-                filtered = filtered.filter((tour) =>
-                    selectedActivities.every((activity) => tour.activities.includes(activity))
-                );
-            }
-    
-            if(tabSel == 'Paid'){
-                filtered = filtered.filter(
-                    (tour) => tour.price >= priceValues[0] && tour.price <= priceValues[1]
-                );
-            }
-    
-            if(tabSel == 'Individuals'){
-                filtered = filtered.filter(
-                    (tour) => tour.age >= ageValues[0] && tour.age <= ageValues[1]
-                );
-            }
-    
-            if (selectedLanguages.length > 0) {
-                filtered = filtered.filter((tour) =>
-                    selectedLanguages.every((language) => tour.languages.includes(language))
-                );
-            }
+
+        //FILTRAR ATIVIDADES
+        if (selectedActivities.length > 0) {
+            individual = individual.filter((tour) =>
+                selectedActivities.every((activity) => tour.activities.includes(activity))
+            );
+
+            paid = paid.filter((tour) =>
+                selectedActivities.every((activity) => tour.activities.includes(activity))
+            );
         }
 
+        //FILTRAR PREÇO
+        paid = paid.filter(
+            (tour) => tour.price >= priceValues[0] && tour.price <= priceValues[1]
+        );
+        
+        //FILTRAR IDADE
+        individual = individual.filter(
+            (tour) => tour.age >= ageValues[0] && tour.age <= ageValues[1]
+        );
+        
+        //FILTRAR LANGUAGES
+        if (selectedLanguages.length > 0) {
+            individual = individual.filter((tour) =>
+                selectedLanguages.every((language) => tour.languages.includes(language))
+            );
+
+            paid = paid.filter((tour) =>
+                selectedLanguages.every((language) => tour.languages.includes(language))
+            );
+        }
+        
+
         // Navigate to the FilteredToursScreen and pass the filtered tours as a parameter
-        navigation.popTo('VisitsScreen', { tabSelected: tabSel, filteredTours: filtered, selectedFilters: filters });
+        navigation.popTo('VisitsScreen', { tabSelected: tabSel, selectedFilters: filters ,location: recentSearch, filteredIndividuals: individual, filteredGroups: group, filteredPaid: paid});
     };
 
     const [showAllActivities, setShowAllActivities] = useState(false);
