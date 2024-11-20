@@ -49,18 +49,19 @@ const CreateTourScreen = ({ route }) => {
     const guideName = route.params?.guideName;
 
 const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
-        let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ['images'],
-          allowsEditing: true,
-          aspect: [4, 3],
-          quality: 1,
-        });
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+    });
 
-        if (!result.canceled) {
-              setImage(result.assets[0].uri);
-            }
-    };
+    if (!result.canceled) {
+        setImage(result.assets[0].uri);
+        setErrors((prev) => ({ ...prev, image: '' })); // Remove o erro
+    }
+};
+
 
     const addRoute = () => {
         if (routeLocation.trim()) {
@@ -79,21 +80,42 @@ const pickImage = async () => {
         if (routes.length === 0) newErrors.routes = 'At least one route is required.';
         if (selectedActivities.length === 0) newErrors.activities = 'At least one activity is required.';
         if (selectedLanguages.length === 0) newErrors.languages = 'At least one language is required.';
-
-
+        if (availableTimes.length === 0) newErrors.availableTimes = 'At least one available time is required.';
+         if (!image) newErrors.image = 'Image is required.';
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
-    const toggleLanguageSelection = (language) => {
-        setSelectedLanguages((prevSelected) =>
-            prevSelected.includes(language)
-                ? prevSelected.filter((lang) => lang !== language)
-                : [...prevSelected, language]
-        );
+    const toggleActivitiesSelection = (activity) => {
+        setSelectedActivities((prevSelected) => {
+            const updated = prevSelected.includes(activity)
+                ? prevSelected.filter((act) => act !== activity)
+                : [...prevSelected, activity];
+            if (isSubmitted) {
+                setErrors((prev) => ({
+                    ...prev,
+                    activities: updated.length ? '' : 'At least one activity is required.',
+                }));
+            }
+            return updated;
+        });
     };
 
+    const toggleLanguageSelection = (language) => {
+        setSelectedLanguages((prevSelected) => {
+            const updated = prevSelected.includes(language)
+                ? prevSelected.filter((lang) => lang !== language)
+                : [...prevSelected, language];
+            if (isSubmitted) {
+                setErrors((prev) => ({
+                    ...prev,
+                    languages: updated.length ? '' : 'At least one language is required.',
+                }));
+            }
+            return updated;
+        });
+    };
 
     const addAvailableTime = () => {
         const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/; // Formato HH:mm
@@ -107,16 +129,9 @@ const pickImage = async () => {
         }
         setAvailableTimes([...availableTimes, availableTime]);
         setAvailableTime('');
+        setErrors((prev) => ({ ...prev, availableTimes: '' })); // Remove o erro
     };
 
-
-const toggleActivitiesSelection = (activity) => {
-    setSelectedActivities((prevSelected) =>
-        prevSelected.includes(activity)
-            ? prevSelected.filter((act) => act !== activity) // Remove se já está selecionado
-            : [...prevSelected, activity] // Adiciona se não está selecionado
-    );
-};
 
     const saveTour = async () => {
         setIsSubmitted(true);
@@ -130,7 +145,7 @@ const toggleActivitiesSelection = (activity) => {
                 rating: '0.0',
                 tourGuide: guideName,
                 description,
-                imageLink: '',
+                imageLink: image,
                 routeStops: routes,
                 activities: selectedActivities, // Inclui atividades
                 reviews: [],
@@ -166,12 +181,16 @@ const toggleActivitiesSelection = (activity) => {
 
                            {/* Área de imagem */}
                           <TouchableOpacity onPress={pickImage}>
-                                                  {!image ? (
-                                                      <Image source={require('../../assets/photo-upload.png')}  style={styles.imagePlaceholder}/>
-                                                  ) : (
-                                                      <Image source={{ uri: image }} style={styles.image} />)
-                                                  }
-                                              </TouchableOpacity>
+                              <View style={[styles.imageContainer, errors.image && styles.inputError]}>
+                                  {!image ? (
+                                      <Image source={require('../../assets/photo-upload.png')} style={styles.imagePlaceholder} />
+                                  ) : (
+                                      <Image source={{ uri: image }} style={styles.selectedImage} />
+                                  )}
+                              </View>
+                          </TouchableOpacity>
+                          {errors.image && <Text style={styles.errorText}>{errors.image}</Text>}
+
                     <Text style={styles.label}>Title</Text>
                     <TextInput
                         style={[styles.input, errors.title && styles.inputError]}
@@ -265,7 +284,7 @@ const toggleActivitiesSelection = (activity) => {
 
 
                     <Text style={styles.label}>Route</Text>
-                    <View style={styles.routeInput}>
+                    <View style={[styles.routeInput, errors.routes && styles.inputError]}>
                         <TextInput
                             placeholder="Add route"
                             value={routeLocation}
@@ -284,28 +303,30 @@ const toggleActivitiesSelection = (activity) => {
                         </View>
                     ))}
 
+
                     {/* Available Times */}
                     <Text style={styles.label}>Available Times</Text>
-                    <View style={styles.inputContainer}>
-                      <TextInput
-                          style={[styles.input, { flex: 1 }]} // Adicione flex: 1 para ocupar o espaço restante
-                          placeholder="Add time (HH:mm)"
-                          value={availableTime}
-                          onChangeText={(text) => {
-                              const cleanedText = text.replace(/[^0-9]/g, '');
-                              if (cleanedText.length <= 2) {
-                                  setAvailableTime(cleanedText);
-                              } else if (cleanedText.length <= 4) {
-                                  setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`);
-                              }
-                          }}
-                          maxLength={5}
-                          keyboardType="numeric"
-                      />
+                    <View style={[styles.inputContainer, errors.availableTimes && styles.inputError]}>
+                        <TextInput
+                            style={[styles.input, { flex: 1 }]}
+                            placeholder="Add time (HH:mm)"
+                            value={availableTime}
+                            onChangeText={(text) => {
+                                const cleanedText = text.replace(/[^0-9]/g, '');
+                                if (cleanedText.length <= 2) {
+                                    setAvailableTime(cleanedText);
+                                } else if (cleanedText.length <= 4) {
+                                    setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`);
+                                }
+                            }}
+                            maxLength={5}
+                            keyboardType="numeric"
+                        />
                         <TouchableOpacity style={styles.addTimeButton} onPress={addAvailableTime}>
                             <Icon name="add" size={24} color="#fff" />
                         </TouchableOpacity>
                     </View>
+                    {errors.availableTimes && <Text style={styles.errorText}>{errors.availableTimes}</Text>}
 
                     {availableTimes.map((time, index) => (
                         <View key={index} style={styles.item}>
@@ -313,26 +334,27 @@ const toggleActivitiesSelection = (activity) => {
                         </View>
                     ))}
 
-
                     <Text style={styles.label}>Price</Text>
-                    <View style={styles.priceInput}>
-                        <TextInput
-                            placeholder="Enter price"
-                            keyboardType="numeric"
-                            style={[{ flex: 1 }, errors.price && styles.inputError]}
-                            value={price}
-                            onChangeText={(text) => {
-                                setPrice(text);
-                                if (isSubmitted)
-                                    setErrors((prev) => ({
-                                        ...prev,
-                                        price: text.trim() ? '' : 'Price is required.',
-                                    }));
-                            }}
-                        />
-                        <Text>€</Text>
-                    </View>
-                    {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
+                   <View style={[styles.priceInput, errors.price && styles.inputError]}>
+                       <TextInput
+                           placeholder="Enter price"
+                           keyboardType="numeric"
+                           style={{ flex: 1 }}
+                           value={price}
+                           onChangeText={(text) => {
+                               setPrice(text);
+                               if (isSubmitted)
+                                   setErrors((prev) => ({
+                                       ...prev,
+                                       price: text.trim() ? '' : 'Price is required.',
+                                   }));
+                           }}
+                       />
+                       <Text>€</Text>
+                   </View>
+                   {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
+
+
 
                     <TouchableOpacity style={styles.addButton} onPress={saveTour}>
                         <Text style={styles.addButtonText}>Add Tour</Text>
@@ -434,13 +456,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f5f5f5',
         borderRadius: 8,
-        padding: width * 0.03,
-        marginTop: height * 0.02,
+        padding: width * 0.01,
+        marginTop: height * 0.01,
     },
-    inputError: {
-        borderColor: 'red',
-        borderWidth: 1,
-    },
+   inputError: {
+       borderColor: 'red',
+       borderWidth: 1,
+   },
+
     errorText: {
         color: 'red',
         fontSize: 12,
@@ -499,6 +522,31 @@ selectedImage: {
         resizeMode: 'contain',
         alignSelf: 'center',
     },
+    imageContainer: {
+        width: width * 0.4,
+        height: width * 0.3,
+        backgroundColor: '#f5f5f5',
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginTop: height * 0.02,
+    },
+    inputError: {
+        borderColor: 'red',
+        borderWidth: 2,
+    },
+    imagePlaceholder: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
+    },
+    selectedImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10,
+    },
+
 
 
 });
