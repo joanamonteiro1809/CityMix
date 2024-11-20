@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import sampleData from '../../sampledata';
 import ArrowButton from '../../GeneralElements/ArrowButton';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 const { width, height } = Dimensions.get('window');
 
@@ -41,8 +42,25 @@ const CreateTourScreen = ({ route }) => {
     const languages = ['English', 'Portuguese', 'Spanish', 'French', 'Chinese', 'Dutch', 'Italian', 'Japanese'];
     const languagesToShow = showAllLanguages ? languages : languages.slice(0, 4);
 
+    const [selectedImage, setSelectedImage] = useState(null);
+
 
     const guideName = route.params?.guideName;
+
+
+     const handleSelectImage = () => {
+         launchImageLibrary({ mediaType: 'photo' }, (response) => {
+             if (response.didCancel) {
+                 console.log('User cancelled image picker');
+             } else if (response.errorCode) {
+                 console.error('ImagePicker Error: ', response.errorCode);
+                 Alert.alert('Error', 'An error occurred while selecting an image.');
+             } else if (response.assets && response.assets.length > 0) {
+                 const { uri } = response.assets[0];
+                 setSelectedImage(uri);
+             }
+         });
+     };
 
     const addRoute = () => {
         if (routeLocation.trim()) {
@@ -136,20 +154,25 @@ const toggleActivitiesSelection = (activity) => {
 
     return (
         <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            //keyboardVerticalOffset={5} // Adjust based on your app's header height
-        >
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
-                        <Text style={styles.title}>New Tour</Text>
-                    </View>
+                   style={{ flex: 1 }}
+                   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+               >
+                   <ScrollView contentContainerStyle={styles.scrollContainer}>
+                       <View style={styles.container}>
+                           <View style={styles.header}>
+                               <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
+                               <Text style={styles.title}>New Tour</Text>
+                           </View>
 
-                    <View style={styles.coverPicture}>
-                        <Icon name="photo-camera" size={40} color="#888" />
-                    </View>
+                           {/* Área de imagem */}
+                           <TouchableOpacity onPress={handleSelectImage} style={styles.coverPicture}>
+                               {selectedImage ? (
+                                   <Image source={{ uri: selectedImage }} style={styles.selectedImage} />
+                               ) : (
+                                   <Icon name="photo-camera" size={40} color="#888" />
+                               )}
+                           </TouchableOpacity>
+
 
                     <Text style={styles.label}>Title</Text>
                     <TextInput
@@ -266,24 +289,22 @@ const toggleActivitiesSelection = (activity) => {
                     {/* Available Times */}
                     <Text style={styles.label}>Available Times</Text>
                     <View style={styles.inputContainer}>
-                       <TextInput
-                           style={styles.input}
-                           placeholder="Add time (HH:mm)"
-                           value={availableTime}
-                           onChangeText={(text) => {
-                               // Remove caracteres inválidos
-                               const cleanedText = text.replace(/[^0-9]/g, '');
+                      <TextInput
+                          style={[styles.input, { flex: 1 }]} // Adicione flex: 1 para ocupar o espaço restante
+                          placeholder="Add time (HH:mm)"
+                          value={availableTime}
+                          onChangeText={(text) => {
+                              const cleanedText = text.replace(/[^0-9]/g, '');
+                              if (cleanedText.length <= 2) {
+                                  setAvailableTime(cleanedText);
+                              } else if (cleanedText.length <= 4) {
+                                  setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`);
+                              }
+                          }}
+                          maxLength={5}
+                          keyboardType="numeric"
+                      />
 
-                               // Formata automaticamente no padrão HH:mm
-                               if (cleanedText.length <= 2) {
-                                   setAvailableTime(cleanedText); // Apenas horas
-                               } else if (cleanedText.length <= 4) {
-                                   setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`); // Adiciona ":"
-                               }
-                           }}
-                           maxLength={5} // Limita o texto ao formato HH:mm
-                           keyboardType="numeric"
-                       />
 
                         <TouchableOpacity style={styles.addTimeButton} onPress={addAvailableTime}>
                             <Icon name="add" size={24} color="#fff" />
@@ -458,16 +479,23 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: width * 0.03,
         marginTop: height * 0.01,
+        height: 50, // Altura fixa para manter o layout consistente
     },
-addTimeButton: {
-    backgroundColor: '#f2b636',
-            borderRadius: 20,
-            width: 40,
-            height: 40,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginLeft:width* 0.33,
+    addTimeButton: {
+        backgroundColor: '#f2b636',
+        borderRadius: 20,
+        width: 40, // Largura fixa para o botão
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        // Remova marginLeft para fixar o botão
+    },
+selectedImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 10,
 },
+
 
 
 });
