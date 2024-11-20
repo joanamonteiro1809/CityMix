@@ -142,7 +142,7 @@ const CreateInvitation = ({ navigation, route }) => {
                     
                     {/* Header */}
                     <View style={styles.header}>
-                        <ArrowButton onPress={() => navigation.navigate("InYourArea")} iconName="close" />
+                        <ArrowButton onPress={() => navigation.goBack()} iconName="close" />
                     </View>
 
                     {/* Scrollable Content */}
@@ -154,9 +154,9 @@ const CreateInvitation = ({ navigation, route }) => {
                     />
 
                     <TouchableOpacity onPress={handleNext}>
-                            <View style={styles.button}>
+                            <TouchableOpacity onPress={() => navigation.popTo('IndividualMessage', {date: dayjs(date).format('D-MMM'), time: time, meetingPoint: meetingPoint})}style={styles.button}>
                                 <Text style={styles.buttonText}>Create Invite</Text>
-                            </View>
+                            </TouchableOpacity>
                     </TouchableOpacity>
                 </View>
             </View>

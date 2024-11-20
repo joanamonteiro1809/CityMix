@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
-import dayjs from 'dayjs';
-
+import sampleData from '../../sampledata';
 const PopupPaid = ({ navigation, route }) => {
 
     const sampleTour = {
@@ -21,12 +20,14 @@ const PopupPaid = ({ navigation, route }) => {
     const title = route.params?.title || sampleTour.title;
     const guide = route.params?.guide || sampleTour.tourGuide;
 
+    const activeProf = (sampleData.currentUser.role == 'tour_guide') ? 'GuideProfile' : 'NormalProfile';
+
     return (
         <View style={styles.container}>
             <View style={styles.popup}>
                 {/* Header */}
                 <View style={styles.header}>
-                    <ArrowButton onPress={() => navigation.navigate("InYourArea")} iconName="close" />
+                    <ArrowButton onPress={() => navigation.popTo("InYourArea")} iconName="close" />
                 </View>
 
                 {/*Info message */}
@@ -46,7 +47,7 @@ const PopupPaid = ({ navigation, route }) => {
                         </View>
                         <Text style={{fontSize: 18, marginBottom: 5, color:"#555"}}>{guide}</Text>
                     </View>
-                    <TouchableOpacity onPress={()=> navigation.navigate("NormalProfile", { tabSelected: 'Calendar'})}>
+                    <TouchableOpacity onPress={()=> navigation.popTo(activeProf, { tabSelected: 'Calendar'})}>
                         <View style={styles.button}>
                             <Text style={styles.buttonText}>My calendar</Text>
                         </View>

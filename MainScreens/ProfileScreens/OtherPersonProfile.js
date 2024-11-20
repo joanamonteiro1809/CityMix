@@ -113,7 +113,7 @@ const OtherPersonProfile = ({ navigation, route }) => {
         <Text style={styles.profileLocation}>{personDetails.location}</Text>
         <TouchableOpacity
         style={styles.messageButton}
-        onPress={() => navigation.navigate('GroupMessage')}
+        onPress={() => navigation.navigate('IndividualMessage')}
         >
 
           <Text style={styles.messageButtonText}>Message</Text>
