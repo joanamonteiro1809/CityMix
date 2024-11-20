@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     titleAndPhoto:{
         flexDirection: 'row',
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        //justifyContent: 'flex-start',
     },
     tourInfo: {
         marginLeft: 10,

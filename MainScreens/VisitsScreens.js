@@ -33,16 +33,12 @@ const VisitsScreen = ({ navigation, route }) => {
                     onPress={() => navigation.goBack() }
                     iconName={("chevron-left")}
                 />
-                
-               
-                    <TouchableOpacity onPress={() => navigation.navigate('Search', { recentSearch: location })}>
-                        <View style={styles.headerTitleContainer}>
-                            <Icon name="search" size={20} color="#000" style={styles.searchIcon} />
-                            <Text style={styles.headerTitle}>{location}</Text>
-                        </View>
-                    </TouchableOpacity>
-                    
-                
+                <TouchableOpacity onPress={() => navigation.navigate('Search', { recentSearch: location })}>
+                    <View style={styles.headerTitleContainer}>
+                        <Icon name="search" size={20} color="#000" style={styles.searchIcon} />
+                        <Text style={styles.headerTitle}>{location}</Text>
+                    </View>
+                </TouchableOpacity>
 
                 {/** Show age filter on individuals */}
                 {activeTab == 'Individuals' && (
@@ -65,7 +61,6 @@ const VisitsScreen = ({ navigation, route }) => {
                 )
                 }
             </View>
-
 
             {/* Tab Control */}
             <TabControl

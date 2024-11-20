@@ -18,8 +18,8 @@ const InYourAreaScreen = ({navigation}) => {
         </TouchableOpacity>
     );
 
-    const renderGroupItem = ({ item }) => (
-        <TouchableOpacity onPress={() => navigation.navigate('GroupDetail', { tour: item })} style={styles.card}>
+    const renderGroupItem = ({ navigation, item }) => (
+        <TouchableOpacity onPress={() => navigation.navigate('GroupEntry', { group: item })} style={styles.card}>
             <Image source={item.image} style={styles.image} />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.numPeopl}</Text>
@@ -91,8 +91,8 @@ const InYourAreaScreen = ({navigation}) => {
                     <FlatList
                         horizontal
                         data={sampleData.group}
-                        renderItem={renderGroupItem}
-                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => renderGroupItem({ item, navigation })}
+                        keyExtractor={item => item.id.toString()}
                         contentContainerStyle={styles.listContainer}
                     />
                 </View>

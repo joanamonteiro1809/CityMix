@@ -1,6 +1,6 @@
 // IndividualScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width } = Dimensions.get('window'); 
@@ -14,7 +14,7 @@ const renderIndividualItem = ({ nav, item }) => {
 
     return (
         <TouchableOpacity onPress={() => nav.navigate('OtherPersonProfile', { tour: item })} style={styles.profileCard}>
-            <Icon name="person" size={40} color="#555" />
+            <Image source={item.picture} style={styles.picture} />
             <View style={styles.profileInfo}>
                 <Text style={styles.profileName}>{item.name}, {item.age}</Text>
                 <Text style={styles.profileDescription}>{item.activities.join(', ')}</Text>
@@ -58,17 +58,24 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         marginVertical: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 0.5,
+        shadowRadius: 1.5,
+        elevation: 2,
     },
     profileInfo: {
         marginLeft: 10,
     },
     profileName: {
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 17,
+        //fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
     },
     profileDescription: {
         fontSize: 12,
         color: '#888',
+        fontFamily: 'CodecPro-Regular',
     },
     ratingContainer: {
         flexDirection: 'row',
@@ -79,6 +86,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#888',
         marginRight: 3,
+    },
+    picture: {
+        width: width * 0.2,
+        height: width * 0.2,
+        borderRadius: (width * 0.6) / 2,
+        borderWidth: 0.5,
+        borderColor: '#888',
+        //marginTop: 15,
     },
 });
 

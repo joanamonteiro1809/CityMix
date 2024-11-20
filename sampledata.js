@@ -118,7 +118,7 @@ const sampleData = {
         { 
             id: '1', 
             title: 'Day in Belém', 
-            numPeopl: 'and 5 more...',
+            numPeopl: '10 members',
             location: "Av. Brasília, 1300-598 Lisboa",
             image: require('./assets/group1.jpg'),
             latitude: 38.69588602464495,
@@ -129,7 +129,7 @@ const sampleData = {
         { 
             id: '2', 
             title: 'Bar hopping in Chiado', 
-            numPeopl: 'and 6 more...',
+            numPeopl: '15 members',
             location: "Largo do Chiado, 1200-443 Lisboa",
             image: require('./assets/group2.jpg'),
             latitude: 38.711477586802665,
@@ -140,7 +140,7 @@ const sampleData = {
         { 
             id: '3', 
             title: 'Walk in Sintra', 
-            numPeopl: 'and 31 more...',
+            numPeopl: '32 members',
             location: "Estrada da Pena, 2710-609 Sintra",
             image: require('./assets/group3.jpg'),
             latitude: 38.78922817493438,

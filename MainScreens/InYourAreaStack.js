@@ -15,6 +15,7 @@ import GroupMessage from './MessagesScreens/GroupMessage';
 import CreateInvitation from './MessagesScreens/CreateInvitation';
 import SearchScreen from '../GeneralElements/SearchScreen';
 import CreateTourScreen from './ProfileScreens/AddTourProfile';
+import GroupEntry from './GroupScreens/GroupEntry';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="PopupPaid" component={PopupPaid} options={{ presentation: 'modal', headerShown: false}} />
             <Stack.Screen name="NormalProfile" component={MyNormalProfile} options={{ headerShown: false }} />
             <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="GroupEntry" component={GroupEntry} options={{ headerShown: false }} />
             <Stack.Screen name="GroupDetail" component={GroupDetail} options={{ headerShown: false }} />
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
             <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ headerShown: false }} />
