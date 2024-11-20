@@ -336,6 +336,7 @@ const styles = StyleSheet.create({
         width: width * 0.9,
         marginTop: 10,
         
+        
     },
     aboutSection: {
         flex: 1,
@@ -374,7 +375,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: width * 0.04,
-        marginVertical: height * 0.01,
         borderRadius: width * 0.02,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -390,6 +390,10 @@ const styles = StyleSheet.create({
         color: '#f2b636',
         marginRight: width * 0.03,
     },
+    eventTitle: {
+        fontWeight: 'bold',
+        fontSize: width * 0.04,
+    },
     tourPhoto: {
         fontSize: width * 0.05,
         fontWeight: 'bold',
@@ -400,10 +404,6 @@ const styles = StyleSheet.create({
         width: 16, // Ajuste o tamanho da estrela
         height: 16,
         marginRight: 4,
-    },
-    eventTitle: {
-        fontWeight: 'bold',
-        fontSize: width * 0.04,
     },
     eventSubtitle: {
         color: '#888',

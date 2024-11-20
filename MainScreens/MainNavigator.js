@@ -27,6 +27,7 @@ const MainNavigator = () => {
             return TourGuideNotifications;
         } else {
             return NormalUserNotifications;
+            
         }
     };
 
@@ -48,7 +49,7 @@ const MainNavigator = () => {
                 tabBarItemStyle: {
                     alignItems: 'center',
                     justifyContent: 'center',
-                    paddingTop: 5,
+                    paddingTop: 5, 
                     backgroundColor: '#fff',
                 }
             })}
@@ -56,7 +57,7 @@ const MainNavigator = () => {
             <Tab.Screen name="Home" component={InYourAreaStack}/>
             <Tab.Screen name="Messages" component={InYourAreaScreen} />
             <Tab.Screen name="Notifications" component={handleNotifications()} />
-            <Tab.Screen name="Profile" component={handleProfile()} />
+            <Tab.Screen name="Profile" component={MyNormalProfile} />
         </Tab.Navigator>
     );
 };
