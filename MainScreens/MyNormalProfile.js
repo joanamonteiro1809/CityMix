@@ -25,7 +25,7 @@ const ProfileScreen = () => {
     const renderEventItem = ({ item }) => (
         <View style={styles.eventCard}>
             <Text style={styles.eventDate}>{item.date}</Text>
-            <View>
+            <View>  
                 <Text style={styles.eventTitle}>{item.title}</Text>
                 <Text style={styles.eventSubtitle}>{item.time} • {item.location}</Text>
             </View>
@@ -115,32 +115,29 @@ const styles = StyleSheet.create({
     },
     profileHeader: {
         alignItems: 'center',
-        marginTop: height * 0.05,
+        marginTop: height * 0.1,
     },
     profileName: {
         fontSize: width * 0.07, 
-        fontWeight: 'bold',
+        fontWeight: 'bold', 
         marginTop: height * 0.01, 
-        color: '#000'
+        color: '#000',
+
     },
     profileLocation: {
-        color: '#888'
+        marginTop: 5,
+        color: '#888',
     },
     availabilityContainer: { // Adiciona estilos para o botão
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: height * 0.02,
+        marginTop: height * 0.01,
+        marginBottom: height * 0.01,
     },
     availabilityText: { 
         fontSize: 18,
         marginRight: 8, 
-    },
-    tabsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        backgroundColor: '#f2b636', // Fundo da área das abas
-        paddingVertical: 8,
-        borderRadius: 10,
+        
     },
     tab: {
         fontSize: 18,
@@ -158,14 +155,14 @@ const styles = StyleSheet.create({
     },
     tabContent: {
         flex: 0,
-        height: height * 0.5, // Reduz a altura do retângulo para 40% da altura da tela
+        height: height * 0.5,
         backgroundColor: '#f8e4b8',
         padding: 15,
         borderRadius: 20, // Borda arredondada
         marginTop: 5,
         marginHorizontal: width * 0.01,
         width: width * 0.9,
-        },
+    },
 
     aboutSection: {
         flex: 1,
