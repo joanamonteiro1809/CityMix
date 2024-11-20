@@ -12,14 +12,16 @@ const TourDetailScreen = ({navigation, route}) => {
         title: "St. George's Castle Tour", 
         price: '20€', 
         rating: '4.0', 
-        tourGuide: 'Rúben Santos', 
+        tourGuide: 'João Silva',
         description: 'Come visit the principal castle of Lisbon.', 
         imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
         routeStops: ["São Jorge Castle"],
         reviews: [
             { reviewer: 'Maria Oliveira', rating: 5, comment: 'Amazing tour! The guide was very knowledgeable.' },
             { reviewer: 'Carlos Silva', rating: 4, comment: 'Great experience, but a bit crowded.' },
-        ],};
+        ],
+        languages: ['Portuguese', 'English'],
+        };
 
     const tourDetails = route.params?.tour || sampleTour;
 
@@ -70,6 +72,15 @@ const TourDetailScreen = ({navigation, route}) => {
                         <Text style={styles.routeText}>{stop}</Text>
                     </View>
                 ))}
+
+               <Text style={styles.sectionTitle}>Languages</Text>
+               <View style={[styles.languageContainer, { marginBottom:1 }]}>
+                   {tourDetails.languages.map((language, index) => (
+                       <View key={index} style={styles.languageTag}>
+                           <Text style={{ fontFamily: 'CodecPro-Regular' }}>{language}</Text>
+                       </View>
+                   ))}
+               </View>
 
                 {/* Reviews */}
                 <Text style={styles.sectionTitle}>Reviews</Text>
@@ -138,6 +149,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
     },
+   languageContainer: {
+       flexDirection: 'row',
+       flexWrap: 'wrap',
+   },
+
+   languageTag: {
+       backgroundColor: '#e0e0e0',
+       borderRadius: 30,
+       paddingVertical: 12,
+       paddingHorizontal: 15,
+       margin: 5,
+   },
+
+
     image: {
         width: '100%',
         height: '100%',
@@ -240,6 +265,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 17,
     },
+     languageContainer: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            marginBottom: 30,
+        },
 });
 
 export default TourDetailScreen;
