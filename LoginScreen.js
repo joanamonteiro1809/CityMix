@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Animated, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
 import sampleData from './sampledata';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const { width, height } = Dimensions.get('window');
 
@@ -70,10 +71,12 @@ const LoginScreen = ({ navigation }) => {
     }
 
     return (
-        <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        <KeyboardAwareScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{ flexGrow: 1 }}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            keyboardShouldPersistTaps="handled"
+            enableOnAndroid={true}
         >
             <View style={styles.container}>
                 {/* Top Section with Background and Illustration */}
@@ -132,7 +135,7 @@ const LoginScreen = ({ navigation }) => {
 
                 </Animated.View>
             </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     );
 };
 

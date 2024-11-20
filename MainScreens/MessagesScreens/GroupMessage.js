@@ -14,7 +14,7 @@ import {
 
 const { width, height } = Dimensions.get('window');
 
-const IndividualMessage = ({ navigation, route }) => { // Certifique-se de passar o `navigation` como prop
+const GroupMessage = ({ navigation, route }) => { // Certifique-se de passar o `navigation` como prop
   const [messages, setMessages] = useState([
     { id: '1', text: 'Hi!! I saw in your profile that you are a fan of museums and that you are currently in Belém and available. I am going there tomorrow by 14h do you want to meet?', type: 'sent' },
     { id: '2', text: 'Hello! Yes, let`s do it!!', type: 'received' },
@@ -218,4 +218,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IndividualMessage;
+export default GroupMessage;

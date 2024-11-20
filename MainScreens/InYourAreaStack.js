@@ -12,6 +12,7 @@ import MapScreen from '../GeneralElements/MapScreen';
 import GroupDetail from './GroupScreens/GroupDetail';
 import OtherPersonProfile from './ProfileScreens/OtherPersonProfile';
 import IndividualMessage from './MessagesScreens/IndividualMessage';
+import GroupMessage from './MessagesScreens/GroupMessage';
 import CreateInvitation from './MessagesScreens/CreateInvitation';
 import SearchScreen from '../GeneralElements/SearchScreen';
 import CreateTourScreen from './ProfileScreens/AddTourProfile';
@@ -37,6 +38,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="GroupDetail" component={GroupDetail} options={{ headerShown: false }} />
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
             <Stack.Screen name="IndividualMessage" component={IndividualMessage} options={{ headerShown: false }} />
+            <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ headerShown: false }} />
             <Stack.Screen name="CreateInvitation" component={CreateInvitation} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddTour" component={CreateTourScreen} options={{ headerShown: false }} />
