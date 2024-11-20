@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         paddingTop: width * 0.13, // Adapta o padding com base na largura da tela
         fontSize: width * 0.06, // Escala o tamanho do título de forma proporcional
         fontWeight: 'bold',
-        color: '#f2b636',
+        color: '#FF914D',
         marginBottom: width * 0.08,
     },
     listContainer: {
