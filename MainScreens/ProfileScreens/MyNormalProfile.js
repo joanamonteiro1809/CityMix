@@ -55,14 +55,30 @@ const MyNormalProfile = ({ navigation, route }) => {
                 return (
                     <View style={styles.aboutSection}>
                         <Text style={styles.sectionTitle}>Description</Text>
-                        <Text style={styles.sectionText}>Add a description here...</Text>
+                        <Text style={styles.sectionText}>Hi, I'm Rita and I'm passionate about traveling and gastronomy. I love exploring the food that each country has to offer.</Text>
                         <Text style={styles.sectionTitle}>Interests</Text>
-                        <Text style={styles.sectionText}>Add interests here...</Text>
+                        <Text style={styles.sectionText}>Food</Text>
                         <Text style={styles.sectionTitle}>Reviews</Text>
-                        <View style={styles.reviewPlaceholder}>
-                            <Text style={styles.sectionText}>Review 1</Text>
-                            <Text style={styles.sectionText}>Review 2</Text>
-                        </View>
+                        <FlatList
+                            data={[
+                                { id: '1', reviewer: 'Maria Carvalho', review: 'The guide was very friendly and sociable.', rating: 5 },
+                                { id: '2', reviewer: 'José Silva', review: 'Lovely experience, but a bit overpriced.', rating: 4 },
+                            ]}
+                            renderItem={({ item }) => (
+                                <View style={styles.reviewCard}>
+                                    <Text style={styles.reviewerName}>{item.reviewer}</Text>
+                                    <Text style={styles.reviewText}>{item.review}</Text>
+                                    <View style={styles.ratingContainer}>
+                                        <Text style={styles.ratingText}>{item.rating}</Text>
+                                        <Icon name="star" size={16} color="#f2b636" />
+                                    </View>
+                                </View>
+                            )}
+                            keyExtractor={(item) => item.id}
+                            horizontal={true} // Faz com que a lista seja horizontal
+                            showsHorizontalScrollIndicator={false} // Oculta a barra de rolagem horizontal
+                            contentContainerStyle={styles.reviewsList}
+                        />
                     </View>
                 );
 
@@ -144,7 +160,7 @@ const MyNormalProfile = ({ navigation, route }) => {
 
             {/* Tab Content */}
             <FlatList
-                data={[{ key: 'tabContent' }]} // A dummy data source to trigger render
+                data={[{ key: 'tabContent' }]} 
                 renderItem={() => <>{renderTabContent()}</>}
                 keyExtractor={(item) => item.key}
                 contentContainerStyle={styles.tabContentContainer}
@@ -161,7 +177,7 @@ const styles = StyleSheet.create({
     },
     profileHeader: {
         alignItems: 'center',
-        marginTop: height * 0.05,
+        marginTop: height * 0.1,
     },
     logoutButton:{
         position: 'absolute',
@@ -171,7 +187,7 @@ const styles = StyleSheet.create({
         fontSize: width * 0.07, 
         fontWeight: 'bold',
         marginTop: height * 0.01, 
-        color: '#000'
+        color: '#000',
     },
     profileLocation: {
         marginTop: 5,
@@ -180,7 +196,8 @@ const styles = StyleSheet.create({
     availabilityContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: height * 0.02,
+        marginTop: height * 0.01,
+        marginBottom: height * 0.01,
     },
     availabilityText: {
         fontSize: 18,
@@ -189,12 +206,13 @@ const styles = StyleSheet.create({
     tabContentContainer: {
         flexGrow: 1,
         //paddingBottom: height * 0.02, // Ensure there’s padding at the bottom
-        backgroundColor: '#f8e4b8',
+        backgroundColor: '#ffeadd',
         padding: 10,
         borderRadius: 20, // Borda arredondada
         marginBottom: 20,
         //marginHorizontal: width * 0.01,
         width: width * 0.9,
+        marginTop: 10,
     },
     aboutSection: {
         flex: 1,
@@ -204,15 +222,19 @@ const styles = StyleSheet.create({
     },
     eventsSection: {
         padding: width * 0.03,
+        marginBottom: height * 0.5,
+        
     },
     sectionTitle: {
-        fontSize: width * 0.04,
+        fontSize: width * 0.05,
         fontWeight: 'bold',
-        marginTop: height * 0.01,
+        marginBottom: 15,
+        marginTop: 15,
     },
     sectionText: {
-        color: '#666',
         fontSize: width * 0.04,
+        color: '#555',
+        marginBottom: 20,
     },
     reviewPlaceholder: {
         flexDirection: 'row',
@@ -226,14 +248,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#fff',
-        padding: width * 0.03,
-        marginVertical: height * 0.01,
+        padding: width * 0.04,
         borderRadius: width * 0.02,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
+        marginBottom: height * 0.01,
+        
     },
     eventDate: {
         fontSize: width * 0.05,
@@ -244,6 +267,7 @@ const styles = StyleSheet.create({
     eventTitle: {
         fontWeight: 'bold',
         fontSize: width * 0.04,
+        
     },
     eventSubtitle: {
         color: '#888',
@@ -256,7 +280,49 @@ const styles = StyleSheet.create({
     noEventsPlaceholder:{
         alignItems: 'center',
         paddingBottom: 10,
-    }
+    },
+
+    reviewsList: {
+        marginVertical: 10,
+        paddingHorizontal: 10,
+    },
+    
+    reviewCard: {
+        backgroundColor: '#fff',
+        padding: 10,
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        marginHorizontal: 10,
+        width: width * 0.55, 
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2, 
+    },
+    
+    reviewerName: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginBottom: 5,
+    },
+    
+    reviewText: {
+        fontSize: 14,
+        color: '#555',
+        marginBottom: 10,
+    },
+    
+    ratingContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    
+    ratingText: {
+        fontSize: 14,
+        marginRight: 5,
+        color: '#FF914D',
+    },
 });
 
 export default MyNormalProfile;

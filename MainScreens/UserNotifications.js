@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FF914D',
         marginBottom: width * 0.08,
+        
     },
     listContainer: {
         flexGrow: 1,
