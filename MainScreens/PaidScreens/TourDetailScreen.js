@@ -74,7 +74,7 @@ const TourDetailScreen = ({navigation, route}) => {
                 ))}
 
                <Text style={styles.sectionTitle}>Languages</Text>
-               <View style={[styles.languageContainer, { marginBottom:1 }]}>
+               <View style={[styles.languageContainer, { marginBottom: 1 }]}>
                    {tourDetails.languages.map((language, index) => (
                        <View key={index} style={styles.languageTag}>
                            <Text style={{ fontFamily: 'CodecPro-Regular' }}>{language}</Text>
