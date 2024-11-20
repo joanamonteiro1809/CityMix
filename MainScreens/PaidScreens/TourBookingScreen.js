@@ -82,10 +82,10 @@ const TourBookingScreen = ({ navigation, route }) => {
             {/* Date Input */}
             <View style={styles.infoContainer}>
                 <Text style={styles.sectionTitle}>Date:</Text>
-                <Text style={[styles.input, isFieldInvalid(date) && styles.inputError]}>
-                    {date ? dayjs(date).format('MMMM D, YYYY') : 'MMMM D, YYYY'}
-                </Text>
-                <TouchableOpacity onPress={handleToggleCalendar}>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}} onPress={handleToggleCalendar}>
+                    <Text style={[styles.input, isFieldInvalid(date) && styles.inputError]}>
+                        {date ? dayjs(date).format('MMMM D, YYYY') : 'MMMM D, YYYY'}
+                    </Text>
                     <Icon name="calendar-month" size={24} color="#555" />
                 </TouchableOpacity>
             </View>
@@ -99,10 +99,10 @@ const TourBookingScreen = ({ navigation, route }) => {
             {/* Time Input */}
             <View style={styles.selectContainer}>
                 <Text style={styles.sectionTitle}>Time:</Text>
-                <Text style={[styles.input, isFieldInvalid(time) && styles.inputError]}>
-                    {time ? time : '00:00'}
-                </Text>
-                <TouchableOpacity onPress={handleToggleTime}>
+                <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}onPress={handleToggleTime}>
+                    <Text style={[styles.input, isFieldInvalid(time) && styles.inputError]}>
+                        {time ? time : '00:00'}
+                    </Text>
                     <Icon name="access-time" size={24} color="#555" />
                 </TouchableOpacity>
             </View>
