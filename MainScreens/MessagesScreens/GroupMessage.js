@@ -14,12 +14,30 @@ import {
 
 const { width, height } = Dimensions.get('window');
 
-const GroupMessage = ({ navigation }) => { // Certifique-se de passar o `navigation` como prop
+const GroupMessage = ({ navigation, route }) => { // Certifique-se de passar o `navigation` como prop
   const [messages, setMessages] = useState([
     { id: '1', text: 'Hi!! I saw in your profile that you are a fan of museums and that you are currently in Belém and available. I am going there tomorrow by 14h do you want to meet?', type: 'sent' },
     { id: '2', text: 'Hello! Yes, let`s do it!!', type: 'received' },
   ]);
   const [inputText, setInputText] = useState('');
+
+  const date = route.params?.date;
+  const time = route.params?.time;
+  const meetingPoint = route.params?.meetingPoint;
+
+  React.useEffect(() => {
+    if (date && time && meetingPoint) {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          id: Date.now().toString(),
+          type: 'invite',
+          text: `Invite sent! ${date} at ${time}`,
+          meetingPoint,
+        },
+      ]);
+    }
+  }, [date, time, meetingPoint]);
 
   const handleSend = () => {
     if (inputText.trim()) {
@@ -31,16 +49,34 @@ const GroupMessage = ({ navigation }) => { // Certifique-se de passar o `navigat
     }
   };
 
-  const renderMessage = ({ item }) => (
-    <View
-      style={[
-        styles.messageBubble,
-        item.type === 'sent' ? styles.sentMessage : styles.receivedMessage,
-      ]}
-    >
-      <Text style={styles.messageText}>{item.text}</Text>
-    </View>
-  );
+  const renderMessage = ({ item }) => {
+    if (item.type === 'invite') {
+      return (
+        <View style={styles.inviteBubble}>
+            <Text style={styles.inviteTitle}>Invite sent!</Text>
+            <View>
+              <Text>{date} at {time}</Text>
+            </View>
+            <View style={styles.inviteInfo}>
+              <Icon name="location-pin" size={20} color="#555" />
+              <Text>{meetingPoint}</Text>
+            </View>
+
+          </View>
+      );
+    }
+
+    return (
+      <View
+        style={[
+          styles.messageBubble,
+          item.type === 'sent' ? styles.sentMessage : styles.receivedMessage,
+        ]}
+      >
+        <Text style={styles.messageText}>{item.text}</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -63,6 +99,7 @@ const GroupMessage = ({ navigation }) => { // Certifique-se de passar o `navigat
         renderItem={renderMessage}
         contentContainerStyle={styles.messagesContainer}
       />
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -115,7 +152,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   messagesContainer: {
-    flexGrow: 1,
+    flex: 1,
     padding: width * 0.03,
   },
   messageBubble: {
@@ -123,6 +160,23 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.04,
     padding: width * 0.03,
     marginVertical: width * 0.02,
+  },
+  inviteBubble:{
+    maxWidth: '70%',
+    borderRadius: width * 0.04,
+    paddingHorizontal: width * 0.09,
+    paddingVertical: width * 0.03,
+    marginVertical: width * 0.02,
+    backgroundColor: '#eaeaea',
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+  },
+  inviteTitle: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  inviteInfo: {
+    flexDirection: 'row'
   },
   sentMessage: {
     backgroundColor: '#eaeaea',
