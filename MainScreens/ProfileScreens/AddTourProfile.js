@@ -163,7 +163,7 @@ const pickImage = async () => {
             navigation.goBack();
         } catch (error) {
             console.error('Error saving tour:', error);
-            Alert.alert('Error', 'An error occurred while saving the tour. Please try again.');
+            Alert.alert('Error', 'An error occurred while saving the tour. Please try again!');
         }
     };
 
