@@ -138,20 +138,25 @@ const OtherPersonProfile = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 35,
+        backgroundColor: '#f2u839',
+        paddingHorizontal: width * 0.05,
     },
     backButton:{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         paddingHorizontal: 20,
+        paddingTop: 20,
+        marginTop: 20, // Move o botão para baixo
+        //borderWidth: 2, borderColor: 'red'
     },
     header: {
         alignItems: 'center',
-        backgroundColor: '#fff',
-        //paddingTop: height * 0.05,
-        paddingBottom: height * 0.02,
+        marginTop: height * 0.01,
+        //borderWidth: 2, borderColor: 'red'
+
+        //backgroundColor: '#fff',
+        //paddingBottom: height * 0.02,
     },
     profilePictureContainer: {
         alignItems: 'center',
@@ -161,40 +166,48 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     profileName: {
-        fontSize: width * 0.07,
-        fontWeight: 'bold',
-        color: '#000',
+      fontSize: width * 0.07,
+      fontWeight: 'bold',
+      marginTop: height * 0.01,
+      color: '#000'
     },
     profileLocation: {
-        fontSize: width * 0.04,
-        color: '#000',
-        marginBottom: 10,
+        marginTop: 5,
+        color: '#888'
     },
     messageButton: {
         backgroundColor: '#FF914D',
         paddingVertical: 8,
         paddingHorizontal: 20,
         borderRadius: 20,
+        marginTop: 10,
+        marginBottom: 10,
     },
     messageButtonText: {
         color: '#000',
         fontWeight: 'bold',
     },
     tabContent: {
-        flex: 1,
-        padding: 20,
+        //flex: 1,
+        //padding: 20,
+        //backgroundColor: '#ffeadd',
+        flexGrow: 1,
+        //paddingBottom: height * 0.02, // Ensure there’s padding at the bottom
         backgroundColor: '#ffeadd',
-    },
-    tabBarContainer: {
-        backgroundColor: '#FF914D',
+        padding: 10,
+        borderRadius: 20, // Borda arredondada
+        marginBottom: 20,
+        width: width * 0.9,
+        marginTop: 10,
     },
     content: {
         flex: 1,
     },
     sectionTitle: {
-        fontSize: width * 0.05,
-        fontWeight: 'bold',
-        marginBottom: 10,
+      fontSize: width * 0.05,
+      fontWeight: 'bold',
+      marginBottom: 15,
+      marginTop: 15,
     },
     sectionContent: {
         fontSize: width * 0.04,
