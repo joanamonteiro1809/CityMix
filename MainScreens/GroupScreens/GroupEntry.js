@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions, 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -13,31 +13,40 @@ const GroupEntry = ({navigation, route}) => {
 
     return (
         <View style={styles.container}>
+            <View style={styles.header}>
+                 <ArrowButton
+                     onPress={() => navigation.goBack()}
+                     iconName={("chevron-left")}
+                 />
+            </View>
 
-
-
-            <ScrollView>
+            <ScrollView contentContainerStyle={styles.contentContainer}>
                 <View style={styles.imageContainer}>
                     <Image source={groupEntry.image} style={styles.image} />
-                    <View style={styles.header}>
-                         <ArrowButton
-                             onPress={() => navigation.goBack()}
-                             iconName={("chevron-left")}
-                         />
-                    </View>
                 </View>
-
 
                 <View style={styles.groupInfoContainer}>
                     <Text style={styles.groupTitle}>{groupEntry.title}</Text>
                 </View>
 
                 <View style={styles.membersInfo}>
-                    <View style={styles.iconContainer}>
-                        <FontAwesome6 name="users" size={24} color="black" />
+                    <View style={styles.locationContainer} >
+                        <Ionicons name="location-outline" size={18} color="black" style={{ marginRight: -0.5 }} />
+                        <Text style={styles.subtitle}>Location:</Text>
+                        <Text style={styles.text}>{groupEntry.location}</Text>
                     </View>
-                    <Text style={styles.numMembers}>{groupEntry.numPeopl}</Text>
+                    <View style={styles.locationContainer}>
+                        <FontAwesome6 name="users" size={18} color="black" style={{ marginRight: 5 }}/>
+                        <Text style={styles.subtitle}>{groupEntry.numPeopl}</Text>
+                    </View>
+
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate('GroupDetail')}>
+                            <Text style={styles.footerBoxes}>Join Group</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+
 
             </ScrollView>
         </View>
@@ -48,58 +57,118 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //paddingHorizontal: 20,
-        backgroundColor: '#fff',
         paddingTop: 35,
+        backgroundColor: '#F8F8F8',
+    },
+    contentContainer: {
+        alignItems: 'center',
     },
     header: {
-        flexDirection: 'row',
+        //flexDirection: 'row',
         justifySelf: 'center',
         alignSelf: 'flex-start',
         paddingHorizontal: 20,
         top: 20,
-        position: 'absolute',
+        backgroundColor: '#F8F8F8',
+        //position: 'absolute',
     },
     imageContainer: {
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#F8F8F8',
         width: '100%',
-        height: height * 0.3,
+        height: height * 0.35,
         justifyContent: 'center',
         alignItems: 'center',
-        //marginTop: 10,
+        marginTop: 50,
     },
     image: {
-        width: '100%',
+        width: '75%',
         height: '100%',
+        borderRadius: 50,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
+        elevation: 10,
+        backgroundColor: '#fff',
     },
 
     groupTitle: {
-        fontSize: 23,
-        fontWeight: 'bold',
+        fontSize: 26,
+        //fontWeight: 'bold',
         color: '#333',
         marginLeft: 5,
+        fontFamily: 'CodecPro-ExtraBold',
     },
 
     groupInfoContainer: {
-        backgroundColor: '#f0f0f0',
-        padding: 10,
+        //backgroundColor: '#f0f0f0',
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 1,
     },
+
     membersInfo: {
         //flexDirection: 'row',
-        alignItems: 'flex-start', // Vertically align the icon and text
-        paddingHorizontal: 20,
-        marginTop: 20,
+        //alignItems: 'flex-start', // Vertically align the icon and text
+        padding: 20,
+        //marginTop: 20,
+        //justifyContent: 'flex-start',
+        width: '80%',
+        height: height * 0.25,
+        borderRadius: 40,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',       // Shadow color (black)
+        shadowOffset: {width: 0, height: 3,},
+        shadowOpacity: 0.15,       // Shadow opacity (light shadow)
+        shadowRadius: 10,          // Shadow blur radius
+        elevation: 3,              // Elevation for Android
+        marginVertical: 5,
+        flexDirection: 'column',
         justifyContent: 'flex-start',
-        //backgroundColor: '#f0f0f0',
+        flex: 1,
+    },
+
+    locationContainer: {
+        marginTop: 15,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        gap: 6,
+        //flexWrap: 'wrap',
+    },
+    subtitle: {
+        fontSize: 16,
+        fontFamily: 'CodecPro-Bold',
+        marginRight: 5,
+    },
+    text: {
+        fontSize: 14,
+        fontFamily: 'CodecPro-Regular',
+        flexShrink: 1,
+        lineHeight: 22,
     },
     iconContainer: {
         justifyContent: 'center',   // Center the icon vertically
         alignItems: 'center',
     },
 
-    numMembers: {
+    buttonContainer: {
+        backgroundColor: '#FF914D',
+        borderRadius: 20,
+        padding: 8,
+        width: '60%',
+        alignSelf: 'center',
+        marginTop: 'auto',
+        //justifyContent: 'center',
+        //alignItems: 'center',
+    },
+    footerBoxes:{
         fontSize: 16,
-        textAlignVertical: 'center',
-        alignSelf: 'flex-start',
+        color: '#fff', // Slightly darker color when selected
+        //fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
+        textAlign: 'center',
     },
 
 });
