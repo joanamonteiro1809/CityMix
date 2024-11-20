@@ -151,7 +151,7 @@ const sampleData = {
         // Add more items here...
     ],
     paidTours: [
-        { id: '1', title: "St. George's Castle Tour", price: 20, rating: '4.0', tourGuide: 'Rúben Santos', 
+        { id: '1', title: "St. George's Castle Tour", price: 20, rating: '4.0', tourGuide: 'João Silva',
             description: 'Come visit the main castle of Lisbon.',
             imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
             routeStops: ["St. George's Castle"],

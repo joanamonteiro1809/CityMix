@@ -28,6 +28,19 @@ const CreateTourScreen = ({ route }) => {
     const [routes, setRoutes] = useState([]);
     const [errors, setErrors] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [availableTime, setAvailableTime] = useState('');
+    const [availableTimes, setAvailableTimes] = useState([]);
+
+    const [showAllActivities, setShowAllActivities] = useState(false);
+    const [selectedActivities, setSelectedActivities] = useState([]);
+    const activities = ['Museums', 'Art', 'Famous Spots', 'Nature', 'Nightlife', 'Food']; // Lista de atividades
+    const activitiesToShow = showAllActivities ? activities : activities.slice(0, 4);
+
+    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [showAllLanguages, setShowAllLanguages] = useState(false);
+    const languages = ['English', 'Portuguese', 'Spanish', 'French', 'Chinese', 'Dutch', 'Italian', 'Japanese'];
+    const languagesToShow = showAllLanguages ? languages : languages.slice(0, 4);
+
 
     const guideName = route.params?.guideName;
 
@@ -46,10 +59,46 @@ const CreateTourScreen = ({ route }) => {
         if (!description.trim()) newErrors.description = 'Description is required.';
         if (!price.trim()) newErrors.price = 'Price is required.';
         if (routes.length === 0) newErrors.routes = 'At least one route is required.';
+        if (selectedActivities.length === 0) newErrors.activities = 'At least one activity is required.';
+        if (selectedLanguages.length === 0) newErrors.languages = 'At least one language is required.';
+
+
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+
+    const toggleLanguageSelection = (language) => {
+        setSelectedLanguages((prevSelected) =>
+            prevSelected.includes(language)
+                ? prevSelected.filter((lang) => lang !== language)
+                : [...prevSelected, language]
+        );
+    };
+
+
+    const addAvailableTime = () => {
+        const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/; // Formato HH:mm
+        if (!timeRegex.test(availableTime.trim())) {
+            Alert.alert('Invalid Time', 'Please enter a valid time in HH:mm format.');
+            return;
+        }
+        if (availableTimes.includes(availableTime)) {
+            Alert.alert('Duplicate Time', 'This time is already added.');
+            return;
+        }
+        setAvailableTimes([...availableTimes, availableTime]);
+        setAvailableTime('');
+    };
+
+
+const toggleActivitiesSelection = (activity) => {
+    setSelectedActivities((prevSelected) =>
+        prevSelected.includes(activity)
+            ? prevSelected.filter((act) => act !== activity) // Remove se já está selecionado
+            : [...prevSelected, activity] // Adiciona se não está selecionado
+    );
+};
 
     const saveTour = async () => {
         setIsSubmitted(true);
@@ -65,9 +114,10 @@ const CreateTourScreen = ({ route }) => {
                 description,
                 imageLink: '',
                 routeStops: routes,
+                activities: selectedActivities, // Inclui atividades
                 reviews: [],
-                activities: [],
-                availableTimes: [],
+                availableTimes,
+                 languages: selectedLanguages,
             };
 
             sampleData.paidTours.push(newTour);
@@ -138,6 +188,61 @@ const CreateTourScreen = ({ route }) => {
                     />
                     {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
 
+                     <Text style={styles.label}>Activities</Text>
+                                        <View style={styles.selectionContainer}>
+                                            {activitiesToShow.map((activity) => (
+                                                <TouchableOpacity
+                                                    key={activity}
+                                                    style={[
+                                                        styles.tag,
+                                                        selectedActivities.includes(activity) && styles.tagSelected,
+                                                    ]}
+                                                    onPress={() => toggleActivitiesSelection(activity)}
+                                                >
+                                                    <Text
+                                                        style={[
+                                                            selectedActivities.includes(activity) && styles.tagTextSelected,
+                                                        ]}
+                                                    >
+                                                        {activity}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                            <TouchableOpacity onPress={() => setShowAllActivities(!showAllActivities)}>
+                                                <Text style={styles.showMore}>
+                                                    {showAllActivities ? 'Show less' : 'Show more'}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        {errors.activities && <Text style={styles.errorText}>{errors.activities}</Text>}
+
+                    <Text style={styles.label}>Languages</Text>
+                    <View style={styles.selectionContainer}>
+                        {languagesToShow.map((language) => (
+                            <TouchableOpacity
+                                key={language}
+                                style={[
+                                    styles.tag,
+                                    selectedLanguages.includes(language) && styles.tagSelected,
+                                ]}
+                                onPress={() => toggleLanguageSelection(language)}
+                            >
+                                <Text style={[
+                                    selectedLanguages.includes(language) && styles.tagTextSelected,
+                                ]}>
+                                    {language}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                        <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
+                            <Text style={styles.showMore}>
+                                {showAllLanguages ? 'Show less' : 'Show more'}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                    {errors.languages && <Text style={styles.errorText}>{errors.languages}</Text>}
+
+
                     <Text style={styles.label}>Route</Text>
                     <View style={styles.routeInput}>
                         <TextInput
@@ -157,6 +262,40 @@ const CreateTourScreen = ({ route }) => {
                             <Text style={styles.routeText}>{routeItem}</Text>
                         </View>
                     ))}
+
+                    {/* Available Times */}
+                    <Text style={styles.label}>Available Times</Text>
+                    <View style={styles.inputContainer}>
+                       <TextInput
+                           style={styles.input}
+                           placeholder="Add time (HH:mm)"
+                           value={availableTime}
+                           onChangeText={(text) => {
+                               // Remove caracteres inválidos
+                               const cleanedText = text.replace(/[^0-9]/g, '');
+
+                               // Formata automaticamente no padrão HH:mm
+                               if (cleanedText.length <= 2) {
+                                   setAvailableTime(cleanedText); // Apenas horas
+                               } else if (cleanedText.length <= 4) {
+                                   setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`); // Adiciona ":"
+                               }
+                           }}
+                           maxLength={5} // Limita o texto ao formato HH:mm
+                           keyboardType="numeric"
+                       />
+
+                        <TouchableOpacity style={styles.addTimeButton} onPress={addAvailableTime}>
+                            <Icon name="add" size={24} color="#fff" />
+                        </TouchableOpacity>
+                    </View>
+
+                    {availableTimes.map((time, index) => (
+                        <View key={index} style={styles.listItem}>
+                            <Text>{time}</Text>
+                        </View>
+                    ))}
+
 
                     <Text style={styles.label}>Price</Text>
                     <View style={styles.priceInput}>
@@ -289,6 +428,48 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 5,
     },
+    selectionContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginVertical: 10,
+    },
+    tag: {
+        backgroundColor: '#e0e0e0',
+        borderRadius: 20,
+        padding: 12,
+        margin: 5,
+    },
+    tagSelected: {
+        backgroundColor: '#f2b636',
+    },
+    tagTextSelected: {
+        color: '#fff',
+    },
+    showMore: {
+        color: '#000',
+        marginLeft: 5,
+        marginTop: 5,
+        textDecorationLine: 'underline',
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f5f5f5',
+        borderRadius: 8,
+        paddingHorizontal: width * 0.03,
+        marginTop: height * 0.01,
+    },
+addTimeButton: {
+    backgroundColor: '#f2b636',
+            borderRadius: 20,
+            width: 40,
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginLeft:width* 0.33,
+},
+
+
 });
 
 export default CreateTourScreen;
