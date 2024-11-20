@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Animated } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Dimensions, Animated, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
 import sampleData from './sampledata';
 
@@ -71,63 +71,69 @@ const LoginScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            {/* Top Section with Background and Illustration */}
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        >
+            <View style={styles.container}>
+                {/* Top Section with Background and Illustration */}
 
-            <Animated.Image
-                source={require('./assets/Logo.png')}
-                style={[styles.logo, {transform: [{translateY: logoAnim.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [height / 2 - height * 0.15, height * 0.1],}),},],},
-                ]}
-            />
-
-            <Animated.View
-                style={[styles.inputContainer, {opacity: inputOpacityAnim, transform: [{
-                    translateY: inputContainerAnim.interpolate({
+                <Animated.Image
+                    source={require('./assets/Logo.png')}
+                    style={[styles.logo, {transform: [{translateY: logoAnim.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [height * 0.4, 0],
-                    }),
-                },],
-                },
-                ]}
-            >
-
-                {/* Login Title */}
-                <Text style={styles.title}>Login</Text>
-
-                {/* Email and Password Input */}
-                <TextInput 
-                    style={styles.input} 
-                    placeholder="Email" 
-                    placeholderTextColor="#888" 
-                    value={email}
-                    onChangeText={handleEmail}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    placeholderTextColor="#888"
-                    secureTextEntry
+                        outputRange: [height / 2 - height * 0.15, height * 0.1],}),},],},
+                    ]}
                 />
 
-                {/* Sign Up Link and Login Button */}
-                <View style={styles.actionRow}>
-                    <TouchableOpacity onPress={() => navigation.navigate('SignupStep1')}>
-                        <Text style={styles.signupText}>Sign up</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.loginButton} onPress={handleNext}>
-                        <Image source={require('./assets/arrow.png')} style={styles.arrow}/>
-                    </TouchableOpacity>
-                </View>
+                <Animated.View
+                    style={[styles.inputContainer, {opacity: inputOpacityAnim, transform: [{
+                        translateY: inputContainerAnim.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [height * 0.4, 0],
+                        }),
+                    },],
+                    },
+                    ]}
+                >
 
-                {/* Forgot Password Link */}
-                <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-                    <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-                </TouchableOpacity>
+                    {/* Login Title */}
+                    <Text style={styles.title}>Login</Text>
 
-            </Animated.View>
-        </View>
+                    {/* Email and Password Input */}
+                    <TextInput 
+                        style={styles.input} 
+                        placeholder="Email" 
+                        placeholderTextColor="#888" 
+                        value={email}
+                        onChangeText={handleEmail}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        placeholderTextColor="#888"
+                        secureTextEntry
+                    />
+
+                    {/* Sign Up Link and Login Button */}
+                    <View style={styles.actionRow}>
+                        <TouchableOpacity onPress={() => navigation.navigate('SignupStep1')}>
+                            <Text style={styles.signupText}>Sign up</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.loginButton} onPress={handleNext}>
+                            <Image source={require('./assets/arrow.png')} style={styles.arrow}/>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Forgot Password Link */}
+                    <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+                    </TouchableOpacity>
+
+                </Animated.View>
+            </View>
+        </KeyboardAvoidingView>
     );
 };
 

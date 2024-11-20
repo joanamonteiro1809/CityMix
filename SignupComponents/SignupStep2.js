@@ -1,6 +1,6 @@
 // screens/SignupStep2.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from 'expo-image-picker';
@@ -97,104 +97,110 @@ const SignupStep2 = ({ navigation }) => {
 
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        >
+            <View style={styles.container}>
 
-            <Text style={styles.title}>Sign up</Text>
+                <Text style={styles.title}>Sign up</Text>
 
-            <View style={styles.progressBar}>
-                <View style={styles.progressActive} />
-                <View style={styles.progressActive} />
-                <View style={styles.progressInactive} />
-            </View>
-
-            <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-                <View style={[styles.imageUploadContainer, isFieldInvalid(date) && styles.inputError]}>
-                    <TouchableOpacity onPress={pickImage}>
-                        {!image ? (
-                            <Image source={require('../assets/upload.png')}  style={styles.imagePlaceholder}/>
-                        ) : (
-                            <Image source={{ uri: image }} style={styles.image} />)
-                        }
-                    </TouchableOpacity>
+                <View style={styles.progressBar}>
+                    <View style={styles.progressActive} />
+                    <View style={styles.progressActive} />
+                    <View style={styles.progressInactive} />
                 </View>
-                {isFieldInvalid(image) && (<Text style={styles.errorText}>Profile picture is required</Text>)}
 
-                {showPicker && (
-                    <DateTimePicker
-                        mode="date"
-                        display= "spinner"
-                        value={new Date()}
-                        onChange={onChange}
-                    />
-                )}
-                <Pressable onPress={toggleDatepicker} >
-                    <TextInput
-                        style={[styles.input, isFieldInvalid(date) && styles.inputError]}
-                        placeholder = "Date of Birth*"
-                        value={date}
-                        onChangeText={setDate}
-                        editable={false}
-                    />
-                </Pressable>
-                {isFieldInvalid(date) && (<Text style={styles.errorText}>Date of Birth is required</Text>)}
-
-                <TextInput
-                    style={[styles.input, isFieldInvalid(city) && styles.inputError]}
-                    placeholder="City of Residence*"
-                    value={city}
-                    onChangeText={setCity}
-                />
-                {isFieldInvalid(city) && (<Text style={styles.errorText}>City of residence is required</Text>)}
-
-                <Text style={styles.subtitle}> Languages </Text>
-                <View style={styles.languageContainer}>
-                    {languagesToShow.map((lang) => (
-                        <TouchableOpacity key={lang} style={[styles.languageTag, selectedLanguages.includes(lang) && styles.languageTagSelected,]}
-                            onPress={() => toggleLanguageSelection(lang)}
-                            >
-                            <Text style={{fontFamily:'CodecPro-Regular'}}>{lang}</Text>
+                <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+                    <View style={[styles.imageUploadContainer, isFieldInvalid(date) && styles.inputError]}>
+                        <TouchableOpacity onPress={pickImage}>
+                            {!image ? (
+                                <Image source={require('../assets/upload.png')}  style={styles.imagePlaceholder}/>
+                            ) : (
+                                <Image source={{ uri: image }} style={styles.image} />)
+                            }
                         </TouchableOpacity>
-                    ))}
+                    </View>
+                    {isFieldInvalid(image) && (<Text style={styles.errorText}>Profile picture is required</Text>)}
 
-                    <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
-                        <Text style={styles.showMore}>{showAllLanguages ? 'Show less' : 'Show more'}</Text>
-                    </TouchableOpacity>
+                    {showPicker && (
+                        <DateTimePicker
+                            mode="date"
+                            display= "spinner"
+                            value={new Date()}
+                            onChange={onChange}
+                        />
+                    )}
+                    <Pressable onPress={toggleDatepicker} >
+                        <TextInput
+                            style={[styles.input, isFieldInvalid(date) && styles.inputError]}
+                            placeholder = "Date of Birth*"
+                            value={date}
+                            onChangeText={setDate}
+                            editable={false}
+                        />
+                    </Pressable>
+                    {isFieldInvalid(date) && (<Text style={styles.errorText}>Date of Birth is required</Text>)}
+
+                    <TextInput
+                        style={[styles.input, isFieldInvalid(city) && styles.inputError]}
+                        placeholder="City of Residence*"
+                        value={city}
+                        onChangeText={setCity}
+                    />
+                    {isFieldInvalid(city) && (<Text style={styles.errorText}>City of residence is required</Text>)}
+
+                    <Text style={styles.subtitle}> Languages </Text>
+                    <View style={styles.languageContainer}>
+                        {languagesToShow.map((lang) => (
+                            <TouchableOpacity key={lang} style={[styles.languageTag, selectedLanguages.includes(lang) && styles.languageTagSelected,]}
+                                onPress={() => toggleLanguageSelection(lang)}
+                                >
+                                <Text style={{fontFamily:'CodecPro-Regular'}}>{lang}</Text>
+                            </TouchableOpacity>
+                        ))}
+
+                        <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
+                            <Text style={styles.showMore}>{showAllLanguages ? 'Show less' : 'Show more'}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={styles.checkboxContainer}>
+                            <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={setIsTourGuide} color={isTourGuide ? '#FF914D' : undefined}/>
+                            <Text style={styles.text}>I'm a certified tour guide</Text>
+                    </View>
+
+                    {isTourGuide && (
+                    <View style={styles.certContainer}>
+                        <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
+                            {!cert ? (
+                                <>
+                                <Image source={require('../assets/file.png')} style={styles.fileIcon} />
+                                <Text style={styles.text}> Upload Certificate </Text>
+                                </>
+                            ) : (
+                                <Text style={styles.showMore}> {cert.name} </Text>
+                            )}
+                        </TouchableOpacity>
+                        {isTourGuideCertInvalid() && (<Text style={styles.errorText}>Certificate is required</Text>)}
+                    </View>
+                    )}
+                </ScrollView>
+            
+                <View style={styles.buttonsRow}>
+                    <ArrowButton
+                    onPress={() => navigation.goBack()}
+                    iconName={("chevron-left")}
+                    />
+                    <ArrowButton
+                    onPress={handleNext}
+                    iconName={("chevron-right")}
+                    />
                 </View>
 
-                <View style={styles.checkboxContainer}>
-                        <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={setIsTourGuide} color={isTourGuide ? '#FF914D' : undefined}/>
-                        <Text style={styles.text}>I'm a certified tour guide</Text>
-                </View>
-
-                {isTourGuide && (
-                <View style={styles.certContainer}>
-                    <TouchableOpacity onPress={pickCert} style={styles.uploadCert}>
-                        {!cert ? (
-                            <>
-                            <Image source={require('../assets/file.png')} style={styles.fileIcon} />
-                            <Text style={styles.text}> Upload Certificate </Text>
-                            </>
-                        ) : (
-                            <Text style={styles.showMore}> {cert.name} </Text>
-                        )}
-                    </TouchableOpacity>
-                    {isTourGuideCertInvalid() && (<Text style={styles.errorText}>Certificate is required</Text>)}
-                </View>
-                )}
-            </ScrollView>
-        
-            <View style={styles.buttonsRow}>
-                <ArrowButton
-                  onPress={() => navigation.goBack()}
-                  iconName={("chevron-left")}
-                />
-                <ArrowButton
-                  onPress={handleNext}
-                  iconName={("chevron-right")}
-                />
             </View>
-
-        </View>
+        </KeyboardAvoidingView>
   );
 };
 

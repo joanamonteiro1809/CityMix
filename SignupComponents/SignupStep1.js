@@ -1,6 +1,6 @@
 // screens/SignupStep1.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 
 const screenWidth = Dimensions.get('window').width;
@@ -36,76 +36,82 @@ const SignupStep1 = ({ navigation }) => {
         isSubmitted && field === 'confirmPassword' && formData.password !== formData.confirmPassword;
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Sign up</Text>
-            <View style={styles.progressBar}>
-                <View style={styles.progressActive} />
-                <View style={styles.progressInactive} />
-                <View style={styles.progressInactive} />
-            </View>
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>Sign up</Text>
+                <View style={styles.progressBar}>
+                    <View style={styles.progressActive} />
+                    <View style={styles.progressInactive} />
+                    <View style={styles.progressInactive} />
+                </View>
 
-            <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-            <TextInput
-                style={[styles.input, isFieldInvalid('name') && styles.inputError]}
-                placeholder="Name*"
-                value={formData.name}
-                onChangeText={(text) => setFormData({ ...formData, name: text })}
-            />
-            {isFieldInvalid('name') && <Text style={styles.errorText}>Name is required.</Text>}
-
-            <TextInput
-                style={[styles.input, isFieldInvalid('email') && styles.inputError]}
-                placeholder="Email*"
-                keyboardType="email-address"
-                value={formData.email}
-                onChangeText={(text) => setFormData({ ...formData, email: text })}
-            />
-            {isFieldInvalid('email') && <Text style={styles.errorText}>Email is required</Text>}
-
-            <TextInput
-                style={[styles.input, isFieldInvalid('username') && styles.inputError]}
-                placeholder="Username*"
-                value={formData.username}
-                onChangeText={(text) => setFormData({ ...formData, username: text })}
-            />
-            {isFieldInvalid('username') && (<Text style={styles.errorText}>Username is required</Text>)}
-
-            <TextInput
-                style={[styles.input, isFieldInvalid('password') && styles.inputError]}
-                placeholder="Password*"
-                secureTextEntry
-                value={formData.password}
-                onChangeText={(text) => setFormData({ ...formData, password: text })}
-            />
-            {isFieldInvalid('password') && <Text style={styles.errorText}>Password is required</Text>}
-
-            <TextInput style={[styles.input, (isFieldInvalid('confirmPassword') || isPasswordMismatch('confirmPassword')) &&
-                        styles.inputError,]}
-                placeholder="Confirm Password*"
-                secureTextEntry
-                value={formData.confirmPassword}
-                onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
-            />
-
-            {isFieldInvalid('confirmPassword') && (
-                <Text style={styles.errorText}>Confirm Password is required</Text>
-            )}
-            {isPasswordMismatch('confirmPassword') && (
-                <Text style={styles.errorText}>Passwords do not match</Text>
-            )}
-            </ScrollView>
-
-            <View style={styles.buttonsRow}>
-                <ArrowButton
-                    onPress={() => navigation.goBack()}
-                    iconName={("chevron-left")}
+                <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+                <TextInput
+                    style={[styles.input, isFieldInvalid('name') && styles.inputError]}
+                    placeholder="Name*"
+                    value={formData.name}
+                    onChangeText={(text) => setFormData({ ...formData, name: text })}
                 />
-                <ArrowButton
-                    onPress={handleNext}
-                    iconName={("chevron-right")}
+                {isFieldInvalid('name') && <Text style={styles.errorText}>Name is required.</Text>}
+
+                <TextInput
+                    style={[styles.input, isFieldInvalid('email') && styles.inputError]}
+                    placeholder="Email*"
+                    keyboardType="email-address"
+                    value={formData.email}
+                    onChangeText={(text) => setFormData({ ...formData, email: text })}
                 />
+                {isFieldInvalid('email') && <Text style={styles.errorText}>Email is required</Text>}
+
+                <TextInput
+                    style={[styles.input, isFieldInvalid('username') && styles.inputError]}
+                    placeholder="Username*"
+                    value={formData.username}
+                    onChangeText={(text) => setFormData({ ...formData, username: text })}
+                />
+                {isFieldInvalid('username') && (<Text style={styles.errorText}>Username is required</Text>)}
+
+                <TextInput
+                    style={[styles.input, isFieldInvalid('password') && styles.inputError]}
+                    placeholder="Password*"
+                    secureTextEntry
+                    value={formData.password}
+                    onChangeText={(text) => setFormData({ ...formData, password: text })}
+                />
+                {isFieldInvalid('password') && <Text style={styles.errorText}>Password is required</Text>}
+
+                <TextInput style={[styles.input, (isFieldInvalid('confirmPassword') || isPasswordMismatch('confirmPassword')) &&
+                            styles.inputError,]}
+                    placeholder="Confirm Password*"
+                    secureTextEntry
+                    value={formData.confirmPassword}
+                    onChangeText={(text) => setFormData({ ...formData, confirmPassword: text })}
+                />
+
+                {isFieldInvalid('confirmPassword') && (
+                    <Text style={styles.errorText}>Confirm Password is required</Text>
+                )}
+                {isPasswordMismatch('confirmPassword') && (
+                    <Text style={styles.errorText}>Passwords do not match</Text>
+                )}
+                </ScrollView>
+
+                <View style={styles.buttonsRow}>
+                    <ArrowButton
+                        onPress={() => navigation.goBack()}
+                        iconName={("chevron-left")}
+                    />
+                    <ArrowButton
+                        onPress={handleNext}
+                        iconName={("chevron-right")}
+                    />
+                </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 

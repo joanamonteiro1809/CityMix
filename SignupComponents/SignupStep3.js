@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import CheckBoxCircular from '../GeneralElements/CheckBoxCircular';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -9,6 +9,11 @@ const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep3 = ({ navigation }) => {
     return (
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        //keyboardVerticalOffset={5} // Adjust based on your app's header height
+        >
             <View style={styles.container}>
 
                 <Text style={styles.title}>Sign up</Text>
@@ -68,6 +73,7 @@ const SignupStep3 = ({ navigation }) => {
                 </View>
 
             </View>
+        </KeyboardAvoidingView>
     );
 };
 
