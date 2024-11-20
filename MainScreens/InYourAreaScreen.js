@@ -1,4 +1,4 @@
-// screens/InYourAreaScreen.js
+//screens/InYourAreaScreen.js
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -12,9 +12,10 @@ const cardHeight = height * 0.18;
 
 const InYourAreaScreen = ({navigation}) => {
     const renderIndividualItem = ({ item }) => (
-        <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={[styles.card, styles.individual]}>            <Image source={item.picture} style={styles.profilePicture} />
+        <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={[styles.card, styles.individual]}>            
+            <Image source={item.picture} style={styles.profilePicture} />
             <Text style={styles.cardTitle}>{item.name}, {item.age}</Text>
-           <Text style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.activities.join(', ')}</Text>
+            <Text style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.activities.join(', ')}</Text>
         </TouchableOpacity>
     );
 
@@ -65,7 +66,7 @@ const InYourAreaScreen = ({navigation}) => {
                     </View>
                 </View>
 
-                <View style={styles.sectionsContainer}>
+                <View style={styles.section}>
                 {/* Individual Section */}
                 <View style={styles.section}>
                     <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Individuals' })}>
@@ -139,8 +140,8 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        alignItems: 'center',  // Ensures both search bar and map align in the center vertically
-        justifyContent: 'space-between', // Space out the elements if needed
+        alignItems: 'center',  
+        justifyContent: 'space-between',
     },
     searchContainer: {
         flexDirection: 'row',
@@ -148,12 +149,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#eaeaea',
         borderRadius: 10,
         paddingHorizontal: 10,
-        marginVertical: height * 0.02, // Space below the search bar, responsive to screen height
-        height: height * 0.06, // Adjusts the height of the search bar to screen height
-        flex: 1, // Ensures search input takes the available space
+        marginVertical: height * 0.02, 
+        height: height * 0.06, 
+        flex: 1, 
     },
     searchInput: {
-        flex: 1, // Ensures input field takes most of the space
+        flex: 1, 
         fontSize: 16,
     },
     map: {
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
          justifyContent: 'space-between',
     },
     section: {
-        height: height * 0.23, // mexer aqui para mudar divisao do screen pelos 3 grupos
+        height: height * 0.23, 
         marginBottom: 10,
     },
     sectionHeader: {
