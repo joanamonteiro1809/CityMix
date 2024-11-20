@@ -35,28 +35,31 @@ const FilterScreen = ({ navigation, route }) => {
         if (date) {
             //filtered = filtered.filter((tour) => dayjs(tour.date).isSame(dayjs(date), 'day'));
         }
-        if (selectedActivities.length > 0) {
-            filtered = filtered.filter((tour) =>
-                selectedActivities.every((activity) => tour.activities.includes(activity))
-            );
-        }
-
-        if(tabSel == 'Paid'){
-            filtered = filtered.filter(
-                (tour) => tour.price >= priceValues[0] && tour.price <= priceValues[1]
-            );
-        }
-
-        if(tabSel == 'Individuals'){
-            filtered = filtered.filter(
-                (tour) => tour.age >= ageValues[0] && tour.age <= ageValues[1]
-            );
-        }
-
-        if (selectedLanguages.length > 0) {
-            //filtered = filtered.filter((tour) =>
-              //  selectedLanguages.every((language) => tour.languages.includes(language))
-            //);
+        if(tabSel != 'Group'){
+            
+            if (selectedActivities.length > 0) {
+                filtered = filtered.filter((tour) =>
+                    selectedActivities.every((activity) => tour.activities.includes(activity))
+                );
+            }
+    
+            if(tabSel == 'Paid'){
+                filtered = filtered.filter(
+                    (tour) => tour.price >= priceValues[0] && tour.price <= priceValues[1]
+                );
+            }
+    
+            if(tabSel == 'Individuals'){
+                filtered = filtered.filter(
+                    (tour) => tour.age >= ageValues[0] && tour.age <= ageValues[1]
+                );
+            }
+    
+            if (selectedLanguages.length > 0) {
+                filtered = filtered.filter((tour) =>
+                    selectedLanguages.every((language) => tour.languages.includes(language))
+                );
+            }
         }
 
         // Navigate to the FilteredToursScreen and pass the filtered tours as a parameter
