@@ -132,15 +132,14 @@ const SignupStep2 = ({ navigation }) => {
                             onChange={onChange}
                         />
                     )}
-                    <Pressable onPress={toggleDatepicker} >
-                        <TextInput
-                            style={[styles.input, isFieldInvalid(date) && styles.inputError]}
-                            placeholder = "Date of Birth*"
-                            value={date}
-                            onChangeText={setDate}
-                            editable={false}
-                        />
-                    </Pressable>
+                    <TouchableOpacity onPress={toggleDatepicker} >
+                        <View style={styles.selectionContainer}>
+                        <Text style={[styles.dateInput, isFieldInvalid(date) && styles.inputError, { color: date ? '#000000' : '#aaa' } ]}>
+                                {date ? date : 'Date of Birth*'}
+                        </Text>
+                        
+                    </View>
+                    </TouchableOpacity>
                     {isFieldInvalid(date) && (<Text style={styles.errorText}>Date of Birth is required</Text>)}
 
                     <TextInput
@@ -157,7 +156,7 @@ const SignupStep2 = ({ navigation }) => {
                             <TouchableOpacity key={lang} style={[styles.languageTag, selectedLanguages.includes(lang) && styles.languageTagSelected,]}
                                 onPress={() => toggleLanguageSelection(lang)}
                                 >
-                                <Text style={{fontFamily:'CodecPro-Regular'}}>{lang}</Text>
+                                <Text style={[{fontFamily:'CodecPro-Regular'}, selectedLanguages.includes(lang) && styles.tagTextSelected]}>{lang}</Text>
                             </TouchableOpacity>
                         ))}
 
@@ -254,6 +253,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#EBEBEB',
         fontFamily: 'CodecPro-Regular',
     },
+    dateInput:{
+        width: '100%',
+        padding: 15,
+        borderWidth: 0.7,
+        borderColor: '#ccc',
+        borderRadius: 10,
+        marginTop: 30,
+        backgroundColor: '#EBEBEB',
+        fontFamily: 'CodecPro-Regular',
+        color: '#aaa'
+    },
 
     subtitle: {
         fontSize: 20,
@@ -277,8 +287,13 @@ const styles = StyleSheet.create({
     },
 
     languageTagSelected: {
-        backgroundColor: '#c0c0c0',
+        backgroundColor: '#FF914D',
+        
     },
+    tagTextSelected: {
+        color: '#fff', // Slightly darker color when selected
+        fontFamily:'CodecPro-Regular',
+     },
 
     showMore: {
         color: '#000000',
