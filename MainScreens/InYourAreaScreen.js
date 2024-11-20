@@ -42,7 +42,10 @@ const InYourAreaScreen = ({navigation}) => {
                 <View style={styles.header}>
                     <View style={styles.searchContainer}>
                         <MaterialIcons name="search" size={24} color="#555" />
-                        <TextInput style={styles.searchInput} placeholder="Search" />
+                        <TextInput 
+                            style={styles.searchInput} 
+                            placeholder="Search" 
+                            onFocus={() => navigation.navigate('SearchScreen')}/>
                     </View>
 
                     {/* Image next to the search container */}
