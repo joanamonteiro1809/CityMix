@@ -1,5 +1,5 @@
 // screens/SignupStep2.js
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -12,6 +12,8 @@ const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep2 = ({ navigation }) => {
 
+    const scrollViewRef = useRef(null);
+
 // States
     const [isTourGuide, setIsTourGuide] = useState(false);
     const [date, setDate] = useState('');
@@ -23,7 +25,15 @@ const SignupStep2 = ({ navigation }) => {
 
 // CHECKBOX
     const toggleCheckbox = () => {
-        setIsTourGuide(!isTourGuide);
+        setIsTourGuide((prev) => {
+            if (!prev) {
+                // If enabling, scroll to the bottom
+                setTimeout(() => {
+                    scrollViewRef.current?.scrollToEnd({ animated: true });
+                }, 100); // Add slight delay to allow rendering
+            }
+            return !prev;
+        });
     };
 
 // DATE OF BIRTH
@@ -112,7 +122,9 @@ const SignupStep2 = ({ navigation }) => {
                     <View style={styles.progressInactive} />
                 </View>
 
-                <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+                <ScrollView 
+                    ref={scrollViewRef}
+                    contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
                     <View style={[styles.imageUploadContainer, isFieldInvalid(date) && styles.inputError]}>
                         <TouchableOpacity onPress={pickImage}>
                             {!image ? (
@@ -166,7 +178,7 @@ const SignupStep2 = ({ navigation }) => {
                     </View>
 
                     <View style={styles.checkboxContainer}>
-                            <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={setIsTourGuide} color={isTourGuide ? '#FF914D' : undefined}/>
+                            <Checkbox style={styles.checkbox} value={isTourGuide} onValueChange={toggleCheckbox} color={isTourGuide ? '#FF914D' : undefined}/>
                             <Text style={styles.text}>I'm a certified tour guide</Text>
                     </View>
 
@@ -324,13 +336,13 @@ const styles = StyleSheet.create({
     buttonsRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20,
-        position: 'absolute',
-        bottom: 10,
-        left: 20,
-        right: 20,
+        marginBottom: 10,
+        //position: 'absolute',
+        //bottom: 10,
+        //left: 20,
+        //right: 20,
         justifyContent: 'space-between',
-        marginTop: 'auto',
+        marginTop: 10,
     },
 
     certContainer: {
