@@ -10,13 +10,14 @@ import {
     Alert,
     KeyboardAvoidingView,
     Platform,
+    Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import sampleData from '../../sampledata';
 import ArrowButton from '../../GeneralElements/ArrowButton';
-import { launchImageLibrary } from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const { width, height } = Dimensions.get('window');
 
@@ -42,25 +43,24 @@ const CreateTourScreen = ({ route }) => {
     const languages = ['English', 'Portuguese', 'Spanish', 'French', 'Chinese', 'Dutch', 'Italian', 'Japanese'];
     const languagesToShow = showAllLanguages ? languages : languages.slice(0, 4);
 
-    const [selectedImage, setSelectedImage] = useState(null);
+   const [image, setImage] = useState(null);
 
 
     const guideName = route.params?.guideName;
 
+const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ['images'],
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
 
-     const handleSelectImage = () => {
-         launchImageLibrary({ mediaType: 'photo' }, (response) => {
-             if (response.didCancel) {
-                 console.log('User cancelled image picker');
-             } else if (response.errorCode) {
-                 console.error('ImagePicker Error: ', response.errorCode);
-                 Alert.alert('Error', 'An error occurred while selecting an image.');
-             } else if (response.assets && response.assets.length > 0) {
-                 const { uri } = response.assets[0];
-                 setSelectedImage(uri);
-             }
-         });
-     };
+        if (!result.canceled) {
+              setImage(result.assets[0].uri);
+            }
+    };
 
     const addRoute = () => {
         if (routeLocation.trim()) {
@@ -165,15 +165,13 @@ const toggleActivitiesSelection = (activity) => {
                            </View>
 
                            {/* Área de imagem */}
-                           <TouchableOpacity onPress={handleSelectImage} style={styles.coverPicture}>
-                               {selectedImage ? (
-                                   <Image source={{ uri: selectedImage }} style={styles.selectedImage} />
-                               ) : (
-                                   <Icon name="photo-camera" size={40} color="#888" />
-                               )}
-                           </TouchableOpacity>
-
-
+                          <TouchableOpacity onPress={pickImage}>
+                                                  {!image ? (
+                                                      <Image source={require('../../assets/photo-upload.png')}  style={styles.imagePlaceholder}/>
+                                                  ) : (
+                                                      <Image source={{ uri: image }} style={styles.image} />)
+                                                  }
+                                              </TouchableOpacity>
                     <Text style={styles.label}>Title</Text>
                     <TextInput
                         style={[styles.input, errors.title && styles.inputError]}
@@ -496,6 +494,12 @@ selectedImage: {
     borderRadius: 10,
 },
 
+    imagePlaceholder: {
+        width: width * 0.20,
+        height: width * 0.20,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+    },
 
 
 });
