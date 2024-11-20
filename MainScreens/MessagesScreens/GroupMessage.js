@@ -1,43 +1,20 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
-import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Entypo from '@expo/vector-icons/Entypo';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Dimensions, } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const GroupMessage = ({ navigation, route }) => { // Certifique-se de passar o `navigation` como prop
+const GroupMessage = ({ navigation, route }) => {
   const [messages, setMessages] = useState([
-    { id: '1', text: 'Hi!! I saw in your profile that you are a fan of museums and that you are currently in Belém and available. I am going there tomorrow by 14h do you want to meet?', type: 'sent' },
-    { id: '2', text: 'Hello! Yes, let`s do it!!', type: 'received' },
+    { id: '1', text: 'How is everyone?', type: 'received' },
   ]);
   const [inputText, setInputText] = useState('');
 
-  const date = route.params?.date;
-  const time = route.params?.time;
-  const meetingPoint = route.params?.meetingPoint;
-
-  React.useEffect(() => {
-    if (date && time && meetingPoint) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          id: Date.now().toString(),
-          type: 'invite',
-          text: `Invite sent! ${date} at ${time}`,
-          meetingPoint,
-        },
-      ]);
-    }
-  }, [date, time, meetingPoint]);
+  const group = route.params?.group;
 
   const handleSend = () => {
     if (inputText.trim()) {
@@ -50,26 +27,9 @@ const GroupMessage = ({ navigation, route }) => { // Certifique-se de passar o `
   };
 
   const renderMessage = ({ item }) => {
-    if (item.type === 'invite') {
-      return (
-        <View style={styles.inviteBubble}>
-            <Text style={styles.inviteTitle}>Invite sent!</Text>
-            <View>
-              <Text>{date} at {time}</Text>
-            </View>
-            <View style={styles.inviteInfo}>
-              <Icon name="location-pin" size={20} color="#555" />
-              <Text>{meetingPoint}</Text>
-            </View>
-
-          </View>
-      );
-    }
-
     return (
       <View
-        style={[
-          styles.messageBubble,
+        style={[styles.messageBubble,
           item.type === 'sent' ? styles.sentMessage : styles.receivedMessage,
         ]}
       >
@@ -82,15 +42,12 @@ const GroupMessage = ({ navigation, route }) => { // Certifique-se de passar o `
     <View style={styles.container}>
       <View style={styles.header}>
         <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
-        <View style={styles.avatarContainer}>
-          <Icon name="person" size={height * 0.05} color="#bbb" />
+        <View style={styles.name}>
+            <FontAwesome6 name="users" size={24} color="white" style={{ marginHorizontal: 5 }}/>
+            <Text style={styles.headerText}>{group.title}</Text>
         </View>
-        <Text style={styles.headerText}>Ana</Text>
-       <TouchableOpacity
-        style={styles.createInvitationButton}
-        onPress={() => navigation.navigate('CreateInvitation')}
-        >
-          <Text style={styles.createInvitationText}>Create Invitation</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('GroupDetail', {group: group})}>
+            <Entypo name="dots-three-horizontal" size={24} color="white" />
         </TouchableOpacity>
       </View>
       <FlatList
@@ -118,39 +75,38 @@ const GroupMessage = ({ navigation, route }) => { // Certifique-se de passar o `
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F8F8F8',
   },
   header: {
     width: '100%',
     height: height * 0.09,
-    backgroundColor: '#666',
+    backgroundColor: '#FF914D',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    //justifyContent: 'flex-start',
     paddingHorizontal: width * 0.03,
     marginTop: height * 0.035,
   },
-  avatarContainer: {
-    width: height * 0.055,
-    height: height * 0.055,
-    borderRadius: height * 0.05,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
+
+  name: {
+    flexDirection: 'row', // Arrange the icon and text horizontally
+    flex: 1, // Allows the centerContent to occupy all available space
+    justifyContent: 'center', // Centers the block within the header
     alignItems: 'center',
+    flexShrink: 1,
   },
+
   headerText: {
     fontSize: width * 0.06,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
     color: '#fff',
+    justifySelf: 'center',
+    alignSelf: 'center',
+    marginLeft: 10,
+    marginRight: 50,
+    fontFamily: 'CodecPro-ExtraBold',
   },
-  createInvitationButton: {
-    padding: width * 0.05,
-  },
-  createInvitationText: {
-    fontSize: width * 0.04,
-    color: '#fff',
-    textDecorationLine: 'underline',
-  },
+
   messagesContainer: {
     flex: 1,
     padding: width * 0.03,
@@ -161,23 +117,7 @@ const styles = StyleSheet.create({
     padding: width * 0.03,
     marginVertical: width * 0.02,
   },
-  inviteBubble:{
-    maxWidth: '70%',
-    borderRadius: width * 0.04,
-    paddingHorizontal: width * 0.09,
-    paddingVertical: width * 0.03,
-    marginVertical: width * 0.02,
-    backgroundColor: '#eaeaea',
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-  },
-  inviteTitle: {
-    fontWeight: 'bold',
-    fontSize: 16
-  },
-  inviteInfo: {
-    flexDirection: 'row'
-  },
+
   sentMessage: {
     backgroundColor: '#eaeaea',
     alignSelf: 'flex-end',

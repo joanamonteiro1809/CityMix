@@ -3,6 +3,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView, Dimensions, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import sampleData from '../sampledata';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,8 +14,14 @@ const renderGroupItem = ({nav, item }) => (
             <Image source={item.image} style={styles.image} />
             <View style={styles.groupInfo}>
                 <Text style={styles.groupName}>{item.title}</Text>
-                <Text style={styles.numberPeopleInfo}>{item.numPeopl}</Text>
-                <Text style={styles.location}>{item.location}</Text>
+                <View style={styles.infoRow}>
+                    <FontAwesome6 name="users" size={14} color='#888' style={{marginRight: -0.1}}/>
+                    <Text style={styles.numberPeopleInfo}>{item.numPeopl}</Text>
+                </View>
+                <View style={styles.infoRow}>
+                    <Ionicons name="location-outline" size={14} color='#888' style={{marginRight: -0.1}}/>
+                    <Text style={styles.location}>{item.location}</Text>
+                </View>
             </View>
     </TouchableOpacity>
 );
@@ -56,11 +64,13 @@ const styles = StyleSheet.create({
     },
     groupName: {
         fontSize: 16,
-        fontWeight: 'bold',
+       // fontWeight: 'bold',
+       fontFamily: 'CodecPro-Bold',
     },
     numberPeopleInfo: {
         fontSize: 12,
         color: '#888',
+        marginHorizontal: 5,
     },
     image: {
         width: width*0.27,
@@ -70,7 +80,14 @@ const styles = StyleSheet.create({
     location: {
         fontSize: 12,
         color: '#888',
+        marginHorizontal: 5,
     },
+    infoRow: {
+        flexDirection: 'row', // Alinha o ícone e texto horizontalmente
+        alignItems: 'center',
+        marginTop: 5, // Espaço entre as linhas
+        //gap: 5, // Espaço entre o ícone e o texto
+},
 });
 
 export default GroupScreen;

@@ -41,7 +41,7 @@ const GroupEntry = ({navigation, route}) => {
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate('GroupMessage')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('GroupMessage', {group: groupEntry})}>
                             <Text style={styles.footerBoxes}>Join Group</Text>
                         </TouchableOpacity>
                     </View>
