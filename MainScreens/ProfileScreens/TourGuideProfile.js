@@ -307,8 +307,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: width * 0.9,
         marginTop: 10,
-        
-        
     },
     aboutSection: {
         flex: 1,
