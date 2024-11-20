@@ -279,7 +279,7 @@ const toggleActivitiesSelection = (activity) => {
                     {errors.routes && <Text style={styles.errorText}>{errors.routes}</Text>}
 
                     {routes.map((routeItem, index) => (
-                        <View key={index} style={styles.routeItem}>
+                        <View key={index} style={styles.item}>
                             <Text style={styles.routeText}>{routeItem}</Text>
                         </View>
                     ))}
@@ -302,16 +302,14 @@ const toggleActivitiesSelection = (activity) => {
                           maxLength={5}
                           keyboardType="numeric"
                       />
-
-
                         <TouchableOpacity style={styles.addTimeButton} onPress={addAvailableTime}>
                             <Icon name="add" size={24} color="#fff" />
                         </TouchableOpacity>
                     </View>
 
                     {availableTimes.map((time, index) => (
-                        <View key={index} style={styles.listItem}>
-                            <Text>{time}</Text>
+                        <View key={index} style={styles.item}>
+                            <Text style={styles.routeText}>{time}</Text>
                         </View>
                     ))}
 
@@ -361,7 +359,7 @@ const styles = StyleSheet.create({
         marginBottom: height * 0.02,
     },
     title: {
-        fontSize: width * 0.07,
+        fontSize: width * 0.08,
         fontWeight: 'bold',
         color: '#f2b636',
         textAlign: 'center',
@@ -420,12 +418,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: width * 0.04,
     },
-    routeItem: {
+    item: {
         backgroundColor: '#eaeaea',
         padding: width * 0.03,
         borderRadius: 8,
         marginVertical: height * 0.01,
     },
+
     routeText: {
         fontSize: width * 0.04,
         color: '#333',
