@@ -7,14 +7,14 @@ const { width } = Dimensions.get('window');
 // Dados de notificações organizados por categorias
 const notificationsByCategory = {
     Today: [
-        { id: 1, message: 'Juliana Soares joined your community "Day in Belém"', photo: require('../assets/user1.jpg') },
+        { id: 1, message: 'Juliana Soares joined your community "Day in Cascais"', photo: require('../assets/user1.jpg') },
     ],
     Yesterday: [
         { id: 2, message: 'João Silva sent you a review', photo: require('../assets/user2.png') },
         { id: 3, message: 'Francisco Coelho sent you a review', photo: require('../assets/user3.jpg') },
     ],
     'Last 7 days': [
-        { id: 4, message: 'Joana Santos and 3 others joined your community "Day in Belém"', photo: require('../assets/user4.jpg') },
+        { id: 4, message: 'Joana Santos and 3 others joined your community "Day in Cascais"', photo: require('../assets/user4.jpg') },
     ],
 };
 
