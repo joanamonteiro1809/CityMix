@@ -7,14 +7,14 @@ const { width } = Dimensions.get('window');
 // Dados de notificações organizados por categorias
 const notificationsByCategory = {
     Today: [
-        { id: 1, message: 'Juliana Soares joined your community "Day in Belém"', photo: require('../assets/user1.jpg') },
+        { id: 1, message: 'Juliana Soares joined your community "Day in Cascais"', photo: require('../assets/user1.jpg') },
     ],
     Yesterday: [
         { id: 2, message: 'João Silva sent you a review', photo: require('../assets/user2.png') },
         { id: 3, message: 'Francisco Coelho sent you a review', photo: require('../assets/user3.jpg') },
     ],
     'Last 7 days': [
-        { id: 4, message: 'Joana Santos and 3 others joined your community "Day in Belém"', photo: require('../assets/user4.jpg') },
+        { id: 4, message: 'Joana Santos and 3 others joined your community "Day in Cascais"', photo: require('../assets/user4.jpg') },
     ],
 };
 
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         paddingTop: width * 0.13, // Adapta o padding com base na largura da tela
         fontSize: width * 0.06, // Escala o tamanho do título de forma proporcional
         fontWeight: 'bold',
-        color: '#f2b636',
+        color: '#FF914D',
         marginBottom: width * 0.08,
     },
     listContainer: {
