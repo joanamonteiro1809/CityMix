@@ -230,7 +230,7 @@ const sampleData = {
         }
     ],
     currentUser: {
-        role: 'normal_user',
+        role: 'tour_guide',
     },
 
     ritaEvents: [
