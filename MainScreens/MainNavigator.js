@@ -57,7 +57,7 @@ const MainNavigator = () => {
             <Tab.Screen name="Home" component={InYourAreaStack}/>
             <Tab.Screen name="Messages" component={InYourAreaScreen} />
             <Tab.Screen name="Notifications" component={handleNotifications()} />
-            <Tab.Screen name="Profile" component={MyNormalProfile} />
+            <Tab.Screen name="Profile" component={handleProfile()} />
         </Tab.Navigator>
     );
 };

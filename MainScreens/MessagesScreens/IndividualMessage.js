@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: height * 0.09,
-    backgroundColor: '#666',
+    backgroundColor: '#FF914D',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

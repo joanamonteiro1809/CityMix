@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
+import sampleData from '../../sampledata';
 
 const { width } = Dimensions.get('window');
 
@@ -50,14 +51,22 @@ const TourDetailScreen = ({navigation, route}) => {
                 
                 <View style={{paddingHorizontal: 20}}>
                 {/* Guide info*/}
+                
                 <View style={styles.guideContainer}>
                         <Text style={styles.sectionTitle}>Guide:</Text>
-                        <TouchableOpacity>
+
+                        {(sampleData.currentUser.role == "tour_guide" && tourDetails.tourGuide == "João Silva")?
+                        (
+                        <View style={{flexDirection: 'row',}}>
                             <Text style={styles.guideText}>{tourDetails.tourGuide}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
                             <Icon name="chat-bubble-outline" size={20} color="#888" style={styles.chatIcon} />
-                        </TouchableOpacity>
+                        </View>
+                        ) : (
+                        <TouchableOpacity style={{flexDirection: 'row',}} onPress={() => {}}>
+                            <Text style={styles.guideText}>{tourDetails.tourGuide}</Text>
+                            <Icon name="chat-bubble-outline" size={20} color="#888" style={styles.chatIcon} />
+                        </TouchableOpacity> 
+                        )}
                 </View>
 
                 {/* Description */}
@@ -118,12 +127,16 @@ const TourDetailScreen = ({navigation, route}) => {
             </ScrollView>
 
             {/* Footer with Price and Book Button */}
+            {((sampleData.currentUser.role != "tour_guide") || 
+            (sampleData.currentUser.role == "tour_guide" && tourDetails.tourGuide != "João Silva")) &&
+            (
             <View style={styles.footer}>
                 <Text style={styles.price}>{tourDetails.price}€ per person</Text>
                 <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('TourBooking', { tour: tourDetails })}>
                     <Text style={styles.bookButtonText}>Book Tour</Text>
                 </TouchableOpacity>
             </View>
+            )}
         </View>
     );
 };
