@@ -33,7 +33,8 @@
           "./assets/fonts/CodecPro-Italic.ttf", 
           "./assets/fonts/CodecPro-Regular.ttf", 
           "./assets/fonts/CodecPro-Bold.ttf",
-          "./assets/fonts/CodecPro-ExtraBold.otf"
+          "./assets/fonts/CodecPro-ExtraBold.otf",
+          "./assets/fonts/ArchivoBlack-Regular.ttf"
         ]
         }
       ]

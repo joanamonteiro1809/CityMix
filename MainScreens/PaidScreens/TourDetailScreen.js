@@ -28,7 +28,7 @@ const TourDetailScreen = ({navigation, route}) => {
 
     const handleGuidePress = (guideName) => {
         const guideDetails = sampleData.individual.find(individual => individual.name === guideName) || sampleData.individual[0]; // Exemplo
-        navigation.navigate('OtherPersonProfile', { guide: guideDetails });
+        navigation.navigate('OtherPersonProfile', { tour: guideDetails });
     };
 
 

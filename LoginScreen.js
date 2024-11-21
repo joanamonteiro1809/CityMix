@@ -10,7 +10,8 @@ const { width, height } = Dimensions.get('window');
 const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
-    const [isReady, setIsReady] = useState(false);
+    const [isFontsReady, setIsFontsReady] = useState(false);
+    const [isAppReady, setIsAppReady] = useState(false);
 
     const [fontsLoaded] = useFonts({
         'CodecPro-Bold': require('./assets/fonts/CodecPro-Bold.ttf'),
@@ -29,8 +30,18 @@ const LoginScreen = ({ navigation }) => {
 
     useEffect(() => {
         if (fontsLoaded) {
-            setIsReady(true);
-            if (!animationStarted) {
+            setIsFontsReady(true);
+
+            // Add a slight delay to ensure all font glyphs are loaded
+            setTimeout(() => setIsAppReady(true), 500);
+        }
+    }, [fontsLoaded]);
+
+    useEffect(() => {
+        {/*if (fontsLoaded) {
+            setIsReady(true);*/}
+
+            if (isAppReady && !animationStarted) {
                 Animated.sequence([
                     Animated.timing(logoAnim, {
                         toValue: 0.5,
@@ -60,8 +71,16 @@ const LoginScreen = ({ navigation }) => {
                 ]).start();
                 setAnimationStarted(true);
             }
-        }
-    }, [fontsLoaded, animationStarted, logoAnim, inputContainerAnim, inputOpacityAnim]);
+        {/*}*/}
+    }, [isAppReady, animationStarted, logoAnim, inputContainerAnim, inputOpacityAnim]);
+
+    if (!isAppReady) {
+        return (
+            <View style={styles.loadingContainer}>
+                <Text style={{ fontSize: 18, color: '#888', marginTop: 10 }}>Loading...</Text>
+            </View>
+        );
+    }
 
     const handleEmail = (newEmail) => {
         setEmail(newEmail);
