@@ -229,7 +229,7 @@ const FilterScreen = ({ navigation, route }) => {
             
             {/* Header */}
             <View style={styles.header}>
-                <ArrowButton onPress={() => navigation.goBack()} iconName="close" />
+                <ArrowButton onPress={() => navigation.goBack()} iconName="close"/>
                 <View style={styles.headerTitleContainer}>
                     <Text style={styles.headerTitle}>Filters</Text>
                 </View>
@@ -241,13 +241,13 @@ const FilterScreen = ({ navigation, route }) => {
                 data={[{ key: 'content' }]} // Single item to render all content
                 renderItem={renderContent}
                 keyExtractor={(item) => item.key}
-                contentContainerStyle={{ paddingHorizontal: 15, paddingVertical:20 }}
+                contentContainerStyle={{ paddingHorizontal: 15, paddingVertical:25 }}
             />
 
              {/* Footer*/}
             <View style={styles.footerContainer}>
                 <TouchableOpacity onPress={restoreFilters}>
-                    <Text style={styles.footerBoxes}>Reset all</Text>
+                    <Text style={styles.reset}>Reset all</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={applyFilters}>
                     <Text style={styles.footerBoxes}>Apply filters</Text>
@@ -268,19 +268,24 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 20,
-        
+        justifyContent: 'space-between',
     },
     headerTitleContainer: {
+       flex: 1,
+       justifySelf: 'center',
+       alignSelf:'center',
     },
     headerTitle:{
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 15,
+        fontSize: 24,
+        //fontWeight: 'bold',
+        marginLeft: -30,
+        textAlign: 'center',
+        fontFamily: 'CodecPro-Bold',
     },
 
     infoCard: {
         //backgroundColor: '#f7f7f7',
-        padding: 10,
+        padding: 12,
         //borderRadius: 10,
         //shadowColor: '#000',
         //shadowOffset: { width: 0, height: 2 },
@@ -299,12 +304,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333',
         marginRight: 10,
+        fontFamily: 'CodecPro-Bold',
     },
     // Date picker
     dateContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 26,
     },
     input: {
         paddingVertical:10,
@@ -314,6 +320,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#aaa',
         marginRight: 5,
+        fontFamily: 'CodecPro-Regular',
     },    
     // Options selection
     selectionContainer: {
@@ -338,30 +345,54 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginTop: 5,
         textDecorationLine: 'underline',
+        fontFamily: 'CodecPro-Regular',
+        marginBottom: 20,
     }, 
 
     // Sliders
     sliderContainer:{
-        marginBottom: 10,
+        marginBottom: 20,
     },
 
     //Footer
     footerContainer:{
-        paddingVertical: 10,
+        paddingVertical: 25,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        backgroundColor:'#FF914D',
+
     },
     footerBoxes:{
         backgroundColor: '#FF914D',
-        borderWidth:2, 
-        borderColor: '#fff',
-        borderRadius: 20,
-        padding: 12,
+        borderRadius: 25,
+        padding: 14,
         //margin: 5,
         color: '#fff', // Slightly darker color when selected
         fontWeight: 'bold',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.15,
+        shadowRadius: 2,
+        elevation: 1,
+        overflow: 'hidden',
+        fontFamily: 'CodecPro-Regular',
     },
+
+    reset:{
+        backgroundColor: '#E8E8E8',
+        borderRadius: 25,
+        padding: 14,
+        fontFamily: 'CodecPro-Regular',
+        //margin: 5,
+        color: '#888', // Slightly darker color when selected
+        fontWeight: 'bold',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.15,
+        shadowRadius: 2,
+        elevation: 1,
+        overflow: 'hidden',
+    },
+
 
 
 });
