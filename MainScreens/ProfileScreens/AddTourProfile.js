@@ -174,10 +174,10 @@ const pickImage = async () => {
                >
                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                        <View style={styles.container}>
-                           <View style={styles.header}>
-                               <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
-                               <Text style={styles.title}>New Tour</Text>
-                           </View>
+                       <View style={styles.header}>
+                            <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
+                        </View>
+                        <Text style={styles.title}>New Tour</Text>
 
                            {/* Área de imagem */}
                           <TouchableOpacity onPress={pickImage}>
@@ -385,12 +385,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FF914D',
         //borderWidth: 1, borderColor: 'red',
-        marginTop: 20,
+        //marginTop: 50,
         textAlign: 'center',
         flex: 1,
-        position: 'absolute',
-        left: 0,
-        right: 0, // Garante centralização horizontal
+        position: 'relative',
+        alignSelf: 'center', // Centraliza o container horizontalmente
+        marginTop: height * -0.05, // Move o título para cima
+        width: '60%',
     },
     coverPicture: {
         width: width * 0.5,
