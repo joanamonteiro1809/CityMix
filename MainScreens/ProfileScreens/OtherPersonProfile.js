@@ -11,7 +11,6 @@ const OtherPersonProfile = ({ navigation, route }) => {
   const [activeTab, setActiveTab] = useState('About'); // Aba padrão
   const personDetails = route.params?.tour || route.params?.guide || sampleProfile;
 
-
   const sampleProfile ={
     id: '1', 
     name: 'Juliana Soares',
