@@ -18,6 +18,7 @@ const LoginScreen = ({ navigation }) => {
         'CodecPro-ExtraBold': require('./assets/fonts/CodecPro-ExtraBold.otf'),
         'CodecPro-Italic': require('./assets/fonts/CodecPro-Italic.ttf'),
         'CodecPro-Regular': require('./assets/fonts/CodecPro-Regular.ttf'),
+        'ArchivoBlack-Regular': require('./assets/fonts/ArchivoBlack-Regular.ttf'),
     });
 
 
