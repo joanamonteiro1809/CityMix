@@ -6,13 +6,13 @@ const { width } = Dimensions.get('window');
 
 const notificationsByCategory = {
     Today: [
-        { id: 1, date: 'Today', message: 'Paulo sent you a review', icon: "account-circle" },
-        { id: 2, date: 'Today', message: 'Vitor sent you a review', icon: "account-circle" },
+        { id: 1, date: 'Today', message: 'Paulo sent you a review', photo: require('../assets/Paulo.jpg') },
+        { id: 2, date: 'Today', message: 'Vitor sent you a review', photo: require('../assets/Vitor.jpeg') },
     ],
     Yesterday: [
-        { id: 3, date: 'Yesterday', message: 'Ana bought your tour "Belém: Best Sights"', icon: "account-circle" },
+        { id: 3, date: 'Yesterday', message: 'Ana bought your tour "Belém: Best Sights"', photo: require('../assets/Ana.jpg.webp')},
         { id: 4, date: 'Yesterday', message: 'João joined your community "Day in Belém"', photo: require('../assets/user2.png') },
-        { id: 5, date: 'Yesterday', message: 'Maria sent you a review' , icon: "account-circle"},
+        { id: 5, date: 'Yesterday', message: 'Maria sent you a review' , photo: require('../assets/Maria.jpg')},
     ],
     'Last 7 days': [
         { id: 6, date: '6 days ago', message: 'Joana and 3 others joined your community "Day in Belém"', photo: require('../assets/user4.jpg') },
