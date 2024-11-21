@@ -243,10 +243,10 @@ const sampleData = {
         },
         {
             id: 2,
-            title: 'Discover the wonders of Lisbon',
+            title: 'Discover Monsanto',
             date: '2024-09-27',
             time: '14:00',
-            location: 'Praça do Comércio',     
+            location: 'Monsanto',     
         },
     ],
     joaoEvents: [

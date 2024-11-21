@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import dayjs from 'dayjs';
+import { getRitaEvents } from '../../GeneralElements/asyncStorage';
 
 const { width, height } = Dimensions.get('window');
 
@@ -31,9 +33,21 @@ const MyNormalProfile = ({ navigation, route }) => {
         setIsAvailable(!isAvailable);
     };
 
+    const [events, setEvents] = useState([]);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchEvents = async () => {
+                const storedEvents = await getEvents();
+                setEvents(storedEvents); // Ensure the state is updated with fresh data
+            };
+            fetchEvents();
+        }, [])
+    );
+
     const renderEventItem = ({ item }) => (
         <View style={styles.eventCard}>
-            <Text style={styles.eventDate}>{item.date}</Text>
+            <Text style={styles.eventDate}>{formatDate(item.date)}</Text>
             <View>
                 <Text style={styles.eventTitle}>{item.title}</Text>
                 <View>
@@ -85,10 +99,9 @@ const MyNormalProfile = ({ navigation, route }) => {
             case 'Calendar':
 
                 const filteredEvents = date
-                ? sampleEvents.filter(event => event.date === formatDate(date)) // Compare selected date
+                ? events.filter(event => formatDate(event.date) === formatDate(date)) // Compare selected date
                 : []; // If no date selected, show all events
 
-                console.log(filteredEvents);
                 return (
                     <View style={styles.calendarSection}>
                         {/* Calendar Picker */}
@@ -111,18 +124,35 @@ const MyNormalProfile = ({ navigation, route }) => {
                 );
 
             case 'Events':
+
+            const today = dayjs(); // Get today's date for comparison
+                
+                const formattedEvents = events.map(event => ({
+                    ...event,
+                    eventDate: dayjs(event.date, 'YYYY-MM-DD'), // Parse event date using the correct format
+                }));
+                
+                const futureEvents = formattedEvents
+                    .filter(event => event.eventDate.isAfter(today, 'day'))
+                    .sort((a, b) => a.eventDate - b.eventDate); // Ascending order
+                const pastEvents = formattedEvents
+                    .filter(event => !event.eventDate.isAfter(today, 'day'))
+                    .sort((a, b) => b.eventDate - a.eventDate); // Ascending order
+                
                 return (
                     <View style={styles.eventsSection}>
                         <Text style={styles.sectionTitle}>Future Events</Text>
                         <FlatList
-                            data={sampleEvents}
+                            data={futureEvents}
                             renderItem={renderEventItem}
-                            keyExtractor={item => item.id}
+                            keyExtractor={(item) => item.id}
                         />
                         <Text style={styles.sectionTitle}>Past Events</Text>
-                        <View style={styles.pastEventsPlaceholder}>
-                            <Text>No past events</Text>
-                        </View>
+                        <FlatList
+                            data={pastEvents}
+                            renderItem={renderEventItem}
+                            keyExtractor={(item) => item.id.toString()}
+                        />
                     </View>
                 );
             
@@ -222,8 +252,7 @@ const styles = StyleSheet.create({
     },
     eventsSection: {
         padding: width * 0.03,
-        marginBottom: height * 0.5,
-        
+        //marginBottom: height * 0.5,
     },
     sectionTitle: {
         fontSize: width * 0.05,

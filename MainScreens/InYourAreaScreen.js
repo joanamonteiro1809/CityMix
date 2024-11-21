@@ -1,9 +1,11 @@
 //screens/InYourAreaScreen.js
-import React from 'react';
+import React, {useState} from 'react';
+import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { AntDesign } from '@expo/vector-icons';
 import sampleData from '../sampledata';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // For persistence
 
 const { width, height } = Dimensions.get('screen');
 
@@ -11,6 +13,9 @@ const cardWidth = width * 0.35;
 const cardHeight = height * 0.18;
 
 const InYourAreaScreen = ({navigation}) => {
+
+    const [paidT, setPaid] = useState(sampleData.paidTours);
+
     const renderIndividualItem = ({ item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('OtherPersonProfile', { tour: item })} style={[styles.card, styles.individual]}>            
             <Image source={item.picture} style={styles.profilePicture} />
@@ -33,6 +38,24 @@ const InYourAreaScreen = ({navigation}) => {
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.price}€</Text>
         </TouchableOpacity>
+    );
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchPaid = async () => {
+                try {
+                    const storedTours = await AsyncStorage.getItem('paidTours');
+                    if (storedTours) {
+                        setPaid(JSON.parse(storedTours));
+                    } else {
+                        setPaid(sampleData.paidTours);
+                    }
+                } catch (error) {
+                    console.error('Error fetching tours:', error);
+                }
+            };
+            fetchPaid();
+        }, [])
     );
 
     return (
@@ -119,7 +142,7 @@ const InYourAreaScreen = ({navigation}) => {
                     </View>
                     <FlatList
                         horizontal
-                        data={sampleData.paidTours}
+                        data={paidT}
                         renderItem={({ item }) => renderPaidToursItem({ item, navigation })}
                         keyExtractor={item => item.id.toString()}
                         contentContainerStyle={styles.listContainer}

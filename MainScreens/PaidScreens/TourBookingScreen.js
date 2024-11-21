@@ -62,10 +62,11 @@ const TourBookingScreen = ({ navigation, route }) => {
         setIsSubmitted(true);
         if (validate()) {
             navigation.navigate("PopupPaid", 
-                {selectedDate: dayjs(date).format('MMMM D, YYYY'), 
+                {selectedDate: dayjs(date).format('YYYY-MM-DD'), 
                     selectedTime: time,
                     title: tour.title, 
-                    guide: tour.tourGuide});
+                    guide: tour.tourGuide,
+                    location: tour.routeStops[0]});
         }
     };
 

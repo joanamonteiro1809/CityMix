@@ -1,17 +1,22 @@
 // PopupPaid.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
 import sampleData from '../../sampledata';
+import { getEvents, getRitaEvents } from '../../GeneralElements/asyncStorage';
+import { saveEvents, saveRitaEvents } from '../../GeneralElements/asyncStorage';
+import dayjs from 'dayjs';
+
 const PopupPaid = ({ navigation, route }) => {
 
     const sampleTour = {
         title: 'Visit São Jorge Castle',
         tourGuide: 'Rúben Santos',
-        meetingPoint: 'Castelo',
+        location: 'Castelo',
         time: '3:30 PM',
-        date: 'November, 24',
+        date: '2024-10-24',
+        location: 'Belém',
     };
 
     const selectedDate = route.params?.selectedDate || sampleTour.date; 
@@ -19,8 +24,51 @@ const PopupPaid = ({ navigation, route }) => {
     const selectedTime  = route.params?.selectedTime || sampleTour.time;
     const title = route.params?.title || sampleTour.title;
     const guide = route.params?.guide || sampleTour.tourGuide;
+    const location = route.params?.location || sampleTour.location;
 
     const activeProf = (sampleData.currentUser.role == 'tour_guide') ? 'GuideProfile' : 'NormalProfile';
+
+
+    // Function to add event to AsyncStorage
+    const addEventToStorage = async () => {
+        try {
+
+            // Create a new event object
+            const newEvent = {
+                id: Date.now().toString(),
+                title,
+                date: selectedDate,
+                time: selectedTime,
+                location,
+            };
+            if(sampleData.currentUser.role == 'tour_guide'){
+                // Retrieve existing events from AsyncStorage
+                const existingEvents = await getEvents();
+
+                // Add the new event to the existing events array
+                const updatedEvents = [...existingEvents, newEvent];
+
+                // Save the updated events list to AsyncStorage
+                await saveEvents(updatedEvents);
+            } else {
+                // Retrieve existing events from AsyncStorage
+                const existingEvents = await getRitaEvents();
+
+                // Add the new event to the existing events array
+                const updatedEvents = [...existingEvents, newEvent];
+
+                // Save the updated events list to AsyncStorage
+                await saveRitaEvents(updatedEvents);
+            }
+        } catch (error) {
+            console.error('Failed to add event to AsyncStorage:', error);
+        }
+    };
+
+    // Trigger event saving when the popup is shown
+    useEffect(() => {
+        addEventToStorage();
+    }, [title, guide, selectedDate, selectedTime]);
 
     return (
         <View style={styles.container}>
@@ -43,7 +91,7 @@ const PopupPaid = ({ navigation, route }) => {
                         <View style={styles.dateTimeContainer}>
                             <Text style={styles.dateTimeText}>{selectedTime}</Text>
                             <Text style={styles.dateTimeText}> | </Text>
-                            <Text style={styles.dateTimeText}>{selectedDate}</Text>
+                            <Text style={styles.dateTimeText}>{dayjs(selectedDate).format('MMMM D, YYYY')}</Text>
                         </View>
                         <Text style={{fontSize: 18, marginBottom: 5, color:"#555"}}>{guide}</Text>
                     </View>

@@ -7,8 +7,8 @@ import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import sampleData from '../../sampledata'
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For persistence
 import dayjs from 'dayjs';
-//import { getEvents } from '../../GeneralElements/asyncStorage';
-//import { saveEvents } from '../../GeneralElements/asyncStorage';
+import { getEvents } from '../../GeneralElements/asyncStorage';
+import { saveEvents } from '../../GeneralElements/asyncStorage';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,16 +19,17 @@ const sampleEvents = [
 const TourGuideProfile = ({ navigation, route }) => {
     const [joaoTours, setJoaoTours] = useState([]);
 
-    //const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([]);
 
-    /*useEffect(() => {
-        const fetchEvents = async () => {
-            const storedEvents = await getEvents();
-            setEvents(storedEvents);
-        };
-
-        fetchEvents();
-    }, []);*/
+    useFocusEffect(
+        React.useCallback(() => {
+            const fetchEvents = async () => {
+                const storedEvents = await getEvents();
+                setEvents(storedEvents); // Ensure the state is updated with fresh data
+            };
+            fetchEvents();
+        }, [])
+    );
 
     useFocusEffect(
         React.useCallback(() => {
@@ -167,7 +168,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                         </View>
                     </View>
                 )}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 horizontal={true} // Faz com que a lista seja horizontal
                 showsHorizontalScrollIndicator={false} // Oculta a barra de rolagem horizontal
                 contentContainerStyle={styles.reviewsList}
@@ -176,7 +177,7 @@ const TourGuideProfile = ({ navigation, route }) => {
     );
             case 'Calendar':
                 const filteredEvents = date
-                ? sampleData.joaoEvents.filter(event => formatDate(formatDate(event.date) === formatDate(date))) // Compare selected date
+                ? events.filter(event => formatDate(formatDate(event.date) === formatDate(date))) // Compare selected date
                 : []; // If no date selected, show all events
 
                 return (
@@ -203,28 +204,32 @@ const TourGuideProfile = ({ navigation, route }) => {
 
                 const today = dayjs(); // Get today's date for comparison
                 
-                const formattedEvents = sampleData.joaoEvents.map(event => ({
+                const formattedEvents = events.map(event => ({
                     ...event,
-                    eventDate: dayjs(event.date, 'DD-MM-YYYY'), // Parse event date using the correct format
+                    eventDate: dayjs(event.date, 'YYYY-MM-DD'), // Parse event date using the correct format
                 }));
-            
-                console.log(formattedEvents);
-                const futureEvents = formattedEvents.filter(event => event.eventDate.isAfter(today, 'day'));
-                const pastEvents = formattedEvents.filter(event => event.eventDate.isBefore(today, 'day'));
-        
+                
+                const futureEvents = formattedEvents
+                    .filter(event => event.eventDate.isAfter(today, 'day'))
+                    .sort((a, b) => a.eventDate - b.eventDate); // Ascending order
+                const pastEvents = formattedEvents
+                    .filter(event => !event.eventDate.isAfter(today, 'day'))
+                    .sort((a, b) => b.eventDate - a.eventDate); // Ascending order
+
+
                 return (
                     <View style={styles.eventsSection}>
                         <Text style={styles.sectionTitle}>Future Events</Text>
                         <FlatList
                             data={futureEvents}
                             renderItem={renderEventItem}
-                            keyExtractor={(item) => item.id.toString()}
+                            keyExtractor={(item) => item.id}
                         />
                         <Text style={styles.sectionTitle}>Past Events</Text>
                         <FlatList
                             data={pastEvents}
                             renderItem={renderEventItem}
-                            keyExtractor={(item) => item.id}
+                            keyExtractor={(item) => item.id.toString()}
                         />
                     </View>
                 );
@@ -242,7 +247,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                             data={joaoTours}
                             renderItem={({ item }) => <ToursItem item={item} nav={navigation} />}
                             keyExtractor={(item) => item.id.toString()}
-                            contentContainerStyle={styles.listContainer}
+                            //contentContainerStyle={styles.listContainer}
                         />
                     </View>
                 );
@@ -344,15 +349,12 @@ const styles = StyleSheet.create({
     },
     eventsSection: {
         padding: width * 0.03,
-        marginBottom: height * 0.5,
     },
     sectionTitle: {
         fontSize: width * 0.05,
         fontWeight: 'bold',
         marginBottom: 15,
         marginTop: 15,
-
-
     },
     sectionText: {
         fontSize: width * 0.04,
@@ -379,6 +381,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
+        marginBottom: 10
         
     },
 

@@ -88,7 +88,7 @@ const IndividualMessage = ({ navigation, route }) => {
         <Text style={styles.headerText}>{individual?.name ? individual?.name: 'Ana'}</Text>
         <TouchableOpacity
           style={styles.createInvitationButton}
-          onPress={() => navigation.navigate('CreateInvitation')}
+          onPress={() => navigation.navigate('CreateInvitation', {personName: individual.name})}
         >
           <Text style={styles.createInvitationText}>Create Invitation</Text>
         </TouchableOpacity>

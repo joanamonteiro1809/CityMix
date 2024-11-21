@@ -1,11 +1,14 @@
 // CreateInvitation.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
 import dayjs from 'dayjs';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
 import DateTimePicker from "@react-native-community/datetimepicker";
+import sampleData from '../../sampledata';
+import { getEvents, getRitaEvents } from '../../GeneralElements/asyncStorage';
+import { saveEvents, saveRitaEvents } from '../../GeneralElements/asyncStorage';
 
 const CreateInvitation = ({ navigation, route }) => {
 
@@ -55,9 +58,58 @@ const CreateInvitation = ({ navigation, route }) => {
         return true;
     };
 
-    const handleNext = () => {
+    const personName = route.params?.personName || 'Ana';
+
+    function getFirstName(fullName) {
+        // Split the string by spaces
+        const parts = fullName.split(' ');
+    
+        // Return the first part (first name)
+        return parts[0];
+    }
+
+// Save meetup
+    // Function to add event to AsyncStorage
+    const addEventToStorage = async () => {
+        let title = 'Meetup with ' + getFirstName(personName);
+        try {
+            // Create a new event object
+            const newEvent = {
+                id: Date.now().toString(),
+                title: title,
+                date: date,
+                time: time,
+                location: meetingPoint,
+            };
+            if(sampleData.currentUser.role == 'tour_guide'){
+                // Retrieve existing events from AsyncStorage
+                const existingEvents = await getEvents();
+        
+                // Add the new event to the existing events array
+                const updatedEvents = [...existingEvents, newEvent];
+
+                // Save the updated events list to AsyncStorage
+                await saveEvents(updatedEvents);
+            } else {
+                // Retrieve existing events from AsyncStorage
+                const existingEvents = await getRitaEvents();
+
+                // Add the new event to the existing events array
+                const updatedEvents = [...existingEvents, newEvent];
+
+                // Save the updated events list to AsyncStorage
+                await saveRitaEvents(updatedEvents);
+            }
+        } catch (error) {
+            console.error('Failed to add event to AsyncStorage:', error);
+        }
+    };
+
+
+    const handleNext = async () => {
         setIsSubmitted(true);
         if (validate()) {
+            await addEventToStorage();
             navigation.popTo('IndividualMessage', {date: dayjs(date).format('D-MMM'), time: time, meetingPoint: meetingPoint})
         }
     };
