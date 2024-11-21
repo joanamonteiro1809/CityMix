@@ -48,6 +48,10 @@ const SignupStep2 = ({ navigation }) => {
         }
     };
 
+    const today = new Date();
+    const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+
 // LANGUAGES
     const [showAllLanguages, setShowAllLanguages] = useState(false);
     const [selectedLanguages, setSelectedLanguages] = useState([]);
@@ -142,6 +146,7 @@ const SignupStep2 = ({ navigation }) => {
                             display= "spinner"
                             value={new Date()}
                             onChange={onChange}
+                            maximumDate={maxDate}
                         />
                     )}
                     <TouchableOpacity onPress={toggleDatepicker} >
