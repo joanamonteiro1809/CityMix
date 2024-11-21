@@ -56,6 +56,7 @@ const sampleData = {
                 },
             ]
         },
+
         { 
             id: '3', 
             name: 'Francisco Coelho',
@@ -112,6 +113,62 @@ const sampleData = {
                 },
             ]
         },
+        {
+                            id: '5',
+                            name: 'Inês Dias',
+                            age: 45,
+                            activities: ['Arts', 'Museums'],
+                            rating: '4,5',
+                            description: 'I love travelling!',
+                            languages: ['Portuguese', 'English', 'French', 'Spanish'],
+                                location: 'Porto, Portugal',
+                                picture: require('./assets/user5.png'),
+                                reviews: [
+                                    {
+                                        user: 'Mariana Costa',
+                                        date: 'Mar, 2024',
+                                        rating: 5.0,
+                                        comment: 'Inês was fantastic! Her passion for nature is contagious.',
+                                    },
+                                    {
+                                        user: 'Pedro Moreira',
+                                        date: 'Feb, 2024',
+                                        rating: 4.5,
+                                        comment: 'Enjoyed the hike with Inês, she knows the best trails!',
+                                    },
+                                ],
+                            },
+                             {
+                                id: '6',
+                                name: 'Alice Pires',
+                                age: 27,
+                                activities: ['Yoga', 'Painting', 'Music'],
+                                rating: '4.9',
+                                description: 'Passionate about art and mindfulness.',
+                                languages: ['Portuguese', 'English', 'Spanish'],
+                                location: 'Funchal, Madeira',
+                                picture: require('./assets/user6.png'),
+                                reviews: [
+                                    {
+                                        user: 'Carolina Nunes',
+                                        date: 'Feb, 2024',
+                                        rating: 4.9,
+                                        comment: 'Alice is very talented and her art sessions are inspiring!',
+                                    },
+                                    {
+                                        user: 'Diogo Ribeiro',
+                                        date: 'Jan, 2024',
+                                        rating: 4.7,
+                                        comment: 'Great conversation and amazing yoga session. Alice is very patient and knowledgeable.',
+                                    },
+                                    {
+                                        user: 'Beatriz Sousa',
+                                        date: 'Dec, 2023',
+                                        rating: 5.0,
+                                        comment: 'I loved our meeting. Alice is very creative and kind!',
+                                    },
+                                ],
+                            },
         // Add more items here...
     ],
     group: [

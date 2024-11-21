@@ -282,7 +282,7 @@ const TourGuideProfile = ({ navigation, route }) => {
             <TabControl
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
-                tabs={['About', 'Tours', 'Calendar', 'Events']}
+                tabs={['Events', 'Calendar', 'Tours','About' ]}
             />
             <FlatList
                 data={[{ key: 'tabContent' }]}

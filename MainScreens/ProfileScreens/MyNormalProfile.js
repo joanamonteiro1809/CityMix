@@ -190,7 +190,7 @@ const MyNormalProfile = ({ navigation, route }) => {
             <TabControl 
                 activeTab={activeTab} 
                 setActiveTab={setActiveTab} 
-                tabs={['About', 'Calendar', 'Events']} 
+                tabs={['Events', 'Calendar', 'About']}
             />
 
             {/* Tab Content */}
