@@ -39,13 +39,13 @@ const TourGuideProfile = ({ navigation, route }) => {
                     if (storedTours) {
                         setJoaoTours(JSON.parse(storedTours));
                     } else {
-                        setJoaoTours(sampleData.joaoTours);
+                        setJoaoTours(sampleData.joaoTours); // Se não houver tours armazenados, use os de exemplo
                     }
                 } catch (error) {
                     console.error('Error fetching tours:', error);
                 }
             };
-
+    
             fetchTours();
         }, [])
     );
@@ -113,11 +113,10 @@ const TourGuideProfile = ({ navigation, route }) => {
             >
                 {/* Substituir com a imagem do tour */}
                 <Image 
-                    source={{
-                        uri: 'https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces',
-                    }}
+                    source={{ uri: item.imageLink }} // Altere para 'imageLink'
                     style={styles.tourImage}
                 />
+
                 <View style={styles.tourInfo}>
                     <Text style={styles.tourName}>{item.title}</Text>
                     <View style={styles.ratingContainer}>
@@ -202,7 +201,7 @@ const TourGuideProfile = ({ navigation, route }) => {
 
             case 'Events':
 
-                const today = dayjs(); // Get today's date for comparison
+                const today = dayjs(); 
                 
                 const formattedEvents = events.map(event => ({
                     ...event,
@@ -247,7 +246,6 @@ const TourGuideProfile = ({ navigation, route }) => {
                             data={joaoTours}
                             renderItem={({ item }) => <ToursItem item={item} nav={navigation} />}
                             keyExtractor={(item) => item.id.toString()}
-                            //contentContainerStyle={styles.listContainer}
                         />
                     </View>
                 );
@@ -367,6 +365,7 @@ const styles = StyleSheet.create({
         marginVertical: height * 0.01,
         
     },
+    
     eventsList: {
         marginTop: height * 0.01,
     },
@@ -501,7 +500,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     tourImage: {
-        width: width * 0.2, // Ajuste para o tamanho desejado
+        width: width * 0.2, // Ajuste o tamanho conforme necessário
         height: width * 0.2,
         borderRadius: 10, // Deixe as bordas arredondadas, se necessário
         marginRight: 10, // Espaço entre a imagem e o texto

@@ -1,13 +1,43 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Pressable, Image, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, Alert, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import ArrowButton from '../GeneralElements/ArrowButton';
 import CheckBoxCircular from '../GeneralElements/CheckBoxCircular';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const screenWidth = Dimensions.get('window').width;
 const elementWidth = (screenWidth - 30 * 2) / 3;
 
 const SignupStep3 = ({ navigation }) => {
+
+    const insterests = ["Culture and museums", 'Outdoor activities', 'Food', 'Nigthlife', 'Unusual routes'];
+    const [newInterests, setInterests] = useState([]);
+    const [interest, setInterest] = useState('');
+
+    const addInterest = () => {
+        const allInterests = [...insterests, ...newInterests].map(i => i.toLowerCase().trim());
+        if (!interest.trim()) {
+            Alert.alert('Error', 'Please enter a valid interest.');
+            return;
+        }
+
+        if (allInterests.includes(interest.toLowerCase().trim())) {
+            Alert.alert('Duplicate Interest', `"${interest}" is already in the list.`);
+            return;
+        }
+
+        setInterests([...newInterests, interest.trim()]);
+        setInterest('');
+    };
+
+    const renderItem = ({item}) => {
+        return (
+            <View style={styles.interest}>
+                    <Text style={styles.text}>{item}</Text>
+                    <CheckBoxCircular> </CheckBoxCircular>
+            </View>
+        );
+    }
+
     return (
         <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -48,13 +78,27 @@ const SignupStep3 = ({ navigation }) => {
                     <Text style={styles.text}>Unusual routes</Text>
                     <CheckBoxCircular> </CheckBoxCircular>
                 </View>
-                <View style={styles.interest}>
-                    {/*<AntDesign name="plus" size={24} color="black" />*/}
-                    <TextInput style={styles.textInput} placeholder="Add other..." />
-                    <CheckBoxCircular> </CheckBoxCircular>
-                </View>
-                </ScrollView>
 
+                {newInterests.map((item, index) => (
+                        <View key={`new-${index}`} style={styles.interest}>
+                            <Text style={styles.text}>{item}</Text>
+                            <CheckBoxCircular />
+                        </View>
+                ))}
+
+                <View style={styles.interest}>
+                    <TextInput
+                        placeholder="Add other..."
+                        value={interest}
+                        onChangeText={setInterest}
+                        style={styles.text}
+                    />
+                    <TouchableOpacity onPress={addInterest} style={styles.addRouteIcon}>
+                        <Icon name="add" size={30} style={{marginRight: 10}}/>
+                    </TouchableOpacity>
+                </View>
+
+                </ScrollView>
 
                 <View style={styles.buttonsRow}>
                     <ArrowButton

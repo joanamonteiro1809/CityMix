@@ -174,10 +174,10 @@ const pickImage = async () => {
                >
                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                        <View style={styles.container}>
-                           <View style={styles.header}>
-                               <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
-                               <Text style={styles.title}>New Tour</Text>
-                           </View>
+                       <View style={styles.header}>
+                            <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
+                        </View>
+                        <Text style={styles.title}>New Tour</Text>
 
                            {/* Área de imagem */}
                           <TouchableOpacity onPress={pickImage}>
@@ -383,9 +383,13 @@ const styles = StyleSheet.create({
     title: {
         fontSize: width * 0.08,
         fontWeight: 'bold',
-        color: '#f2b636',
+        color: '#FF914D',
         textAlign: 'center',
         flex: 1,
+        position: 'relative',
+        alignSelf: 'center', 
+        marginTop: height * -0.05, 
+        width: '60%',
     },
     coverPicture: {
         width: width * 0.5,
@@ -419,7 +423,7 @@ const styles = StyleSheet.create({
         marginTop: height * 0.01,
     },
     addRouteIcon: {
-        backgroundColor: '#f2b636',
+        backgroundColor: '#FF914D',
         borderRadius: 20,
         width: 40,
         height: 40,
@@ -428,7 +432,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     addButton: {
-        backgroundColor: '#f2b636',
+        backgroundColor: '#FF914D',
         paddingVertical: height * 0.02,
         borderRadius: 8,
         alignItems: 'center',
@@ -502,7 +506,7 @@ const styles = StyleSheet.create({
         height: 50, // Altura fixa para manter o layout consistente
     },
     addTimeButton: {
-        backgroundColor: '#f2b636',
+        backgroundColor: '#FF914D',
         borderRadius: 20,
         width: 40, // Largura fixa para o botão
         height: 40,
