@@ -33,7 +33,7 @@ const GroupDetail = ({ route }) => {
                 {
                   text: "OK",
                   onPress: () => {
-                   navigation.goBack(); // Navega para a próxima página
+                   navigation.popTo("InYourArea"); // Navega para a próxima página
                   },
                 },
               ]
