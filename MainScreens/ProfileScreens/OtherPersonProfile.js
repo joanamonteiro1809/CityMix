@@ -111,11 +111,10 @@ const OtherPersonProfile = ({ navigation, route }) => {
         </View>
         <Text style={styles.profileName}>{personDetails.name}, {personDetails.age}</Text>
         <Text style={styles.profileLocation}>{personDetails.location}</Text>
-        <TouchableOpacity
-        style={styles.messageButton}
-        onPress={() => navigation.navigate('IndividualMessage')}
-        >
-
+       <TouchableOpacity
+         style={styles.messageButton}
+         onPress={() => navigation.navigate('IndividualMessage', { individual: personDetails })}
+       >
           <Text style={styles.messageButtonText}>Message</Text>
         </TouchableOpacity>
       </View>

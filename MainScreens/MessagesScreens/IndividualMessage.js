@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ArrowButton from '../../GeneralElements/ArrowButton';
-import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, FlatList, Dimensions, Image } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const IndividualMessage = ({ navigation, route }) => { // Certifique-se de passar o `navigation` como prop
+const IndividualMessage = ({ navigation, route }) => {
   const [messages, setMessages] = useState([
-    { id: '1', text: 'Hi!! I saw in your profile that you are a fan of museums and that you are currently in Belém and available. I am going there tomorrow by 14h do you want to meet?', type: 'sent' },
+    {
+      id: '1',
+      text: 'Hi!! I saw in your profile that you are a fan of museums and that you are currently in Belém and available. I am going there tomorrow by 14h do you want to meet?',
+      type: 'sent',
+    },
     { id: '2', text: 'Hello! Yes, let`s do it!!', type: 'received' },
   ]);
   const [inputText, setInputText] = useState('');
@@ -24,6 +19,7 @@ const IndividualMessage = ({ navigation, route }) => { // Certifique-se de passa
   const date = route.params?.date;
   const time = route.params?.time;
   const meetingPoint = route.params?.meetingPoint;
+  const individual = route.params?.individual;
 
   React.useEffect(() => {
     if (date && time && meetingPoint) {
@@ -83,12 +79,16 @@ const IndividualMessage = ({ navigation, route }) => { // Certifique-se de passa
       <View style={styles.header}>
         <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
         <View style={styles.avatarContainer}>
-          <Icon name="person" size={height * 0.05} color="#bbb" />
+           <Image
+             source={individual?.picture ? individual.picture : require('../../assets/user1.jpg')}
+             style={styles.avatarImage}
+           />
+
         </View>
-        <Text style={styles.headerText}>Ana</Text>
-       <TouchableOpacity
-        style={styles.createInvitationButton}
-        onPress={() => navigation.navigate('CreateInvitation')}
+        <Text style={styles.headerText}>{individual?.name ? individual?.name: 'Ana'}</Text>
+        <TouchableOpacity
+          style={styles.createInvitationButton}
+          onPress={() => navigation.navigate('CreateInvitation')}
         >
           <Text style={styles.createInvitationText}>Create Invitation</Text>
         </TouchableOpacity>
@@ -99,7 +99,6 @@ const IndividualMessage = ({ navigation, route }) => { // Certifique-se de passa
         renderItem={renderMessage}
         contentContainerStyle={styles.messagesContainer}
       />
-
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -127,19 +126,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: width * 0.03,
+    paddingHorizontal: width * 0.01,
     marginTop: height * 0.035,
   },
   avatarContainer: {
-    width: height * 0.055,
-    height: height * 0.055,
+    width: height * 0.05,
+    height: height * 0.05,
     borderRadius: height * 0.05,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
   headerText: {
-    fontSize: width * 0.06,
+    fontSize: width * 0.045,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -148,7 +153,7 @@ const styles = StyleSheet.create({
   },
   createInvitationText: {
     fontSize: width * 0.04,
-    color: '#fff',
+    color: '#000',
     textDecorationLine: 'underline',
   },
   messagesContainer: {
@@ -161,7 +166,7 @@ const styles = StyleSheet.create({
     padding: width * 0.03,
     marginVertical: width * 0.02,
   },
-  inviteBubble:{
+  inviteBubble: {
     maxWidth: '70%',
     borderRadius: width * 0.04,
     paddingHorizontal: width * 0.09,
@@ -173,10 +178,11 @@ const styles = StyleSheet.create({
   },
   inviteTitle: {
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   inviteInfo: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sentMessage: {
     backgroundColor: '#eaeaea',
@@ -188,6 +194,12 @@ const styles = StyleSheet.create({
   },
   messageText: {
     fontSize: width * 0.045,
+  },
+  messageImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: width * 0.04,
+    marginBottom: 5,
   },
   inputContainer: {
     flexDirection: 'row',
