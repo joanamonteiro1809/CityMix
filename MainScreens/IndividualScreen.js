@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const { width } = Dimensions.get('window'); 
+const { width } = Dimensions.get('window');
 
 const renderIndividualItem = ({ nav, item }) => {
     // Convert the rating string to a number and round it down if necessary
