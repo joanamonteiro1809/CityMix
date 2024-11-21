@@ -11,7 +11,7 @@ const notificationsByCategory = {
     ],
     Yesterday: [
         { id: 3, date: 'Yesterday', message: 'Ana bought your tour "Belém: Best Sights"', photo: require('../assets/Ana.jpg.webp')},
-        { id: 4, date: 'Yesterday', message: 'João joined your community "Day in Belém"', photo: require('../assets/user2.png') },
+        { id: 4, date: 'Yesterday', message: 'João joined your community "Day in Belém"', photo: require('../assets/joao2.jpg') },
         { id: 5, date: 'Yesterday', message: 'Maria sent you a review' , photo: require('../assets/Maria.jpg')},
     ],
     'Last 7 days': [
