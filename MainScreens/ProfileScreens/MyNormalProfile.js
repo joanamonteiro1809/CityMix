@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -168,8 +168,12 @@ const MyNormalProfile = ({ navigation, route }) => {
                 <TouchableOpacity onPress={() => navigation.navigate("Login")}style={styles.logoutButton}>
                     <Icon name={'logout'} size={26} color={'red'}/>
                 </TouchableOpacity>
-                <Icon name="account-circle" size={width * 0.3} color="#bbb" />
-                <Text style={styles.profileName}>Rita, 25</Text>
+                <TouchableOpacity>
+                    <Image 
+                        source={require('../../assets/Rita.jpg')} // Caminho relativo para a imagem
+                        style={styles.profileImage} 
+                    />
+                </TouchableOpacity>                <Text style={styles.profileName}>Rita, 25</Text>
                 <Text style={styles.profileLocation}>Lisboa</Text>
                 <TouchableOpacity style={styles.availabilityContainer} onPress={toggleAvailability}>
                     <Text style={styles.availabilityText}>Available</Text>
@@ -213,6 +217,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0
     }, 
+    profileImage: {
+        width: width * 0.3,
+        height: width * 0.3,
+        borderRadius: (width * 0.3) / 2, // Deixa a imagem circular
+        marginBottom: 10,
+    },
     profileName: {
         fontSize: width * 0.07, 
         fontWeight: 'bold',
