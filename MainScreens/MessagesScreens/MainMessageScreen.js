@@ -32,7 +32,7 @@ const VisitsScreen = ({ navigation, route }) => {
         };
 
     const renderMessage = ({ item }) => (
-        <TouchableOpacity onPress={() => handlePressMessage(item)} style={styles.messageContainer}>
+        <View style={styles.messageContainer}>
             {item.picture ? (
                 <Image source={item.picture} style={styles.messageImage} />
             ) : (
@@ -44,7 +44,7 @@ const VisitsScreen = ({ navigation, route }) => {
                 <Text style={styles.messageTitle}>{item.name}</Text>
                 <Text style={styles.messageText}>{item.message}</Text>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 
     const messages = activeTab === "Individuals" ? individualMessages : groupMessages;
@@ -52,11 +52,6 @@ const VisitsScreen = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <ArrowButton
-                    onPress={() => navigation.goBack()}
-                    iconName="chevron-left"
-                    style={styles.arrowButton}
-                />
                 <View style={styles.headerTitleContainer}>
                     <Text style={styles.headerTitle}>Messages</Text>
                 </View>
@@ -101,6 +96,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 10,
+        marginTop: 10,
     },
     headerTitleContainer: {
         flex: 1,
