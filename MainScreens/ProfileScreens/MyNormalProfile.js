@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -38,8 +38,8 @@ const MyNormalProfile = ({ navigation, route }) => {
     useFocusEffect(
         React.useCallback(() => {
             const fetchEvents = async () => {
-                const storedEvents = await getEvents();
-                setEvents(storedEvents); // Ensure the state is updated with fresh data
+                const storedEvents = await getRitaEvents();
+                setEvents(storedEvents); 
             };
             fetchEvents();
         }, [])
@@ -89,8 +89,8 @@ const MyNormalProfile = ({ navigation, route }) => {
                                 </View>
                             )}
                             keyExtractor={(item) => item.id}
-                            horizontal={true} // Faz com que a lista seja horizontal
-                            showsHorizontalScrollIndicator={false} // Oculta a barra de rolagem horizontal
+                            horizontal={true} 
+                            showsHorizontalScrollIndicator={false} 
                             contentContainerStyle={styles.reviewsList}
                         />
                     </View>
@@ -99,8 +99,8 @@ const MyNormalProfile = ({ navigation, route }) => {
             case 'Calendar':
 
                 const filteredEvents = date
-                ? events.filter(event => formatDate(event.date) === formatDate(date)) // Compare selected date
-                : []; // If no date selected, show all events
+                ? events.filter(event => formatDate(event.date) === formatDate(date)) 
+                : []; 
 
                 return (
                     <View style={styles.calendarSection}>
@@ -125,19 +125,19 @@ const MyNormalProfile = ({ navigation, route }) => {
 
             case 'Events':
 
-            const today = dayjs(); // Get today's date for comparison
+            const today = dayjs(); 
                 
                 const formattedEvents = events.map(event => ({
                     ...event,
-                    eventDate: dayjs(event.date, 'YYYY-MM-DD'), // Parse event date using the correct format
+                    eventDate: dayjs(event.date, 'YYYY-MM-DD'), 
                 }));
                 
                 const futureEvents = formattedEvents
                     .filter(event => event.eventDate.isAfter(today, 'day'))
-                    .sort((a, b) => a.eventDate - b.eventDate); // Ascending order
+                    .sort((a, b) => a.eventDate - b.eventDate); 
                 const pastEvents = formattedEvents
                     .filter(event => !event.eventDate.isAfter(today, 'day'))
-                    .sort((a, b) => b.eventDate - a.eventDate); // Ascending order
+                    .sort((a, b) => b.eventDate - a.eventDate); 
                 
                 return (
                     <View style={styles.eventsSection}>
@@ -168,7 +168,12 @@ const MyNormalProfile = ({ navigation, route }) => {
                 <TouchableOpacity onPress={() => navigation.navigate("Login")}style={styles.logoutButton}>
                     <Icon name={'logout'} size={26} color={'red'}/>
                 </TouchableOpacity>
-                <Icon name="account-circle" size={width * 0.3} color="#bbb" />
+                <TouchableOpacity>
+                    <Image 
+                        source={require('../../assets/Rita.jpg')} 
+                        style={styles.profileImage} 
+                    />
+                </TouchableOpacity>                
                 <Text style={styles.profileName}>Rita, 25</Text>
                 <Text style={styles.profileLocation}>Lisboa</Text>
                 <TouchableOpacity style={styles.availabilityContainer} onPress={toggleAvailability}>
@@ -213,6 +218,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0
     }, 
+    profileImage: {
+        width: width * 0.3,
+        height: width * 0.3,
+        borderRadius: (width * 0.3) / 2, 
+        marginBottom: 10,
+    },
     profileName: {
         fontSize: width * 0.07, 
         fontWeight: 'bold',
@@ -235,10 +246,10 @@ const styles = StyleSheet.create({
     },
     tabContentContainer: {
         flexGrow: 1,
-        //paddingBottom: height * 0.02, // Ensure there’s padding at the bottom
+        //paddingBottom: height * 0.02, 
         backgroundColor: '#ffeadd',
         padding: 10,
-        borderRadius: 20, // Borda arredondada
+        borderRadius: 20, 
         marginBottom: 20,
         //marginHorizontal: width * 0.01,
         width: width * 0.9,

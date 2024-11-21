@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert,
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ArrowButton from "../../GeneralElements/ArrowButton";
 import { useNavigation } from "@react-navigation/native";
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { width, height } = Dimensions.get("window");
 

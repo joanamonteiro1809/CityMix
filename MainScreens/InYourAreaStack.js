@@ -8,7 +8,7 @@ import TourBookingScreen from './PaidScreens/TourBookingScreen';
 import FilterScreen from './FilterScreen';
 import PopupPaid from './PaidScreens/PopupPaid';
 import MyNormalProfile from './ProfileScreens/MyNormalProfile';
-import MapScreen from '../GeneralElements/MapScreen';
+import MapIOS from '../GeneralElements/MapIOS';
 import GroupDetail from './GroupScreens/GroupDetail';
 import OtherPersonProfile from './ProfileScreens/OtherPersonProfile';
 import IndividualMessage from './MessagesScreens/IndividualMessage';
@@ -18,6 +18,7 @@ import SearchScreen from '../GeneralElements/SearchScreen';
 import CreateTourScreen from './ProfileScreens/AddTourProfile';
 import GroupEntry from './GroupScreens/GroupEntry';
 import TourGuideProfile from './ProfileScreens/TourGuideProfile';
+import MapAndroid from '../GeneralElements/MapAndroid';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,8 @@ const InYourAreaStack = () => {
             <Stack.Screen name="NormalProfile" component={MyNormalProfile} options={{ headerShown: false }} />
             <Stack.Screen name="GuideProfile" component={TourGuideProfile} options={{ headerShown: false }} />
             
-            <Stack.Screen name="Map" component={MapScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="MapAndroid" component={MapAndroid} options={{ headerShown: false }} />
+            <Stack.Screen name="MapIOS" component={MapIOS} options={{ headerShown: false }} />
             <Stack.Screen name="GroupEntry" component={GroupEntry} options={{ headerShown: false }} />
             <Stack.Screen name="GroupDetail" component={GroupDetail} options={{ headerShown: false }} />
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />

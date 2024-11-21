@@ -118,6 +118,7 @@ const sampleData = {
         { 
             id: '1', 
             title: 'Day in Belém', 
+            description: "Lets meetup at Mosteiro dos Jerónimos to spend the afternoon eating 'Pasteis de Nata' and relaxing by the river.",
             numPeopl: '10 members',
             location: "Av. Brasília, 1300-598 Lisbon",
             image: require('./assets/group1.jpg'),
@@ -128,7 +129,8 @@ const sampleData = {
         },
         { 
             id: '2', 
-            title: 'Bar hopping in Chiado', 
+            title: 'Bar hopping in Chiado',
+            description: "Let's have a drink by Lisbon famous bars and meet new people.", 
             numPeopl: '15 members',
             location: "Largo do Chiado, 1200-443 Lisbon",
             image: require('./assets/group2.jpg'),
@@ -141,6 +143,7 @@ const sampleData = {
             id: '3', 
             title: 'Walk in Sintra', 
             numPeopl: '32 members',
+            description: "Let's visit National Palace of Pena and enjoy the nature for a lit bit.",
             location: "Estrada da Pena, 2710-609 Lisbon",
             image: require('./assets/group3.jpg'),
             latitude: 38.78922817493438,

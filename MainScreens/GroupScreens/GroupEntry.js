@@ -27,6 +27,7 @@ const GroupEntry = ({navigation, route}) => {
 
                 <View style={styles.groupInfoContainer}>
                     <Text style={styles.groupTitle}>{groupEntry.title}</Text>
+                    <Text style={styles.groupDescription}>{groupEntry.description}</Text>
                 </View>
 
                 <View style={styles.membersInfo}>
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         height: height * 0.35,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 50,
+        marginTop: 25,
     },
     image: {
         width: '75%',
@@ -98,6 +99,15 @@ const styles = StyleSheet.create({
         color: '#333',
         marginLeft: 5,
         fontFamily: 'CodecPro-ExtraBold',
+    },
+
+    groupDescription: {
+        marginTop: 5,
+        color: '#333',
+        paddingHorizontal: 20,
+        textAlign: 'center',
+        fontFamily: 'CodecPro-Regular',
+        //borderWidth: 2
     },
 
     groupInfoContainer: {
