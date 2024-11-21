@@ -19,6 +19,7 @@ import CreateTourScreen from './ProfileScreens/AddTourProfile';
 import GroupEntry from './GroupScreens/GroupEntry';
 import TourGuideProfile from './ProfileScreens/TourGuideProfile';
 import MapAndroid from '../GeneralElements/MapAndroid';
+import MainMassageScreen from './MessagesScreens/MainMessageScreen.js'
 
 const Stack = createStackNavigator();
 
@@ -44,6 +45,7 @@ const InYourAreaStack = () => {
             <Stack.Screen name="CreateInvitation" component={CreateInvitation} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddTour" component={CreateTourScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="MainMassageScreen" component={MainMassageScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };
