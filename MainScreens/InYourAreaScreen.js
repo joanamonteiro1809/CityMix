@@ -105,7 +105,9 @@ const InYourAreaScreen = ({navigation}) => {
                     </TouchableOpacity>
                     <FlatList
                         horizontal
-                        data={sampleData.individual}
+                        data={sampleData.currentUser.role === 'tour_guide' 
+                            ? sampleData.individual.filter(item => item.name !== 'João Silva') 
+                            : sampleData.individual}
                         renderItem={renderIndividualItem}
                         keyExtractor={item => item.id}
                         contentContainerStyle={styles.listContainer}

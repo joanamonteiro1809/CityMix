@@ -229,7 +229,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                         <FlatList
                             data={pastEvents}
                             renderItem={renderEventItem}
-                            keyExtractor={(item) => item.id.toString()}
+                            keyExtractor={(item) => item.id}
                         />
                     </View>
                 );

@@ -38,7 +38,7 @@ const MyNormalProfile = ({ navigation, route }) => {
     useFocusEffect(
         React.useCallback(() => {
             const fetchEvents = async () => {
-                const storedEvents = await getEvents();
+                const storedEvents = await getRitaEvents();
                 setEvents(storedEvents); // Ensure the state is updated with fresh data
             };
             fetchEvents();
