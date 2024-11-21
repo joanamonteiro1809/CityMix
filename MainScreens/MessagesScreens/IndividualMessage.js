@@ -20,20 +20,34 @@ const IndividualMessage = ({ navigation, route }) => {
   const time = route.params?.time;
   const meetingPoint = route.params?.meetingPoint;
   const individual = route.params?.individual;
-  const [showConfirmation, setConfirmation] = useState(true);
 
   React.useEffect(() => {
     if (date && time && meetingPoint) {
       setMessages((prevMessages) => [
         ...prevMessages,
         {
-          id: Date.now().toString(),
+          id: Date.now().toString() + '1',
           type: 'invite',
           text: `Invite sent! ${date} at ${time}`,
           meetingPoint,
         },
+        {
+          id: Date.now().toString() + '2',
+          type: 'sent',
+          text: `Can you accept the invite?`,
+        },
+        {
+          id: Date.now().toString() + '3',
+          type: 'received',
+          text: `Done! See you soon :)`,
+        },
+        {
+          id: Date.now().toString() + '4',
+          type: 'confirmation',
+          text: `Invite sent! ${date} at ${time}`,
+          meetingPoint,
+        },
       ]);
-      setConfirmation(true);
     }
   }, [date, time, meetingPoint]);
 
@@ -64,6 +78,18 @@ const IndividualMessage = ({ navigation, route }) => {
       );
     }
 
+    if(item.type == 'confirmation') {
+      return(
+          <View style={styles.titleContainer}>
+            <View style={styles.shadowRect}></View>
+              <View style={styles.titleRect}>
+                <Text style={styles.confirmationTag}>Meetup scheduled!</Text>
+                <Text style={styles.caption}>{date} at {time}</Text>
+                <Text style={styles.caption}>{meetingPoint}</Text>
+              </View>
+          </View>
+      )
+    }
     return (
       <View
         style={[
@@ -102,21 +128,6 @@ const IndividualMessage = ({ navigation, route }) => {
         contentContainerStyle={styles.messagesContainer}
       />
       
-      {showConfirmation && (
-        <View style={styles.confirmationBubble}>
-          <Text>Meetup scheduled!</Text>
-          <View>
-            <Text>{date} at {time}</Text>
-          </View>
-          <View style={styles.inviteInfo}>
-              <Icon name="location-pin" size={20} color="#555" />
-            <Text>{meetingPoint}</Text>
-          </View>
-        </View>
-      
-      )
-
-      }
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -246,14 +257,46 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: width * 0.04,
   },
-  confirmationBubble:{
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-    marginHorizontal: 10,
-    marginVertical: 10,
-  },
+
+  titleContainer: {
+    position: 'relative',
+    alignSelf: 'center',
+    marginVertical: 5,
+    width: '61.5%',
+    marginBottom: 20,
+},
+shadowRect: {
+    position: 'absolute',
+    backgroundColor: '#FF914D',
+    borderRadius: 20,
+    width: '100%',
+    height: '100%',
+    top: 6,
+    right: 5,
+},
+titleRect: {
+    backgroundColor: '#fff4ee',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#FF914D',
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    alignSelf: 'flex-start',
+    width: '100%',
+},
+confirmationTag: {
+    fontSize: 20,
+    fontFamily: 'CodecPro-ExtraBold',
+    color: '#FF914D',
+    marginVertical: 5,
+    textAlign: 'center',
+},
+caption:{
+  fontFamily: 'CodecPro-Regular',
+    //color: '#FF914D',
+    marginVertical: 5,
+    textAlign: 'center',
+}
 });
 
 export default IndividualMessage;
