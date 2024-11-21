@@ -110,7 +110,11 @@ const CreateInvitation = ({ navigation, route }) => {
         setIsSubmitted(true);
         if (validate()) {
             await addEventToStorage();
-            navigation.popTo('IndividualMessage', {date: dayjs(date).format('D-MMM'), time: time, meetingPoint: meetingPoint})
+            navigation.popTo('IndividualMessage', {date: dayjs(date).format('D-MMM'), time: time, meetingPoint: meetingPoint,individual: route.params?.person, })
+
+
+
+
         }
     };
 

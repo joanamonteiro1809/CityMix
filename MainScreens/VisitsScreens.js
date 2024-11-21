@@ -88,7 +88,11 @@ const VisitsScreen = ({ navigation, route }) => {
             <View>
                 {activeTab === 'Individuals' && (
                     filteredIndividuals.length > 0 ? (
-                        <IndividualScreen nav={navigation} tours={filteredIndividuals} />
+                        <IndividualScreen 
+                            nav={navigation} 
+                            tours={sampleData.currentUser.role === 'tour_guide'
+                                ? filteredIndividuals.filter(item => item.name !== 'João Silva')
+                                : filteredIndividuals} />
                     ) : (
                         <View style={styles.noDataContainer}>
                             <Text style={styles.noDataTitle}>No Users Found</Text>
