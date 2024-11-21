@@ -24,7 +24,7 @@ const SearchScreen = ({navigation, route}) => {
   // Example data
   const defaultRecent = ["Chiado", "Alfama", "Sintra"];
   const suggestionItems = ["Alcântara", "Saldanha", "Marquês de Pombal"];
-  const allLocations = ["Braga", "Lisbon", "Porto", "Portoalegre", "Belém"];
+  const allLocations = ["Braga", "Lisbon", "Porto", "Portoalegre", "Belém", "Chiado", "Alfama", "Sintra", "Alcântara", "Saldanha", "Marquês de Pombal"];
   const [recentItems, setRecentItems] = useState(defaultRecent);
 
   // Filter locations based on searchText
