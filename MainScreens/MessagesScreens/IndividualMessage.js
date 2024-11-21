@@ -16,10 +16,13 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from 'react-native';
+import sampleData from '../../sampledata';
 
 const { width, height } = Dimensions.get('window');
 
 const IndividualMessage = ({ navigation, route }) => {
+  const activeProf = (sampleData.currentUser.role == 'tour_guide') ? 'GuideProfile' : 'NormalProfile';
+
   const [messages, setMessages] = useState([
     {
       id: '1',
@@ -96,7 +99,7 @@ const IndividualMessage = ({ navigation, route }) => {
 
     if (item.type === 'confirmation') {
       return (
-        <View style={styles.titleContainer}>
+        <TouchableOpacity onPress={() => navigation.navigate(activeProf)} style={styles.titleContainer}>
           <View style={styles.shadowRect}></View>
           <View style={styles.titleRect}>
             <Text style={styles.confirmationTag}>Meetup scheduled!</Text>
@@ -105,7 +108,7 @@ const IndividualMessage = ({ navigation, route }) => {
             </Text>
             <Text style={styles.caption}>{meetingPoint}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     }
     return (
