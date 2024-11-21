@@ -7,6 +7,7 @@ import InYourAreaStack from './InYourAreaStack';
 import ProfileStack from './ProfileScreens/ProfileStack';
 import sampleData from '../sampledata';
 import TourGuideNotifications from './TourGuideNotifications';
+import MainMessageScreen from './MessagesScreens/MainMessageScreen';
 import NormalUserNotifications from './UserNotifications';
 import MyNormalProfile from './ProfileScreens/MyNormalProfile';
 
@@ -55,7 +56,7 @@ const MainNavigator = () => {
             })}
         >
             <Tab.Screen name="Home" component={InYourAreaStack}/>
-            <Tab.Screen name="Messages" component={InYourAreaScreen} />
+            <Tab.Screen name="Messages" component={MainMessageScreen} />
             <Tab.Screen name="Notifications" component={handleNotifications()} />
             <Tab.Screen name="Profile" component={handleProfile()} />
         </Tab.Navigator>

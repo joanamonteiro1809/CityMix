@@ -8,6 +8,7 @@ import IndividualMessage from '../MessagesScreens/IndividualMessage';
 import GroupMessage from '../MessagesScreens/GroupMessage';
 import CreateInvitation from '../MessagesScreens/CreateInvitation';
 import OtherPersonProfile from './OtherPersonProfile';
+import MainMessageScreen from '../MessagesScreens/MainMessageScreen'
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const ProfileStack = () => {
             <Stack.Screen name="OtherPersonProfile" component={OtherPersonProfile} options={{ headerShown: false }} />
             <Stack.Screen name="IndividualMessage" component={IndividualMessage} options={{ headerShown: false }} />
              <Stack.Screen name="GroupMessage" component={GroupMessage} options={{ headerShown: false }} />
+             <Stack.Screen name="MainMessageScreen" component={MainMessageScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 };
