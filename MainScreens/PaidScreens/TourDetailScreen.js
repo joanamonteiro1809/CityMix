@@ -8,13 +8,13 @@ import sampleData from '../../sampledata';
 const { width } = Dimensions.get('window');
 
 const TourDetailScreen = ({navigation, route}) => {
-    const sampleTour = { 
-        id: '1', 
-        title: "St. George's Castle Tour", 
-        price: '20€', 
-        rating: '4.0', 
+    const sampleTour = {
+        id: '1',
+        title: "St. George's Castle Tour",
+        price: '20€',
+        rating: '4.0',
         tourGuide: 'João Silva',
-        description: 'Come visit the principal castle of Lisbon.', 
+        description: 'Come visit the principal castle of Lisbon.',
         imageLink: "https://cdn-imgix.headout.com/microbrands-banner-image/image/d483f23b46669db6523754a034f4d1b8-Sao%20Jorge%20Castle%201.jpeg?auto=format&w=1058.3999999999999&h=540&q=90&fit=crop&crop=faces",
         routeStops: ["São Jorge Castle"],
         reviews: [
@@ -25,6 +25,12 @@ const TourDetailScreen = ({navigation, route}) => {
         };
 
     const tourDetails = route.params?.tour || sampleTour;
+
+    const handleGuidePress = (guideName) => {
+        const guideDetails = sampleData.individual.find(individual => individual.name === guideName) || sampleData.individual[0]; // Exemplo
+        navigation.navigate('OtherPersonProfile', { guide: guideDetails });
+    };
+
 
     return (
         <View style={styles.container}>
@@ -43,15 +49,15 @@ const TourDetailScreen = ({navigation, route}) => {
                     <Image source={{ uri: tourDetails.imageLink }} style={styles.image} />
                 </View>
 
-                
+
                 {/* Tour Info */}
                 <View style={styles.tourInfoContainer}>
                     <Text style={styles.tourTitle}>{tourDetails.title}</Text>
                 </View>
-                
+
                 <View style={{paddingHorizontal: 20}}>
                 {/* Guide info*/}
-                
+
                 <View style={styles.guideContainer}>
                         <Text style={styles.sectionTitle}>Guide:</Text>
 
@@ -62,10 +68,10 @@ const TourDetailScreen = ({navigation, route}) => {
                             <Icon name="chat-bubble-outline" size={20} color="#888" style={styles.chatIcon} />
                         </View>
                         ) : (
-                        <TouchableOpacity style={{flexDirection: 'row',}} onPress={() => {}}>
+                        <TouchableOpacity style={{flexDirection: 'row',}} onPress={() => {handleGuidePress(tourDetails.tourGuide)}}>
                             <Text style={styles.guideText}>{tourDetails.tourGuide}</Text>
                             <Icon name="chat-bubble-outline" size={20} color="#888" style={styles.chatIcon} />
-                        </TouchableOpacity> 
+                        </TouchableOpacity>
                         )}
                 </View>
 
@@ -93,7 +99,7 @@ const TourDetailScreen = ({navigation, route}) => {
 
                 {/* Reviews */}
                 <Text style={styles.sectionTitle}>Reviews</Text>
-                
+
                 <FlatList
                 horizontal
                 data={tourDetails.reviews}
@@ -127,7 +133,7 @@ const TourDetailScreen = ({navigation, route}) => {
             </ScrollView>
 
             {/* Footer with Price and Book Button */}
-            {((sampleData.currentUser.role != "tour_guide") || 
+            {((sampleData.currentUser.role != "tour_guide") ||
             (sampleData.currentUser.role == "tour_guide" && tourDetails.tourGuide != "João Silva")) &&
             (
             <View style={styles.footer}>
