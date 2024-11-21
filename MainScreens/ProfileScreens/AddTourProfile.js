@@ -384,13 +384,11 @@ const styles = StyleSheet.create({
         fontSize: width * 0.08,
         fontWeight: 'bold',
         color: '#FF914D',
-        //borderWidth: 1, borderColor: 'red',
-        //marginTop: 50,
         textAlign: 'center',
         flex: 1,
         position: 'relative',
-        alignSelf: 'center', // Centraliza o container horizontalmente
-        marginTop: height * -0.05, // Move o título para cima
+        alignSelf: 'center', 
+        marginTop: height * -0.05, 
         width: '60%',
     },
     coverPicture: {
