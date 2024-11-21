@@ -9,7 +9,7 @@ const { width, height } = Dimensions.get('window');
 
 const OtherPersonProfile = ({ navigation, route }) => {
   const [activeTab, setActiveTab] = useState('About'); // Aba padrão
-  const personDetails = route.params?.guide || sampleProfile;
+  const personDetails = route.params?.tour || sampleProfile;
 
   const sampleProfile ={
     id: '1', 
