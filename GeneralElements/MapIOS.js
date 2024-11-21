@@ -12,7 +12,7 @@ const initialRegion = {
     longitudeDelta: 0.1,
 };
 
-const MapScreen = ({ navigation }) => {
+const MapIOS = ({ navigation }) => {
 
     const onMarkerSelected = (marker) => {
         // Alert or log marker title
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MapScreen;
+export default MapIOS;

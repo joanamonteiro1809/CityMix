@@ -2,11 +2,20 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import sampleData from "../../sampledata";
+import { useNavigation } from "@react-navigation/native";
 
-const GroupPopup = ({ title, location, numMembers }) => {
+const GroupPopup = ({title, location, numMembers }) => {
+
+    const navigation = useNavigation();
 
     const handleCreateInvitePress = () => {
         // Quando clico no Join Community vou para o group chat
+    };
+
+    const handleMoreDetailsPress = () => {
+        const group = sampleData.group.find(group => group.title === title);
+        navigation.navigate('GroupEntry', {group: group});
     };
 
     return (
@@ -29,9 +38,9 @@ const GroupPopup = ({ title, location, numMembers }) => {
             </View>
 
             <TouchableOpacity onPress={handleCreateInvitePress}>
-                    <View style={styles.button}>
-                        <Text style={styles.buttonText}>Join community</Text>
-                    </View>
+                    <TouchableOpacity style={styles.button} onPress={handleMoreDetailsPress}>
+                        <Text style={styles.buttonText}>More details</Text>
+                    </TouchableOpacity>
             </TouchableOpacity>
         </View>
         

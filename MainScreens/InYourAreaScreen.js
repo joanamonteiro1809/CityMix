@@ -1,7 +1,7 @@
 //screens/InYourAreaScreen.js
 import React, {useState} from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Dimensions, ScrollView, Image, Platform } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { AntDesign } from '@expo/vector-icons';
 import sampleData from '../sampledata';
@@ -58,6 +58,11 @@ const InYourAreaScreen = ({navigation}) => {
         }, [])
     );
 
+    const handleMapPress = () => {
+        const screen = Platform.OS === 'ios' ? 'MapIOS' : 'MapAndroid';
+        navigation.navigate(screen);
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
@@ -73,7 +78,7 @@ const InYourAreaScreen = ({navigation}) => {
                     </View>
 
                     {/* Image next to the search container */}
-                    <TouchableOpacity onPress={() => navigation.navigate('Map')}>
+                    <TouchableOpacity onPress={handleMapPress}>
                         <Image
                             source={require('../assets/map.png')}
                             style={styles.map}

@@ -107,9 +107,9 @@ const VisitsScreen = ({ navigation, route }) => {
                         <GroupScreen nav={navigation} tours={filteredGroups} />
                     ) : (
                         <View style={styles.noDataContainer}>
-                            <Text style={styles.noDataTitle}>No Users Found</Text>
+                            <Text style={styles.noDataTitle}>No Communities Found</Text>
                             <Text style={styles.noDataSubtitle}>
-                                It seems like there are no users available in your selected location or with your current filters.
+                                It seems like there are no communities available in your selected location or with your current filters.
                             </Text>
                             <Text style={styles.noDataAction}>
                                 Try adjusting the filters or searching for a different location.
@@ -123,9 +123,9 @@ const VisitsScreen = ({ navigation, route }) => {
                         <PaidToursScreen nav={navigation} tours={filteredPaid} />
                     ) : (
                         <View style={styles.noDataContainer}>
-                            <Text style={styles.noDataTitle}>No Users Found</Text>
+                            <Text style={styles.noDataTitle}>No Tours Found</Text>
                             <Text style={styles.noDataSubtitle}>
-                                It seems like there are no users available in your selected location or with your current filters.
+                                It seems like there are no tours available in your selected location or with your current filters.
                             </Text>
                             <Text style={styles.noDataAction}>
                                 Try adjusting the filters or searching for a different location.

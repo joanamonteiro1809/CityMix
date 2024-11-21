@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import ArrowButton from "./ArrowButton";
@@ -65,6 +65,11 @@ const SearchScreen = ({navigation, route}) => {
 
   }
 
+  const handleMapPress = () => {
+    const screen = Platform.OS === 'ios' ? 'MapIOS' : 'MapAndroid';
+    navigation.navigate(screen);
+  }
+
   return (
     
     <View style={styles.container}>
@@ -82,7 +87,7 @@ const SearchScreen = ({navigation, route}) => {
             </View>
         
             {/* Image next to the search container */}
-            <TouchableOpacity onPress={() => navigation.navigate('Map')}>
+            <TouchableOpacity onPress={handleMapPress}>
                 <Image
                     source={require('../assets/map.png')}
                     style={styles.map}
