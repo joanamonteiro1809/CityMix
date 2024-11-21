@@ -12,7 +12,7 @@ const IndividualMessage = ({ navigation, route }) => {
       text: 'Hi!! I saw in your profile that you are a fan of museums and that you are currently in Belém and available. I am going there tomorrow by 14h do you want to meet?',
       type: 'sent',
     },
-    { id: '2', text: 'Hello! Yes, let`s do it!!', type: 'received' },
+    { id: '2', text: "Hello! Yes, let's do it!!", type: 'received' },
   ]);
   const [inputText, setInputText] = useState('');
 
@@ -20,6 +20,7 @@ const IndividualMessage = ({ navigation, route }) => {
   const time = route.params?.time;
   const meetingPoint = route.params?.meetingPoint;
   const individual = route.params?.individual;
+  const [showConfirmation, setConfirmation] = useState(true);
 
   React.useEffect(() => {
     if (date && time && meetingPoint) {
@@ -32,6 +33,7 @@ const IndividualMessage = ({ navigation, route }) => {
           meetingPoint,
         },
       ]);
+      setConfirmation(true);
     }
   }, [date, time, meetingPoint]);
 
@@ -99,6 +101,22 @@ const IndividualMessage = ({ navigation, route }) => {
         renderItem={renderMessage}
         contentContainerStyle={styles.messagesContainer}
       />
+      
+      {showConfirmation && (
+        <View style={styles.confirmationBubble}>
+          <Text>Meetup scheduled!</Text>
+          <View>
+            <Text>{date} at {time}</Text>
+          </View>
+          <View style={styles.inviteInfo}>
+              <Icon name="location-pin" size={20} color="#555" />
+            <Text>{meetingPoint}</Text>
+          </View>
+        </View>
+      
+      )
+
+      }
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
@@ -227,6 +245,14 @@ const styles = StyleSheet.create({
   sendButtonText: {
     fontWeight: 'bold',
     fontSize: width * 0.04,
+  },
+  confirmationBubble:{
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
 });
 
