@@ -10,51 +10,58 @@ const { width, height } = Dimensions.get('window');
 const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
+    const [isReady, setIsReady] = useState(false);
 
-    {/*const [fontsLoaded] = useFonts({
+    const [fontsLoaded] = useFonts({
         'CodecPro-Bold': require('./assets/fonts/CodecPro-Bold.ttf'),
         'CodecPro-ExtraBold': require('./assets/fonts/CodecPro-ExtraBold.otf'),
         'CodecPro-Italic': require('./assets/fonts/CodecPro-Italic.ttf'),
         'CodecPro-Regular': require('./assets/fonts/CodecPro-Regular.ttf'),
     });
-    if (!fontsLoaded) {
-        return null;
-    }*/}
+
 
     // ANIMATIONS
     const logoAnim = useRef(new Animated.Value(0)).current;
     const inputContainerAnim = useRef(new Animated.Value(0)).current;
     const inputOpacityAnim = useRef(new Animated.Value(0)).current;
 
-    useEffect(() => {
-        Animated.sequence([
-            Animated.timing(logoAnim, {
-                toValue: 0.5,
-                duration: 2000,
-                useNativeDriver: true,
-            }),
-            Animated.timing(logoAnim, {
-                toValue: 1.4,
-                duration: 1200,
-                useNativeDriver: true,
-            }),
-        ]).start();
+    const [animationStarted, setAnimationStarted] = useState(false);
 
-        Animated.parallel([
-            Animated.timing(inputContainerAnim, {
-                toValue: 1,
-                duration: 1200,
-                delay: 2000,
-                useNativeDriver: true,
-            }),
-            Animated.timing(inputOpacityAnim, {
-                toValue: 1,
-                duration: 1200,
-                delay: 2000,
-                useNativeDriver: true,
-            }),
-        ]).start();
-    }, []);
+    useEffect(() => {
+        if (fontsLoaded) {
+            setIsReady(true);
+            if (!animationStarted) {
+                Animated.sequence([
+                    Animated.timing(logoAnim, {
+                        toValue: 0.5,
+                        duration: 2000,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(logoAnim, {
+                        toValue: 1.4,
+                        duration: 1200,
+                        useNativeDriver: true,
+                    }),
+                ]).start();
+
+                Animated.parallel([
+                    Animated.timing(inputContainerAnim, {
+                        toValue: 1,
+                        duration: 1200,
+                        delay: 2000,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(inputOpacityAnim, {
+                        toValue: 1,
+                        duration: 1200,
+                        delay: 2000,
+                        useNativeDriver: true,
+                    }),
+                ]).start();
+                setAnimationStarted(true);
+            }
+        }
+    }, [fontsLoaded, animationStarted, logoAnim, inputContainerAnim, inputOpacityAnim]);
 
     const handleEmail = (newEmail) => {
         setEmail(newEmail);
