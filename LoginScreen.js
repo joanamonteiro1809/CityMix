@@ -10,8 +10,13 @@ const { width, height } = Dimensions.get('window');
 const LoginScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [isFontsReady, setIsFontsReady] = useState(false);
     const [isAppReady, setIsAppReady] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
 
     const [fontsLoaded] = useFonts({
         'CodecPro-Bold': require('./assets/fonts/CodecPro-Bold.ttf'),
@@ -87,15 +92,46 @@ const LoginScreen = ({ navigation }) => {
         setEmail(newEmail);
     }
 
-    const handleNext = () => {
-        if(email == "Rita"){
-            sampleData.currentUser.role = 'normal_user';
+    const isFieldInvalid = (field) => isSubmitted && !field;
+
+    const isEmailInvalid = (field) => (isSubmitted && (!field || (field.trim() != 'rita') || (field.trim() != 'joao'))); 
+ 
+    const validate = () => {
+        let isValid = true;
+    
+        // Validate Username
+        if (email.trim() !== 'rita' && email.trim() !== 'joao') {
+            setUsernameError(true);
+            isValid = false;
         } else {
-            sampleData.currentUser.role = 'tour_guide';
+            setUsernameError(false);
         }
-        
-        navigation.navigate('HomeScreen');
-    }
+    
+        // Validate Password
+        if (
+            (email.trim() !== 'rita' && email.trim() !== 'joao') ||
+            (email.trim() === 'rita' && password.trim() !== 'rita123') ||
+            (email.trim() === 'joao' && password.trim() !== 'joao123')
+        ) {
+            setPasswordError(true);
+            isValid = false;
+        } else {
+            setPasswordError(false);
+        }
+    
+        return isValid;
+    };
+    
+    
+
+    const handleNext = () => {
+        setIsSubmitted(true);
+        if (validate()) {
+            navigation.navigate('HomeScreen');
+        }
+    };
+    
+    
 
     return (
         <KeyboardAwareScrollView
@@ -129,20 +165,25 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={styles.title}>Login</Text>
 
                     {/* Email and Password Input */}
+                    {isSubmitted && usernameError && (
+                        <Text style={styles.errorText}>Username is incorrect</Text>)}
                     <TextInput 
-                        style={styles.input} 
-                        placeholder="Email" 
+                        style={[styles.input, isSubmitted && usernameError && styles.inputError]} 
+                        placeholder="Username" 
                         placeholderTextColor="#888" 
                         value={email}
                         onChangeText={handleEmail}
                     />
+                    {isSubmitted && passwordError && (
+                        <Text style={styles.errorText}>Password is incorrect</Text>)}
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, isSubmitted && passwordError && styles.inputError]}
                         placeholder="Password"
                         placeholderTextColor="#888"
                         secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
                     />
-
                     {/* Sign Up Link and Login Button */}
                     <View style={styles.actionRow}>
                         <TouchableOpacity onPress={() => navigation.navigate('SignupStep1')}>
@@ -154,7 +195,7 @@ const LoginScreen = ({ navigation }) => {
                     </View>
 
                     {/* Forgot Password Link */}
-                    <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                    <TouchableOpacity onPress={() => {}}>
                         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
                     </TouchableOpacity>
 
@@ -216,6 +257,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#f2f2f2',
         color: '#333',
         fontFamily: 'CodecPro-Regular',
+    },
+    inputError:{
+        borderColor: 'red',
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginBottom: 5,
+        marginLeft: 20,
+        alignSelf: 'flex-start'
     },
     actionRow: {
         flexDirection: 'row',
