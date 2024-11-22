@@ -83,22 +83,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#FF914D',
     flexDirection: 'row',
     alignItems: 'center',
-    //justifyContent: 'flex-start',
     paddingHorizontal: width * 0.03,
     marginTop: height * 0.035,
   },
 
   name: {
-    flexDirection: 'row', // Arrange the icon and text horizontally
-    flex: 1, // Allows the centerContent to occupy all available space
-    justifyContent: 'center', // Centers the block within the header
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     flexShrink: 1,
   },
 
   headerText: {
     fontSize: width * 0.06,
-    //fontWeight: 'bold',
     color: '#fff',
     justifySelf: 'center',
     alignSelf: 'center',
@@ -142,6 +140,7 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.04,
     paddingHorizontal: width * 0.03,
     height: height * 0.06,
+    fontFamily: 'CodecPro-Regular',
   },
   sendButton: {
     marginLeft: width * 0.02,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     height: height * 0.06,
   },
   sendButtonText: {
-    fontWeight: 'bold',
+    fontFamily: 'CodecPro-Bold',
     fontSize: width * 0.04,
   },
 });

@@ -60,12 +60,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
-        //justifyContent: 'flex-start',
     },
     tourInfo: {
         marginLeft: 10,
         flex: 1,
-        //borderWidth: 2,
     },
     tourName: {
         fontSize: 16,
@@ -75,7 +73,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: 'CodecPro-Regular',
         lineHeight: 20,
-        //flex: 2,
     },
     ratingContainer: {
         flexDirection: 'row',

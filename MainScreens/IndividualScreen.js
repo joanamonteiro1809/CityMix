@@ -1,9 +1,9 @@
 // IndividualScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const { width } = Dimensions.get('window'); 
+const { width } = Dimensions.get('window');
 
 const renderIndividualItem = ({ nav, item }) => {
     // Convert the rating string to a number and round it down if necessary
@@ -36,21 +36,22 @@ const renderIndividualItem = ({ nav, item }) => {
 
 
 const IndividualScreen = ({ nav,  tours }) => {
-
     return (
         <View>
-            {/* Profile Card */}
             <FlatList
-                    data={tours}
-                    renderItem={({item})=>renderIndividualItem ({ nav, item })}
-                    keyExtractor={item => item.id}
-                    contentContainerStyle={styles.listContainer}
-                />
+                data={tours}
+                renderItem={({item})=>renderIndividualItem ({ nav, item })}
+                keyExtractor={item => item.id}
+                contentContainerStyle={styles.listContainer}
+            />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    listContainer: {
+        flexGrow: 1,
+    },
     profileCard: {
         flexDirection: 'row',
         padding: 15,

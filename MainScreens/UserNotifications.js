@@ -21,7 +21,7 @@ const notificationsByCategory = {
 const NormalUserNotifications = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Notifications:</Text>
+            <Text style={styles.title}>Notifications</Text>
             <View style={styles.listContainer}>
                 {Object.keys(notificationsByCategory).map(category => (
                     <View key={category} style={styles.categoryContainer}>
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
     title: {
         paddingTop: width * 0.13, // Adapta o padding com base na largura da tela
         fontSize: width * 0.06, // Escala o tamanho do título de forma proporcional
-        fontWeight: 'bold',
         color: '#FF914D',
         marginBottom: width * 0.08,
-        
+        fontFamily: 'CodecPro-ExtraBold',
+        textAlign: 'center',
     },
     listContainer: {
         flexGrow: 1,
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#555',
         marginBottom: width * 0.04,
+        fontFamily: 'CodecPro-Bold',
     },
     notificationContainer: {
         flexDirection: 'row', // Permite alinhar a imagem e o texto lado a lado
@@ -81,10 +82,11 @@ const styles = StyleSheet.create({
         marginRight: width * 0.04, // Espaço entre a imagem e o texto
     },
     message: {
-        fontSize: width * 0.045,
+        fontSize: width * 0.040,
         color: '#000',
         flex: 1, // Faz o texto ocupar o restante do espaço
         flexWrap: 'wrap', // Permite quebra de linha caso o texto seja longo
+        fontFamily: 'CodecPro-Regular',
     },
 });
 

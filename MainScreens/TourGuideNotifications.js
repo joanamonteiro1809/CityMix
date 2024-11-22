@@ -22,7 +22,7 @@ const notificationsByCategory = {
 const TourGuideNotifications = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Notifications:</Text>
+            <Text style={styles.title}>Notifications</Text>
             <View style={styles.listContainer}>
                 {Object.keys(notificationsByCategory).map(category => (
                     <View key={category} style={styles.categoryContainer}>
@@ -55,9 +55,10 @@ const styles = StyleSheet.create({
     title: {
         paddingTop: width * 0.13,
         fontSize: width * 0.06,
-        fontWeight: 'bold',
         color: '#FF914D',
         marginBottom: width * 0.08,
+        fontFamily: 'CodecPro-ExtraBold',
+        textAlign: 'center',
     },
     listContainer: {
         flexGrow: 1,
@@ -67,9 +68,9 @@ const styles = StyleSheet.create({
     },
     categoryTitle: {
         fontSize: width * 0.05,
-        fontWeight: 'bold',
         color: '#555',
         marginBottom: width * 0.04,
+        fontFamily: 'CodecPro-Bold',
     },
     notificationContainer: {
         flexDirection: 'row',
@@ -89,10 +90,11 @@ const styles = StyleSheet.create({
         marginRight: width * 0.04,
     },
     message: {
-        fontSize: width * 0.045,
+        fontSize: width * 0.040,
         color: '#000',
         flex: 1,
         flexWrap: 'wrap',
+        fontFamily: 'CodecPro-Regular',
     },
 });
 

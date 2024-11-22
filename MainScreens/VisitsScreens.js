@@ -52,10 +52,10 @@ const VisitsScreen = ({ navigation, route }) => {
                     </TouchableOpacity>
                 )}
 
-                {activeTab == 'Group' && (
+                {activeTab == 'Groups' && (
                     <TouchableOpacity onPress={() => 
                         navigation.navigate('Filter', 
-                        {tabSel: 'Group', 
+                        {tabSel: 'Groups',
                         filters: filters, 
                         recentSearch: location,
                         })}>
@@ -64,10 +64,10 @@ const VisitsScreen = ({ navigation, route }) => {
                 )
                 }
 
-                {activeTab == 'Paid' && (
+                {activeTab == 'Paid Tours' && (
                     <TouchableOpacity onPress={() => 
                         navigation.navigate('Filter', 
-                        {tabSel: 'Paid', 
+                        {tabSel: 'Paid Tours',
                         filters: filters, 
                         recentSearch: location,
                         })}>
@@ -81,7 +81,7 @@ const VisitsScreen = ({ navigation, route }) => {
             <TabControl
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
-                tabs={['Individuals', 'Group', 'Paid']}
+                tabs={['Individuals', 'Groups', 'Paid Tours']}
             />
             
             {/* Tab Content */}
@@ -106,7 +106,7 @@ const VisitsScreen = ({ navigation, route }) => {
                     )
                 )}
 
-                {activeTab === 'Group' && (
+                {activeTab === 'Groups' && (
                     filteredGroups.length > 0 ? (
                         <GroupScreen nav={navigation} tours={filteredGroups} />
                     ) : (
@@ -122,7 +122,7 @@ const VisitsScreen = ({ navigation, route }) => {
                     )
                 )}
 
-                {activeTab === 'Paid' && (
+                {activeTab === 'Paid Tours' && (
                     filteredPaid.length > 0 ? (
                         <PaidToursScreen nav={navigation} tours={filteredPaid} />
                     ) : (
@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingVertical: 10,
-        //marginTop: height * 0.04, // Space below the search bar, responsive to screen height
     },
     headerTitleContainer: {
         flexDirection: 'row',
@@ -163,16 +162,14 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 18,
-        fontWeight: 'bold',
         color: '#000',
+        fontFamily: 'CodecPro-Bold',
     },
     noDataContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 25,
         paddingVertical: 20,
-        //borderWidth:2,
-        
     },
     noDataTitle: {
         fontSize: 20,

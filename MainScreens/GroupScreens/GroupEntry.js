@@ -14,10 +14,7 @@ const GroupEntry = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                 <ArrowButton
-                     onPress={() => navigation.goBack()}
-                     iconName={("chevron-left")}
-                 />
+                 <ArrowButton onPress={() => navigation.goBack()} iconName={("chevron-left")}/>
             </View>
 
             <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -57,7 +54,6 @@ const GroupEntry = ({navigation, route}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //paddingHorizontal: 20,
         paddingTop: 35,
         backgroundColor: '#F8F8F8',
     },
@@ -65,13 +61,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        //flexDirection: 'row',
         justifySelf: 'center',
         alignSelf: 'flex-start',
         paddingHorizontal: 20,
         top: 20,
         backgroundColor: '#F8F8F8',
-        //position: 'absolute',
     },
     imageContainer: {
         backgroundColor: '#F8F8F8',
@@ -95,7 +89,6 @@ const styles = StyleSheet.create({
 
     groupTitle: {
         fontSize: 26,
-        //fontWeight: 'bold',
         color: '#333',
         marginLeft: 5,
         fontFamily: 'CodecPro-ExtraBold',
@@ -103,15 +96,18 @@ const styles = StyleSheet.create({
 
     groupDescription: {
         marginTop: 5,
+        fontSize: 14,
         color: '#333',
-        paddingHorizontal: 20,
+        paddingHorizontal: 25,
         textAlign: 'center',
-        fontFamily: 'CodecPro-Regular',
-        //borderWidth: 2
+        //fontFamily: 'CodecPro-Regular',
+        //includeFontPadding: false,
+        fontFamily: 'Roboto',
+        lineHeight: 20,
+
     },
 
     groupInfoContainer: {
-        //backgroundColor: '#f0f0f0',
         padding: 20,
         alignItems: 'center',
         justifyContent: 'center',
@@ -119,20 +115,16 @@ const styles = StyleSheet.create({
     },
 
     membersInfo: {
-        //flexDirection: 'row',
-        //alignItems: 'flex-start', // Vertically align the icon and text
         padding: 20,
-        //marginTop: 20,
-        //justifyContent: 'flex-start',
         width: '80%',
         height: height * 0.25,
         borderRadius: 40,
         backgroundColor: '#ffffff',
-        shadowColor: '#000',       // Shadow color (black)
+        shadowColor: '#000',
         shadowOffset: {width: 0, height: 3,},
-        shadowOpacity: 0.15,       // Shadow opacity (light shadow)
-        shadowRadius: 10,          // Shadow blur radius
-        elevation: 3,              // Elevation for Android
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+        elevation: 3,
         marginVertical: 5,
         flexDirection: 'column',
         justifyContent: 'flex-start',
@@ -145,7 +137,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         gap: 6,
-        //flexWrap: 'wrap',
     },
     subtitle: {
         fontSize: 16,
@@ -159,7 +150,7 @@ const styles = StyleSheet.create({
         lineHeight: 22,
     },
     iconContainer: {
-        justifyContent: 'center',   // Center the icon vertically
+        justifyContent: 'center',
         alignItems: 'center',
     },
 
@@ -170,17 +161,14 @@ const styles = StyleSheet.create({
         width: '60%',
         alignSelf: 'center',
         marginTop: 'auto',
-        //justifyContent: 'center',
-        //alignItems: 'center',
+
     },
     footerBoxes:{
         fontSize: 16,
-        color: '#fff', // Slightly darker color when selected
-        //fontWeight: 'bold',
+        color: '#fff',
         fontFamily: 'CodecPro-Bold',
         textAlign: 'center',
     },
-
 });
 
 export default GroupEntry;

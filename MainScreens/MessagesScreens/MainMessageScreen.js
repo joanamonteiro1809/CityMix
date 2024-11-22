@@ -60,7 +60,7 @@ const VisitsScreen = ({ navigation, route }) => {
             <TabControl
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
-                tabs={['Individuals', 'Group']}
+                tabs={['Individuals', 'Groups']}
             />
 
             <View style={styles.messagesContainer}>
@@ -103,10 +103,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     headerTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 22,
         color: '#000',
         textAlign: 'center',
+        fontFamily: 'CodecPro-ExtraBold'
     },
     arrowButton: {
         position: 'absolute',
@@ -138,10 +138,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     messageTitle: {
-        fontSize: 16,
-        fontWeight: 'bold',
+        fontSize: 18,
         color: '#333',
         marginBottom: 5,
+        fontFamily: 'CodecPro-Bold',
     },
     messageText: {
         fontSize: 14,

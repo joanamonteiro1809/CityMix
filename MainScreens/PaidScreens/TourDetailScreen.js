@@ -150,7 +150,6 @@ const TourDetailScreen = ({navigation, route}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //paddingHorizontal: 20,
         backgroundColor: '#fff',
         paddingTop: 35,
     },
@@ -181,7 +180,6 @@ const styles = StyleSheet.create({
        margin: 5,
    },
 
-
     image: {
         width: '100%',
         height: '100%',
@@ -192,16 +190,16 @@ const styles = StyleSheet.create({
     },
     tourTitle: {
         fontSize: 23,
-        fontWeight: 'bold',
         color: '#333',
         marginLeft: 5,
+        fontFamily: 'CodecPro-ExtraBold',
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: 'bold',
         color: '#333',
         marginRight: 10,
-        paddingVertical: 10
+        paddingVertical: 6,
+        fontFamily: 'CodecPro-Bold',
     },
     // Guide info
     guideContainer: {
@@ -212,6 +210,7 @@ const styles = StyleSheet.create({
     guideText: {
         fontSize: 17,
         color: '#333',
+        fontFamily: 'CodecPro-Regular',
     },
     chatIcon: {
         marginLeft: 10,
@@ -219,20 +218,22 @@ const styles = StyleSheet.create({
 
     // Description info
     description: {
-        fontSize: 17,
+        fontSize: 16,
         color: '#333',
+        fontFamily: 'CodecPro-Regular',
     },
 
     // Route info
     routeItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 5,
+
     },
     routeText: {
-        fontSize: 17,
+        fontSize: 16,
         color: '#333',
         marginLeft: 5,
+        fontFamily: 'CodecPro-Regular',
     },
 
     // Reviews
@@ -249,8 +250,8 @@ const styles = StyleSheet.create({
     },
     reviewerText:{
         fontSize: 15,
-        fontWeight: 'bold',
-        marginBottom: 2
+        marginBottom: 2,
+        fontFamily: 'CodecPro-Bold',
     },
     reviewRating: {
         flexDirection: 'row',
@@ -270,19 +271,20 @@ const styles = StyleSheet.create({
     },
     price: {
         fontSize: 17,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: '#333',
+        fontFamily: 'CodecPro-Bold',
     },
     bookButton: {
         backgroundColor: '#FF914D',
-        paddingVertical: 8,
+        paddingVertical: 7,
         paddingHorizontal: 20,
         borderRadius: 20,
     },
     bookButtonText: {
         color: '#fff',
-        fontWeight: 'bold',
         fontSize: 17,
+        fontFamily: 'CodecPro-Bold',
     },
      languageContainer: {
             flexDirection: 'row',

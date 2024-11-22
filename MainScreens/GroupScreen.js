@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#888',
         marginHorizontal: 5,
+        fontFamily: 'CodecPro-Regular',
     },
     image: {
         width: width*0.27,
@@ -81,12 +82,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#888',
         marginHorizontal: 5,
+        fontFamily: 'CodecPro-Regular',
     },
     infoRow: {
-        flexDirection: 'row', // Alinha o ícone e texto horizontalmente
+        flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 5, // Espaço entre as linhas
-        //gap: 5, // Espaço entre o ícone e o texto
+        marginTop: 5,
 },
 });
 

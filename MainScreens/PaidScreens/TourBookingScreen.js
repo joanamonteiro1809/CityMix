@@ -169,8 +169,9 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
         marginLeft: 15,
+        fontFamily: 'CodecPro-ExtraBold',
+        color: '#ffff',
     },
     infoCard: {
         backgroundColor: '#f7f7f7',
@@ -181,7 +182,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 4,
         elevation: 5,
-        marginBottom: 20,
+        marginVertical: 20,
         marginHorizontal: 5,
     },
     expandedInfoCard: {
@@ -189,9 +190,9 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: '#333',
         marginRight: 10,
+        fontFamily: 'CodecPro-Bold',
     },
     infoContainer: {
         flexDirection: 'row',
@@ -202,6 +203,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#555',
         marginRight: 10,
+        fontFamily: 'CodecPro-Regular',
     },
     selectContainer: {
         flexDirection: 'row',
@@ -216,6 +218,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#aaa',
         marginRight: 5,
+        fontFamily: 'CodecPro-Regular',
     },    
     priceContainer: {
         backgroundColor: '#fff7e5',
@@ -223,14 +226,14 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginBottom: 20,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: '#FF914D',
         marginHorizontal: 5,
     },
     totalPriceText: {
         fontSize: 18,
-        fontWeight: 'bold',
         color: '#333',
+        fontFamily: 'CodecPro-Bold',
     },
     payButton: {
         backgroundColor: '#FF914D',
@@ -241,8 +244,8 @@ const styles = StyleSheet.create({
     },
     payButtonText: {
         color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 20,
+        fontFamily: 'CodecPro-Bold',
     },
     // Red border when missing input
     inputError: {

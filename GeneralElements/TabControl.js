@@ -46,10 +46,11 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 16,
     color: 'black', // Default color for non-selected tabs
+    fontFamily: 'CodecPro-Regular',
   },
   activeTabText: {
-    fontWeight: 'bold',
     color: 'black', // Text color for the selected tab
+    fontFamily: 'CodecPro-Bold',
   },
 });
 

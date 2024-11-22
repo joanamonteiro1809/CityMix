@@ -87,13 +87,13 @@ const PopupPaid = ({ navigation, route }) => {
                     <Text style={styles.info}>Thank you for choosing us. We're excited to make this a memorable experience for you!
                     </Text>
                     <View style={styles.tourDetails}>
-                        <Text style={{fontSize: 18, marginBottom: 5, color:"#555"}}>{title}</Text>
+                        <Text style={{fontSize: 18, marginBottom: 5, color:"#555", fontFamily: 'CodecPro-Regular',}}>{title}</Text>
                         <View style={styles.dateTimeContainer}>
                             <Text style={styles.dateTimeText}>{selectedTime}</Text>
                             <Text style={styles.dateTimeText}> | </Text>
                             <Text style={styles.dateTimeText}>{dayjs(selectedDate).format('MMMM D, YYYY')}</Text>
                         </View>
-                        <Text style={{fontSize: 18, marginBottom: 5, color:"#555"}}>{guide}</Text>
+                        <Text style={{fontSize: 18, color:"#555", fontFamily: 'CodecPro-Regular'}}>{guide}</Text>
                     </View>
                     <TouchableOpacity onPress={()=> navigation.popTo(activeProf, { tabSelected: 'Calendar'})}>
                         <View style={styles.button}>
@@ -108,27 +108,26 @@ const PopupPaid = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, // Full screen for the overlay
-        justifyContent: 'center', // Center the popup vertically
-        alignItems: 'center', // Center the popup horizontally
-        //backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black overlay
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     popup: {
-        width: '90%', // Width of the popup
-        maxWidth: 400, // Max width for larger screens
-        backgroundColor: '#fff', // Background color of the popup
-        borderRadius: 20, // Rounded corners
-        padding: 25, // Padding inside the popup
-        alignItems: 'center', // Center the content horizontally
-        justifyContent: 'center', // Center the content vertically
-        shadowColor: '#000', // Shadow for the popup
+        width: '90%',
+        maxWidth: 400,
+        backgroundColor: '#fff',
+        borderRadius: 20,
+        padding: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        elevation: 5, // Shadow for Android
+        elevation: 5,
     },
     header: {
-        position: 'absolute', // Position close button at the top right
+        position: 'absolute',
         top: 10,
         right: 10,
     },
@@ -136,31 +135,32 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     messageContainer: {
-        alignItems: 'center', // Center all message components horizontally
+        alignItems: 'center',
     },
     title: {
         fontSize: 25,
-        fontWeight: 'bold',
         color: '#333',
         marginBottom: 5,
+        fontFamily: 'CodecPro-Bold',
     },
     info: {
         fontSize: 16,
         marginBottom: 20,
-        textAlign: 'center', // Center-align the text
+        textAlign: 'center',
     },
     tourDetails: {
-        alignItems: 'center', // Center all components horizontally
+        alignItems: 'center',
         padding: 10,
         marginBottom: 20,
     },
     dateTimeContainer: {
         flexDirection: 'row',
         marginBottom: 5,
+
     },
     dateTimeText: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
     },
     button: {
         padding: 10,
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 15,
         paddingHorizontal: 10,
+        fontFamily: 'CodecPro-Bold',
     },
 });
 
