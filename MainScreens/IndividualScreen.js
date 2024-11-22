@@ -50,7 +50,7 @@ const IndividualScreen = ({ nav,  tours }) => {
 
 const styles = StyleSheet.create({
     container: {
-        //flexGrow: 1,
+        flexGrow: 1,
         maxWidth: '100%', 
         maxHeight: '90%',
     },
