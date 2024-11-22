@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         minHeight: 300, // Adjust to ensure enough space when CalendarPicker is visible
     },
     sectionTitle: {
-        fontSize: 20,
+        fontSize: 16,
         color: '#333',
         marginRight: 10,
         fontFamily: 'CodecPro-Bold',
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     infoText: {
-        fontSize: 18,
+        fontSize: 14,
         color: '#555',
         marginRight: 10,
         fontFamily: 'CodecPro-Regular',
