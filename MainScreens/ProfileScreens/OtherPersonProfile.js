@@ -47,14 +47,16 @@ const OtherPersonProfile = ({ navigation, route }) => {
     switch (activeTab) {
       case 'About':
         return (
-          <View style={styles.content}>
-            <Text style={styles.sectionTitle}>Description</Text>
-            <Text style={styles.sectionContent}>{personDetails.description}</Text>
-            <Text style={styles.sectionTitle}>Interests</Text>
-            <Text style={styles.sectionContent}>{personDetails.activities.join(', ')}</Text>
-            <Text style={styles.sectionTitle}>Languages</Text>
-            <Text style={styles.sectionContent}>{personDetails.languages.join(', ')}</Text>
-          </View>
+          <ScrollView style={styles.content}>
+              <View style={styles.content}>
+                <Text style={styles.sectionTitle}>Description</Text>
+                <Text style={styles.sectionContent}>{personDetails.description}</Text>
+                <Text style={styles.sectionTitle}>Interests</Text>
+                <Text style={styles.sectionContent}>{personDetails.activities.join(', ')}</Text>
+                <Text style={styles.sectionTitle}>Languages</Text>
+                <Text style={styles.sectionContent}>{personDetails.languages.join(', ')}</Text>
+              </View>
+          </ScrollView>
         );
       case 'Reviews':
         return (
@@ -127,7 +129,7 @@ const OtherPersonProfile = ({ navigation, route }) => {
         />
       </View>
 
-      {/* Conteúdo da Aba */}
+      {/* Conteúdo da Ana */}
       <View style={styles.tabContent}>{renderTabContent()}</View>
     </View>
   );
