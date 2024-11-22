@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: width * 0.05,
-        backgroundColor: '#f2u839',
+        backgroundColor: '#fff',
     },
     profileHeader: {
         alignItems: 'center',
@@ -311,13 +311,13 @@ const styles = StyleSheet.create({
     }, 
     profileName: {
         fontSize: width * 0.07,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-ExtraBold',
         marginTop: height * 0.01,
         color: '#000'
     },
     profileLocation: {
-        marginTop: 5,
-        color: '#888'
+        color: '#888',
+        fontFamily: 'CodecPro-Regular',
     },
     availabilityContainer: {
         flexDirection: 'row',
@@ -328,16 +328,22 @@ const styles = StyleSheet.create({
     availabilityText: {
         fontSize: 18,
         marginRight: 8,
+        fontFamily: 'CodecPro-Regular',
     },
     tabContentContainer: {
         flexGrow: 1,
-        //paddingBottom: height * 0.02, // Ensure there’s padding at the bottom
-        backgroundColor: '#ffeadd',
+        backgroundColor: '#E8E8E8',
         padding: 10,
-        borderRadius: 20, // Borda arredondada
+        borderRadius: 20,
         marginBottom: 20,
         width: width * 0.9,
+        //height: height * 0.4,
         marginTop: 10,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 6,},
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+        elevation: 3,
     },
     aboutSection: {
         flex: 1,
@@ -350,25 +356,29 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontSize: width * 0.05,
-        fontWeight: 'bold',
-        marginBottom: 15,
         marginTop: 15,
+        marginHorizontal: 10,
+        fontFamily: 'CodecPro-Bold',
     },
     sectionText: {
         fontSize: width * 0.04,
         color: '#555',
+        marginTop: 5,
         marginBottom: 20,
+        fontFamily: 'CodecPro-Regular',
+        lineHeight: 18,
+        marginHorizontal: 10,
     },
     reviewPlaceholder: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginVertical: height * 0.01,
-        
     },
     
     eventsList: {
         marginTop: height * 0.01,
     },
+
     eventCard: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -381,33 +391,33 @@ const styles = StyleSheet.create({
         shadowRadius: 1.41,
         elevation: 2,
         marginBottom: 10
-        
     },
 
     eventDate: {
         fontSize: width * 0.05,
-        fontWeight: 'bold',
         color: '#f2b636',
-        marginRight: width * 0.03,
+        marginRight: width * 0.04,
+        fontFamily: 'CodecPro-ExtraBold',
     },
+
     eventTitle: {
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         fontSize: width * 0.04,
     },
     tourPhoto: {
         fontSize: width * 0.05,
-        fontWeight: 'bold',
         color: '#f2b636',
         marginRight: width * 0.07,
     },
     starIcon: {
-        width: 16, // Ajuste o tamanho da estrela
+        width: 16,
         height: 16,
         marginRight: 4,
     },
     eventSubtitle: {
         color: '#888',
-        fontSize: width * 0.035,
+        fontSize: width * 0.030,
+        fontFamily: 'CodecPro-Regular',
     },
     pastEventsPlaceholder: {
         marginTop: height * 0.01,
@@ -415,14 +425,13 @@ const styles = StyleSheet.create({
     },
     addTourButton: {
         backgroundColor: '#FF914D',
-        padding: width * 0.04,
+        padding: 15,
         borderRadius: 10,
         alignItems: 'center',
-        marginTop: height * 0.02,
+        marginVertical: 10,
     },
     reviewsList: {
         marginVertical: 10,
-        paddingHorizontal: 10,
     },
     
     reviewCard: {
@@ -440,15 +449,15 @@ const styles = StyleSheet.create({
     },
     
     reviewerName: {
-        fontWeight: 'bold',
         fontSize: 16,
-        marginBottom: 5,
+        fontFamily: 'CodecPro-Bold',
     },
     
     reviewText: {
         fontSize: 14,
         color: '#555',
         marginBottom: 10,
+        //fontFamily: 'CodecPro-Regular',
     },
     
     ratingContainer: {
@@ -464,13 +473,14 @@ const styles = StyleSheet.create({
     
     addTourButtonText: {
         color: '#000',
-        fontSize: width * 0.04,
-        fontWeight: 'bold',
+        fontSize: 16,
+        fontFamily: 'CodecPro-Bold',
     },
 
     deleteButton: {
         marginLeft: 10,
     },
+
     tourCard: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -489,21 +499,21 @@ const styles = StyleSheet.create({
     titleAndPhotoInline: {
         flexDirection: 'row',
         alignItems: 'center',
-        flex: 1, // Adiciona flexibilidade ao layout para acomodar o preço
+        flex: 1,
     },
     tourInfo: {
         marginLeft: 10,
-        flex: 1, // Garante que o texto se adapte ao espaço
+        flex: 1,
     },
     tourName: {
-        fontSize: width * 0.045, // Ajusta a fonte para caber melhor
-        fontWeight: 'bold',
+        fontSize: width * 0.045,
+        fontFamily: 'CodecPro-Bold',
     },
     tourImage: {
-        width: width * 0.2, // Ajuste o tamanho conforme necessário
+        width: width * 0.2,
         height: width * 0.2,
-        borderRadius: 10, // Deixe as bordas arredondadas, se necessário
-        marginRight: 10, // Espaço entre a imagem e o texto
+        borderRadius: 10,
+        marginRight: 10,
         backgroundColor: '#ddd',
     },
     
