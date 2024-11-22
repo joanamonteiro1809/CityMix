@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
         position: 'relative',
         alignSelf: 'flex-start',
         marginVertical: 10,
-        width: '61.5%',
-        backgroundColor: 'white',
+        //width: '61.5%',
+        //backgroundColor: 'white',
 
     },
     // shadowRect: {
@@ -212,11 +212,11 @@ const styles = StyleSheet.create({
     //     opacity: 0.1, // Torna a sombra mais suave
     // },
     titleRect: {
-        backgroundColor: '#FF914D',
+        //backgroundColor: '#FF914D',
         borderRadius: 10,
         // borderWidth: 2,
         // borderColor: '#FF914D',
-        paddingHorizontal: 20,
+        //paddingHorizontal: 20,
         paddingVertical: 5,
         alignSelf: 'flex-start',
         width: '100%',
@@ -224,10 +224,10 @@ const styles = StyleSheet.create({
     inYourAreaTag: {
         fontSize: 28,
         //fontWeight: 'bold',
-        fontFamily: 'CodecPro-ExtraBold',
-        color: '#fff',
-        marginVertical: 5,
-        textAlign: 'center',
+        fontFamily: 'ArchivoBlack-Regular',
+        color: '#195FC5',
+        //marginVertical: 5,
+        textAlign: 'left',
     },
     sectionContainer: {
         //flex: 1,
