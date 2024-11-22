@@ -266,7 +266,7 @@ const sampleData = {
     paidTours: [
         { id: '1P', title: "St. George's Castle Tour", price: 20, rating: '4.0', tourGuide: 'João Silva',
             description: 'Come visit the main castle of Lisbon.',
-            picture: require('./assets/paid1.jpg'),
+            picture: require('./assets/paid1a.jpg'),
             routeStops: ["St. George's Castle"],
             reviews: [
                 { reviewer: 'Maria Oliveira', rating: '5,0', comment: 'Amazing tour! The guide was very knowledgeable.' },
@@ -282,7 +282,7 @@ const sampleData = {
         { id: '2P', title: 'Alfama Walking Tour', price: 19, rating: '3.5', tourGuide: 'Inês Dias', 
             description: 'Walk through and enjoy the streets of Alfama.',
             picture: require('./assets/paid2.jpg'),
-            routeStops: ["Santa Luzia Viewpoint", "Lisbon Cathedral", "Fado Museum"],
+            routeStops: ["Santa Luzia", "Lisbon Cathedral", "Fado Museum"],
             reviews: [
                 { reviewer: 'Ana Pereira', rating: '4,0', comment: 'Loved walking through Alfama!' },
                 { reviewer: 'João Costa', rating: '3,0', comment: 'It was okay, but too hot during the day.' },
@@ -314,7 +314,7 @@ const sampleData = {
             tourGuide: 'Inês Dias',
             description: "Explore the famous monuments and delicious pastries of Belem.",
             picture: require('./assets/paid4.jpg'),
-            routeStops: ["Jerónimos Monastery", "Belem Tower", "Pastéis de Belém Bakery"],
+            routeStops: ["Mosteiro", "Belem Tower", "Pastéis de Belém Bakery"],
             reviews: [
                 { reviewer: 'Rita Figueira', rating: '5,0', comment: 'The guide was fantastic, and the pastries were delicious!' },
                 { reviewer: 'André Silva', rating: '4,0', comment: 'Beautiful sites, but the tour was a bit rushed.' },
@@ -350,7 +350,7 @@ const sampleData = {
             tourGuide: 'Alice Pires',
             description: "Explore the wonders of marine life in Oceanário de Lisboa.",
             picture: require('./assets/paid6.jpg'),
-            routeStops: ["Oceanário Entrance", "Interactive Exhibits", "Lisbon Cable Car Ride"],
+            routeStops: ["Oceanário", "Interactive Exhibits", "Lisbon Cable Car Ride"],
             reviews: [
                 { reviewer: 'João Matos', rating: '5,0', comment: 'The ocean exhibits were incredible!' },
                 { reviewer: 'Filipa Duarte', rating: '4,5', comment: 'Beautiful place, but too many kids running around.' },
@@ -384,7 +384,7 @@ const sampleData = {
     joaoTours: [
             { id: '1P', title: "St. George's Castle Tour", price: 20, rating: '4.0', tourGuide: 'João Silva',
                 description: 'Come visit the main castle of Lisbon.',
-                picture: require('./assets/paid1.jpg'),
+                picture: require('./assets/paid1a.jpg'),
                 routeStops: ["St. George's Castle"],
                 reviews: [
                     { reviewer: 'Maria Oliveira', rating: '5,0', comment: 'Amazing tour! The guide was very knowledgeable.' },
