@@ -18,26 +18,34 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.beatrisspr9.CityMix"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-
     "plugins": [
       "expo-router",
       [
         "expo-font",
         {
           "fonts": [
-          "./assets/fonts/CodecPro-Italic.ttf", 
-          "./assets/fonts/CodecPro-Regular.ttf", 
-          "./assets/fonts/CodecPro-Bold.ttf",
-          "./assets/fonts/CodecPro-ExtraBold.otf",
-          "./assets/fonts/ArchivoBlack-Regular.ttf"
-        ]
+            "./assets/fonts/CodecPro-Italic.ttf",
+            "./assets/fonts/CodecPro-Regular.ttf",
+            "./assets/fonts/CodecPro-Bold.ttf",
+            "./assets/fonts/CodecPro-ExtraBold.otf",
+            "./assets/fonts/ArchivoBlack-Regular.ttf"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "052daa72-0aa1-484d-bd4b-6fe26543cb51"
+      }
+    }
   }
 }

@@ -24,7 +24,7 @@ const FilterScreen = ({ navigation, route }) => {
             date,
         };
 
-        let individual = sampleData.individual.filter((tour) => tour.location.includes(recentSearch));
+        let individual = sampleData.individual.filter((tour) => tour.locations.includes(recentSearch));
         let group = sampleData.group.filter((tour) => tour.location.includes(recentSearch));
         let paid = sampleData.paidTours.filter((tour) => tour.location.includes(recentSearch));
        
@@ -179,7 +179,7 @@ const FilterScreen = ({ navigation, route }) => {
             </View>
 
             {/* Price info */}
-            {tabSel == "Paid" && (
+            {tabSel == "Paid Tours" && (
                 <View>
                     <View> 
                         <Text style={styles.sectionTitle}>Price</Text>

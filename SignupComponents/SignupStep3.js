@@ -111,7 +111,7 @@ const SignupStep3 = ({ navigation }) => {
                     />*/}
                     <TouchableOpacity
                         style={styles.done}
-                        onPress={() => navigation.navigate('HomeScreen')}>
+                        onPress={() => navigation.popTo('Login')}>
                         <Text style={styles.doneText}>DONE</Text>
                     </TouchableOpacity>
                 </View>
