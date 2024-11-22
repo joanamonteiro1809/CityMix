@@ -114,7 +114,7 @@ const TourGuideProfile = ({ navigation, route }) => {
             >
                 {/* Substituir com a imagem do tour */}
                 <Image 
-                    source={{ uri: item.imageLink }} // Altere para 'imageLink'
+                    source={item.picture} // Altere para 'imageLink'
                     style={styles.tourImage}
                 />
 

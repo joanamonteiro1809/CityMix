@@ -34,7 +34,7 @@ const InYourAreaScreen = ({navigation}) => {
 
     const renderPaidToursItem = ({ navigation, item }) => (
         <TouchableOpacity onPress={() => navigation.navigate('TourDetails', { tour: item })} style={styles.card}>
-            <Image source={{uri: item.imageLink}} style={styles.image} />
+            <Image source={item.picture} style={styles.image} />
             <Text style={styles.cardTitle}>{item.title}</Text>
             <Text style={styles.cardSubtitle}>{item.price}€</Text>
         </TouchableOpacity>
@@ -116,7 +116,7 @@ const InYourAreaScreen = ({navigation}) => {
 
                 {/* Group Section */}
                 <View style={styles.section}>
-                    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Group' })}>
+                    <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Groups' })}>
                         <View style={styles.sectionHeader}>
                             <Text style={styles.sectionTitle}>Group Meetups</Text>
                             <MaterialIcons name={"chevron-right"} style={styles.iconStyle}  />
@@ -134,7 +134,7 @@ const InYourAreaScreen = ({navigation}) => {
                 {/* Paid Tours Section */}
                 <View style={styles.section}>
                     <View style={styles.addButton}>
-                        <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid' })}>
+                        <TouchableOpacity onPress={() => navigation.navigate('VisitsScreen', { tabSelected: 'Paid Tours' })}>
                             <View style={styles.sectionHeader}>
                                 <Text style={styles.sectionTitle}>Paid Tours</Text>
                                 <MaterialIcons name={"chevron-right"} style={styles.iconStyle}  />
@@ -163,7 +163,7 @@ const InYourAreaScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         paddingHorizontal: 20,
         paddingTop: 35,
         backgroundColor: '#f5f5f5',

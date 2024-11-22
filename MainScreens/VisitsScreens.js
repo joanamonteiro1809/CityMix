@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         backgroundColor: '#fff',
         paddingTop: 35,
+        overflow: 'hidden'
     },
     header: {
         flexDirection: 'row',

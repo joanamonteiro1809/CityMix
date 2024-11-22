@@ -55,7 +55,7 @@ const SearchScreen = ({navigation, route}) => {
     let group = sampleData.group;
     let paid = sampleData.paidTours;
 
-    individual = individual.filter((tour) => tour.location.includes(item));
+    individual = individual.filter((tour) => tour.locations.includes(item));
     group = group.filter((tour) => tour.location.includes(item));
     
     paid = paid.filter((tour) => tour.location.includes(item));

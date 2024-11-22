@@ -57,7 +57,7 @@ const pickImage = async () => {
     });
 
     if (!result.canceled) {
-        setImage(result.assets[0].uri);
+        setImage(result.assets[0]);
         setErrors((prev) => ({ ...prev, image: '' })); // Remove o erro
     }
 };
@@ -145,12 +145,12 @@ const pickImage = async () => {
                 rating: '0.0',
                 tourGuide: guideName,
                 description,
-                imageLink: image,
+                picture: image,
                 routeStops: routes,
                 activities: selectedActivities, // Inclui atividades
                 reviews: [],
                 availableTimes,
-                 languages: selectedLanguages,
+                languages: selectedLanguages,
             };
 
             sampleData.paidTours.push(newTour);
@@ -185,7 +185,7 @@ const pickImage = async () => {
                                   {!image ? (
                                       <Image source={require('../../assets/photo-upload.png')} style={styles.imagePlaceholder} />
                                   ) : (
-                                      <Image source={{ uri: image }} style={styles.selectedImage} />
+                                      <Image source={image} style={styles.selectedImage} />
                                   )}
                               </View>
                           </TouchableOpacity>

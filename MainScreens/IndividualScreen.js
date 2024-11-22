@@ -37,20 +37,22 @@ const renderIndividualItem = ({ nav, item }) => {
 
 const IndividualScreen = ({ nav,  tours }) => {
     return (
-        <View>
+        <View style={styles.container}>
             <FlatList
                 data={tours}
                 renderItem={({item})=>renderIndividualItem ({ nav, item })}
                 keyExtractor={item => item.id}
-                contentContainerStyle={styles.listContainer}
+                
             />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    listContainer: {
-        flexGrow: 1,
+    container: {
+        //flexGrow: 1,
+        maxWidth: '100%', 
+        maxHeight: '90%',
     },
     profileCard: {
         flexDirection: 'row',

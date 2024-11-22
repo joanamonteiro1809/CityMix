@@ -8,7 +8,7 @@ const { width, height } = Dimensions.get('screen');
 const renderPaidToursItem = ({ item, nav }) => (
     <TouchableOpacity onPress={() => nav.navigate('TourDetails', { tour: item })} style={styles.tourCard}>
         <View style={styles.titleAndPhoto}>
-            <Image source={{uri : item.imageLink}} style={styles.image} />
+            <Image source={item.picture} style={styles.image} />
             <View style={styles.tourInfo}>
                 <Text style={styles.tourName}>{item.title}</Text>
                 <Text style={styles.description}>{item.description}</Text>
@@ -38,6 +38,13 @@ const PaidToursScreen = ({ nav, tours }) => {
 };
 
 const styles = StyleSheet.create({
+    container:{
+        //flex: 2,
+        //flexShrink:1,
+        maxWidth: '100%', 
+        maxHeight: '90%',
+        //borderWidth: 2
+    },
     tourCard: {
         flexDirection: 'row',
         alignItems: 'center',
