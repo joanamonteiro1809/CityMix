@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Alert, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'; // For per
 import dayjs from 'dayjs';
 import { getEvents } from '../../GeneralElements/asyncStorage';
 import { saveEvents } from '../../GeneralElements/asyncStorage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
 
@@ -141,6 +142,7 @@ const TourGuideProfile = ({ navigation, route }) => {
         switch (activeTab) {
             case 'About':
     return (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.aboutSection}>
             <Text style={styles.sectionTitle}>Description</Text>
             <Text style={styles.sectionText}>
@@ -173,6 +175,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                 contentContainerStyle={styles.reviewsList}
             />
         </View>
+        </ScrollView>
     );
             case 'Calendar':
                 const filteredEvents = date
@@ -180,6 +183,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                 : []; // If no date selected, show all events
 
                 return (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.calendarSection}>
                         <CalendarPicker date={date} onDateChange={handleDateChange} />
                         
@@ -197,6 +201,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                         )}
 
                     </View>
+                    </ScrollView>
                 );
 
             case 'Events':
@@ -217,6 +222,7 @@ const TourGuideProfile = ({ navigation, route }) => {
 
 
                 return (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.eventsSection}>
                         <Text style={styles.sectionTitle}>Future Events</Text>
                         <FlatList
@@ -231,10 +237,12 @@ const TourGuideProfile = ({ navigation, route }) => {
                             keyExtractor={(item) => item.id}
                         />
                     </View>
+                    </ScrollView>
                 );
 
             case 'Tours':
                 return (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.toursSection}>
                         <TouchableOpacity
                             style={styles.addTourButton}
@@ -248,6 +256,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                             keyExtractor={(item) => item.id.toString()}
                         />
                     </View>
+                    </ScrollView>
                 );
 
             default:
@@ -284,12 +293,12 @@ const TourGuideProfile = ({ navigation, route }) => {
                 setActiveTab={setActiveTab}
                 tabs={['Events', 'Calendar', 'Tours','About' ]}
             />
-            <FlatList
-                data={[{ key: 'tabContent' }]}
-                renderItem={() => <>{renderTabContent()}</>}
-                keyExtractor={(item) => item.key}
-                contentContainerStyle={styles.tabContentContainer}
-            />
+                <FlatList
+                    data={[{ key: 'tabContent' }]}
+                    renderItem={() => <>{renderTabContent()}</>}
+                    keyExtractor={(item) => item.key}
+                    contentContainerStyle={styles.tabContentContainer}
+                />
         </View>
     );
 };
@@ -332,19 +341,22 @@ const styles = StyleSheet.create({
     },
     tabContentContainer: {
         flexGrow: 1,
+        justifyContent: 'flex-start',
         backgroundColor: '#E8E8E8',
         padding: 10,
         borderRadius: 20,
         marginBottom: 20,
         width: width * 0.9,
-        //height: height * 0.4,
+        height: height * 0.4,
         marginTop: 10,
         shadowColor: '#000',
         shadowOffset: {width: 0, height: 6,},
         shadowOpacity: 0.15,
         shadowRadius: 10,
         elevation: 3,
+        //overflow: 'scroll',
     },
+
     aboutSection: {
         flex: 1,
     },
@@ -365,8 +377,8 @@ const styles = StyleSheet.create({
         color: '#555',
         marginTop: 5,
         marginBottom: 20,
-        fontFamily: 'CodecPro-Regular',
-        lineHeight: 18,
+        //fontFamily: 'CodecPro-Regular',
+        //lineHeight: 18,
         marginHorizontal: 10,
     },
     reviewPlaceholder: {
@@ -468,7 +480,7 @@ const styles = StyleSheet.create({
     ratingText: {
         fontSize: 14,
         marginRight: 5,
-        color: '#FF914D',
+        //color: '#FF914D',
     },
     
     addTourButtonText: {
@@ -552,7 +564,12 @@ const styles = StyleSheet.create({
         borderRadius: (width * 0.3) / 2,
         borderWidth: 1,
         borderColor: '#888',
-    }
+    },
+
+    scrollContainer: {
+        flexGrow: 1, // Ensures the scroll view content is flexible
+        //paddingBottom: 20, // Prevents content from getting cut off at the bottom
+    },
 });
 
 export default TourGuideProfile;
