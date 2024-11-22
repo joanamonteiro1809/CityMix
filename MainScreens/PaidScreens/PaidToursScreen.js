@@ -32,6 +32,15 @@ const PaidToursScreen = ({ nav, tours }) => {
                 data={tours}
                 renderItem={({ item }) => renderPaidToursItem({ item, nav })}
                 keyExtractor={item => item.id.toString()}
+
+                contentContainerStyle={{
+                    flexGrow: 1, // Ensures it grows to fit the content
+                    paddingBottom: 20, // Adds padding to avoid cut-offs
+                    justifyContent: tours.length < 3 ? 'flex-start' : 'center', // Adjust layout if fewer items
+                }}
+                ListFooterComponent={
+                    tours.length === 1 || tours.length === 2 || tours.length === 3 || tours.length === 4 || tours.length === 5? <View style={{ height: 20 }} /> : null
+                } // Optional spacing for short lists
             />
         </View>
     );
@@ -54,7 +63,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginVertical: 10,
         height: height * 0.14,
-        overflow: 'hidden',
+        //overflow: 'hidden',
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 0.5,

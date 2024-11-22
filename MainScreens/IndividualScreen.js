@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const renderIndividualItem = ({ nav, item }) => {
     // Convert the rating string to a number and round it down if necessary
@@ -42,6 +42,15 @@ const IndividualScreen = ({ nav,  tours }) => {
                 data={tours}
                 renderItem={({item})=>renderIndividualItem ({ nav, item })}
                 keyExtractor={item => item.id}
+
+                contentContainerStyle={{
+                    flexGrow: 1, // Ensures it grows to fit the content
+                    paddingBottom: 20, // Adds padding to avoid cut-offs
+                    justifyContent: tours.length < 3 ? 'flex-start' : 'center', // Adjust layout if fewer items
+                }}
+                ListFooterComponent={
+                    tours.length === 1 || tours.length === 2 || tours.length === 3 || tours.length === 4 || tours.length === 5? <View style={{ height: 20 }} /> : null
+                } // Optional spacing for short lists
                 
             />
         </View>
@@ -50,9 +59,9 @@ const IndividualScreen = ({ nav,  tours }) => {
 
 const styles = StyleSheet.create({
     container: {
-        //flexGrow: 1,
+        //flex: 1,
         maxWidth: '100%', 
-        maxHeight: '90%',
+        maxHeight: '95%',
     },
     profileCard: {
         flexDirection: 'row',

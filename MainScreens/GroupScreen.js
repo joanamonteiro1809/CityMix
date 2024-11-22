@@ -34,6 +34,14 @@ const GroupScreen = ( { nav, tours } ) => {
                     renderItem={({ item }) => renderGroupItem({ nav, item })}
                     keyExtractor={item => item.id.toString()}
                     //contentContainerStyle={styles.listContainer}
+                    contentContainerStyle={{
+                        flexGrow: 1, // Ensures it grows to fit the content
+                        paddingBottom: 20, // Adds padding to avoid cut-offs
+                        justifyContent: tours.length < 3 ? 'flex-start' : 'center', // Adjust layout if fewer items
+                    }}
+                    ListFooterComponent={
+                        tours.length === 1 || tours.length === 2 || tours.length === 3 || tours.length === 4 || tours.length === 5 ? <View style={{ height: 20 }} /> : null
+                    } // Optional spacing for short lists
                 />
         </View>
     );
