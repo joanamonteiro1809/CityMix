@@ -127,6 +127,7 @@ const LoginScreen = ({ navigation }) => {
     const handleNext = () => {
         setIsSubmitted(true);
         if (validate()) {
+            email.trim() == 'joao' ? sampleData.currentUser.role = 'tour_guide' : sampleData.currentUser.role = 'normal_user';
             navigation.navigate('HomeScreen');
         }
     };
