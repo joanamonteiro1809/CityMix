@@ -46,7 +46,7 @@ const TourDetailScreen = ({navigation, route}) => {
             <ScrollView>
                 {/* Image Section */}
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: tourDetails.imageLink }} style={styles.image} />
+                    <Image source={tourDetails.picture} style={styles.image} />
                 </View>
 
 
