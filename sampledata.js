@@ -230,7 +230,7 @@ const sampleData = {
             title: 'Art Walk at LX Factory', 
             description: "Explore the creative vibe of LX Factory, including galleries, shops, and street art.",
             numPeopl: '18 members',
-            location: "Rua Rodrigues de Faria 103, 1300-501 Lisbon",
+            location: "Rua Rodrigues de Faria 103, 1300-501",
             image: require('./assets/group5.jpg'),
             latitude: 38.70315068722585,
             longitude: -9.178665161132812,
