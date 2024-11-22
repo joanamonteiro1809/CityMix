@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native'; // Import this hook
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import TabControl from '../../GeneralElements/TabControl';
 import CalendarPicker from '../../GeneralElements/CalendarPicker';
@@ -21,11 +21,11 @@ const MyNormalProfile = ({ navigation, route }) => {
     const [isAvailable, setIsAvailable] = useState(true); // Availability toggle state
     
     // Calendar state
-    const [date, setDate] = useState(null); // Store the selected date
+    const [date, setDate] = useState(null);
 
     // Function to handle date selection without hiding the calendar
     const handleDateChange = (newDate) => {
-        setDate(newDate); // Set selected date
+        setDate(newDate);
     };
 
     const toggleAvailability = () => {
@@ -67,6 +67,7 @@ const MyNormalProfile = ({ navigation, route }) => {
         switch (activeTab) {
             case 'About':
                 return (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.aboutSection}>
                         <Text style={styles.sectionTitle}>Description</Text>
                         <Text style={styles.sectionText}>Hi, I'm Rita and I'm passionate about traveling and gastronomy. I love exploring the food that each country has to offer.</Text>
@@ -94,6 +95,7 @@ const MyNormalProfile = ({ navigation, route }) => {
                             contentContainerStyle={styles.reviewsList}
                         />
                     </View>
+                    </ScrollView>
                 );
 
             case 'Calendar':
@@ -103,6 +105,7 @@ const MyNormalProfile = ({ navigation, route }) => {
                 : []; 
 
                 return (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.calendarSection}>
                         {/* Calendar Picker */}
                         <CalendarPicker date={date} onDateChange={handleDateChange}/>
@@ -121,6 +124,7 @@ const MyNormalProfile = ({ navigation, route }) => {
                         )}
 
                     </View>
+                    </ScrollView>
                 );
 
             case 'Events':
@@ -140,6 +144,7 @@ const MyNormalProfile = ({ navigation, route }) => {
                     .sort((a, b) => b.eventDate - a.eventDate); 
                 
                 return (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <View style={styles.eventsSection}>
                         <Text style={styles.sectionTitle}>Future Events</Text>
                         <FlatList
@@ -147,6 +152,7 @@ const MyNormalProfile = ({ navigation, route }) => {
                             renderItem={renderEventItem}
                             keyExtractor={(item) => item.id}
                         />
+                        <View style={styles.divider} />
                         <Text style={styles.sectionTitle}>Past Events</Text>
                         <FlatList
                             data={pastEvents}
@@ -154,6 +160,7 @@ const MyNormalProfile = ({ navigation, route }) => {
                             keyExtractor={(item) => item.id.toString()}
                         />
                     </View>
+                    </ScrollView>
                 );
             
             default:
@@ -208,11 +215,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: width * 0.05,
-        backgroundColor: '#f2u839',
+        backgroundColor: '#fff',
     },
     profileHeader: {
         alignItems: 'center',
-        marginTop: height * 0.1,
+        marginTop: height * 0.08,
     },
     logoutButton:{
         position: 'absolute',
@@ -226,12 +233,12 @@ const styles = StyleSheet.create({
     },
     profileName: {
         fontSize: width * 0.07, 
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-ExtraBold',
         marginTop: height * 0.01, 
         color: '#000',
     },
     profileLocation: {
-        marginTop: 5,
+        fontFamily: 'CodecPro-Regular',
         color: '#888'
     },
     availabilityContainer: {
@@ -243,17 +250,23 @@ const styles = StyleSheet.create({
     availabilityText: {
         fontSize: 18,
         marginRight: 8,
+        fontFamily: 'CodecPro-Regular',
     },
     tabContentContainer: {
         flexGrow: 1,
-        //paddingBottom: height * 0.02, 
-        backgroundColor: '#ffeadd',
+        justifyContent: 'flex-start',
+        backgroundColor: '#E8E8E8',
         padding: 10,
         borderRadius: 20, 
         marginBottom: 20,
-        //marginHorizontal: width * 0.01,
         width: width * 0.9,
+        height: height * 0.4,
         marginTop: 10,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 6,},
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+        elevation: 3,
     },
     aboutSection: {
         flex: 1,
@@ -263,18 +276,20 @@ const styles = StyleSheet.create({
     },
     eventsSection: {
         padding: width * 0.03,
-        //marginBottom: height * 0.5,
     },
     sectionTitle: {
         fontSize: width * 0.05,
-        fontWeight: 'bold',
-        marginBottom: 15,
         marginTop: 15,
+        marginHorizontal: 10,
+        fontFamily: 'CodecPro-Bold',
     },
     sectionText: {
         fontSize: width * 0.04,
         color: '#555',
         marginBottom: 20,
+        marginTop: 5,
+        marginHorizontal: 10,
+
     },
     reviewPlaceholder: {
         flexDirection: 'row',
@@ -295,28 +310,26 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
-        marginBottom: height * 0.01,
+        marginBottom: 10,
         
     },
     eventDate: {
         fontSize: width * 0.05,
-        fontWeight: 'bold',
         color: '#f2b636',
-        marginRight: width * 0.03,
+        marginRight: width * 0.04,
+        fontFamily: 'CodecPro-ExtraBold',
     },
     eventTitle: {
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         fontSize: width * 0.04,
         
     },
     eventSubtitle: {
         color: '#888',
-        fontSize: width * 0.035,
+        fontSize: width * 0.030,
+        fontFamily: 'CodecPro-Regular',
     },
-    pastEventsPlaceholder: {
-        marginTop: height * 0.01,
-        alignItems: 'center',
-    },
+
     noEventsPlaceholder:{
         alignItems: 'center',
         paddingBottom: 10,
@@ -324,7 +337,6 @@ const styles = StyleSheet.create({
 
     reviewsList: {
         marginVertical: 10,
-        paddingHorizontal: 10,
     },
     
     reviewCard: {
@@ -342,9 +354,8 @@ const styles = StyleSheet.create({
     },
     
     reviewerName: {
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         fontSize: 16,
-        marginBottom: 5,
     },
     
     reviewText: {
@@ -361,7 +372,17 @@ const styles = StyleSheet.create({
     ratingText: {
         fontSize: 14,
         marginRight: 5,
-        color: '#FF914D',
+        //color: '#FF914D',
+    },
+
+    scrollContainer: {
+        flexGrow: 1,
+        //paddingBottom: 20,
+    },
+    divider: {
+        height: 1,  // Height of the divider
+        backgroundColor: '#bbb',  // Light gray color for the divider
+        marginVertical: 10,
     },
 });
 

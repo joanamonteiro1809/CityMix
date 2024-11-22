@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 16,
         color: '#333',
-        fontFamily: 'CodecPro-Regular',
+        //fontFamily: 'CodecPro-Regular',
     },
 
     // Route info
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#333',
         marginLeft: 5,
-        fontFamily: 'CodecPro-Regular',
+        //fontFamily: 'CodecPro-Regular',
     },
 
     // Reviews

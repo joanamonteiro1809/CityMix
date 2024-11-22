@@ -26,7 +26,7 @@ const TourGuideProfile = ({ navigation, route }) => {
         React.useCallback(() => {
             const fetchEvents = async () => {
                 const storedEvents = await getEvents();
-                setEvents(storedEvents); // Ensure the state is updated with fresh data
+                setEvents(storedEvents);
             };
             fetchEvents();
         }, [])
@@ -114,7 +114,7 @@ const TourGuideProfile = ({ navigation, route }) => {
             >
                 {/* Substituir com a imagem do tour */}
                 <Image 
-                    source={item.picture} // Altere para 'imageLink'
+                    source={{ uri: item.imageLink }} // Altere para 'imageLink'
                     style={styles.tourImage}
                 />
 
@@ -230,6 +230,7 @@ const TourGuideProfile = ({ navigation, route }) => {
                             renderItem={renderEventItem}
                             keyExtractor={(item) => item.id}
                         />
+                        <View style={styles.divider} />
                         <Text style={styles.sectionTitle}>Past Events</Text>
                         <FlatList
                             data={pastEvents}
@@ -312,7 +313,7 @@ const styles = StyleSheet.create({
     },
     profileHeader: {
         alignItems: 'center',
-        marginTop: height * 0.1,
+        marginTop: height * 0.08,
     },
     logoutButton:{
         position: 'absolute',
@@ -354,7 +355,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.15,
         shadowRadius: 10,
         elevation: 3,
-        //overflow: 'scroll',
     },
 
     aboutSection: {
@@ -569,6 +569,11 @@ const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1, // Ensures the scroll view content is flexible
         //paddingBottom: 20, // Prevents content from getting cut off at the bottom
+    },
+    divider: {
+        height: 1,  // Height of the divider
+        backgroundColor: '#bbb',  // Light gray color for the divider
+        marginVertical: 10,
     },
 });
 

@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fdfdfd',
-        padding: width * 0.05, // Adapta o padding com base na largura da tela
+        padding: width * 0.05,
     },
     title: {
-        paddingTop: width * 0.13, // Adapta o padding com base na largura da tela
-        fontSize: width * 0.06, // Escala o tamanho do título de forma proporcional
+        paddingTop: width * 0.13,
+        fontSize: width * 0.06,
         color: '#FF914D',
         marginBottom: width * 0.08,
         fontFamily: 'CodecPro-ExtraBold',
@@ -61,32 +61,31 @@ const styles = StyleSheet.create({
         marginBottom: width * 0.05, 
     },
     categoryTitle: {
-        fontSize: width * 0.05, 
-        fontWeight: 'bold',
+        fontSize: width * 0.05,
         color: '#555',
         marginBottom: width * 0.04,
         fontFamily: 'CodecPro-Bold',
     },
     notificationContainer: {
-        flexDirection: 'row', // Permite alinhar a imagem e o texto lado a lado
-        alignItems: 'center', // Centraliza verticalmente
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: width * 0.03,
         paddingBottom: width * 0.03,
         borderBottomWidth: 1,
         borderBottomColor: '#e6e6e6',
     },
     profileImage: {
-        width: width * 0.10, // Tamanho proporcional da imagem
+        width: width * 0.10,
         height: width * 0.10,
-        borderRadius: (width * 0.12) / 2, // Deixa a imagem circular
-        marginRight: width * 0.04, // Espaço entre a imagem e o texto
+        borderRadius: (width * 0.12) / 2,
+        marginRight: width * 0.04,
     },
     message: {
         fontSize: width * 0.040,
         color: '#000',
-        flex: 1, // Faz o texto ocupar o restante do espaço
-        flexWrap: 'wrap', // Permite quebra de linha caso o texto seja longo
-        fontFamily: 'CodecPro-Regular',
+        flex: 1,
+        flexWrap: 'wrap',
+
     },
 });
 

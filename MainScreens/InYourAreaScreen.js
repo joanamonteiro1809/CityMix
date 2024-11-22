@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     inYourAreaTag: {
-        fontSize: 28,
+        fontSize: 30,
         //fontWeight: 'bold',
         fontFamily: 'ArchivoBlack-Regular',
         color: '#195FC5',

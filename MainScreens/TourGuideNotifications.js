@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
         color: '#000',
         flex: 1,
         flexWrap: 'wrap',
-        fontFamily: 'CodecPro-Regular',
     },
 });
 

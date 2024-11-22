@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 12,
-        fontFamily: 'CodecPro-Regular',
-        lineHeight: 20,
+        //fontFamily: 'CodecPro-Regular',
+        //lineHeight: 20,
     },
     ratingContainer: {
         flexDirection: 'row',

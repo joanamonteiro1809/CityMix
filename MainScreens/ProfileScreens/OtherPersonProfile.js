@@ -8,7 +8,7 @@ import { useFocusEffect } from '@react-navigation/native'; // Import this hook
 const { width, height } = Dimensions.get('window');
 
 const OtherPersonProfile = ({ navigation, route }) => {
-  const [activeTab, setActiveTab] = useState('About'); // Aba padrão
+  const [activeTab, setActiveTab] = useState('About');
   const personDetails = route.params?.tour || sampleProfile;
 
   const sampleProfile ={
@@ -47,14 +47,14 @@ const OtherPersonProfile = ({ navigation, route }) => {
     switch (activeTab) {
       case 'About':
         return (
-          <ScrollView style={styles.content}>
+          <View style={styles.content}>
             <Text style={styles.sectionTitle}>Description</Text>
             <Text style={styles.sectionContent}>{personDetails.description}</Text>
             <Text style={styles.sectionTitle}>Interests</Text>
             <Text style={styles.sectionContent}>{personDetails.activities.join(', ')}</Text>
             <Text style={styles.sectionTitle}>Languages</Text>
             <Text style={styles.sectionContent}>{personDetails.languages.join(', ')}</Text>
-          </ScrollView>
+          </View>
         );
       case 'Reviews':
         return (
@@ -137,17 +137,17 @@ const OtherPersonProfile = ({ navigation, route }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f2u839',
+        backgroundColor: '#fff',
         paddingHorizontal: width * 0.05,
     },
     backButton:{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingTop: 20,
-        marginTop: 20, // Move o botão para baixo
-        //borderWidth: 2, borderColor: 'red'
+        marginTop: 20,
+
     },
     header: {
         alignItems: 'center',
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
     },
     profileName: {
       fontSize: width * 0.07,
-      fontWeight: 'bold',
+      fontFamily: 'CodecPro-ExtraBold',
       marginTop: height * 0.01,
       color: '#000'
     },
     profileLocation: {
-        marginTop: 5,
+        fontFamily: 'CodecPro-Regular',
         color: '#888'
     },
     messageButton: {
@@ -184,34 +184,39 @@ const styles = StyleSheet.create({
     },
     messageButtonText: {
         color: '#000',
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
     },
     tabContent: {
-        //flex: 1,
-        //padding: 20,
-        //backgroundColor: '#ffeadd',
         flexGrow: 1,
-        //paddingBottom: height * 0.02, // Ensure there’s padding at the bottom
-        backgroundColor: '#ffeadd',
+        justifyContent: 'flex-start',
+        backgroundColor: '#E8E8E8',
         padding: 10,
         borderRadius: 20, // Borda arredondada
         marginBottom: 20,
         width: width * 0.9,
+        height: height * 0.4,
         marginTop: 10,
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 6,},
+        shadowOpacity: 0.15,
+        shadowRadius: 10,
+        elevation: 3,
     },
     content: {
         flex: 1,
     },
     sectionTitle: {
       fontSize: width * 0.05,
-      fontWeight: 'bold',
-      marginBottom: 15,
+      fontFamily: 'CodecPro-Bold',
+      marginHorizontal: 10,
       marginTop: 15,
     },
     sectionContent: {
         fontSize: width * 0.04,
         color: '#555',
         marginBottom: 20,
+        marginTop: 5,
+        marginHorizontal: 10,
     },
     reviewContainer: {
         backgroundColor: '#fff',
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
     },
     reviewUserName: {
         fontSize: width * 0.045,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         color: '#000',
     },
     reviewRatingContainer: {
@@ -247,11 +252,13 @@ const styles = StyleSheet.create({
     reviewDate: {
         fontSize: width * 0.035,
         color: '#888',
+        fontFamily: 'CodecPro-Regular',
     },
     reviewRating: {
         fontSize: width * 0.045,
         fontWeight: 'bold',
         color: '#f2b636',
+        marginRight: 5,
     },
     reviewBody: {
         fontSize: width * 0.04,
@@ -260,26 +267,27 @@ const styles = StyleSheet.create({
     },
 
     averageRatingContainer: {
-        alignItems: 'center', // Centraliza horizontalmente
-        marginBottom: 20, // Espaçamento inferior
+        alignItems: 'center',
+        marginBottom: 20,
     },
     ratingRow: {
-        flexDirection: 'row', // Alinha "4.7" e a estrela lado a lado
-        alignItems: 'center', // Centraliza verticalmente os itens
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     averageRatingText: {
-        fontSize: width * 0.08, // Tamanho do número
+        fontSize: width * 0.08,
         fontWeight: 'bold',
         color: '#f2b636',
-        marginRight: 5, // Espaço entre o texto e a estrela
+        marginRight: 5,
     },
     starIcon: {
-        width: 22, // Largura da estrela
-        height: 22, // Altura da estrela
+        width: 22,
+        height: 22,
     },
     totalReviewsText: {
         fontSize: width * 0.04, // Tamanho do texto de reviews
         color: '#555',
+        fontFamily: 'CodecPro-Regular',
         textAlign: 'center', // Centraliza o texto
         marginTop: 5, // Espaço entre o número/estrela e o texto de reviews
     },
