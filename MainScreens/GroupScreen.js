@@ -28,19 +28,22 @@ const renderGroupItem = ({nav, item }) => (
 
 const GroupScreen = ( { nav, tours } ) => {
     return (
-        <View>
-
+        <View style={styles.container}>
             <FlatList
                     data={tours}
                     renderItem={({ item }) => renderGroupItem({ nav, item })}
                     keyExtractor={item => item.id.toString()}
-                    contentContainerStyle={styles.listContainer}
+                    //contentContainerStyle={styles.listContainer}
                 />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        maxWidth: '100%', 
+        maxHeight: '90%',
+    },
     groupCard: {
         flexDirection: 'row',
         padding: 15,
