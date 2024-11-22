@@ -16,10 +16,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.beatrisspr9.CityMix"
+      "package": "com.beatrisspr9.CityMix",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDKBVlStHxWnCr1bdqnel5UxvtRrNGHyuM"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
