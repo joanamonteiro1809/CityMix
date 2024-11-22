@@ -29,7 +29,7 @@ const GroupEntry = ({navigation, route}) => {
 
                 <View style={styles.membersInfo}>
                     <View style={styles.locationContainer} >
-                        <Ionicons name="location-outline" size={18} color="black" style={{ marginRight: -0.5 }} />
+                        <Ionicons name="location-outline" size={18} color="black" style={{ marginRight: 0 }} />
                         <Text style={styles.subtitle}>Location:</Text>
                         <Text style={styles.text}>{groupEntry.location}</Text>
                     </View>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         justifySelf: 'center',
         alignSelf: 'flex-start',
         paddingHorizontal: 20,
-        top: 20,
+        //top: 20,
         backgroundColor: '#F8F8F8',
     },
     imageContainer: {
