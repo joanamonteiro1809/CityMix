@@ -436,7 +436,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     tagSelected: {
-        backgroundColor: '#f2b636',
+        backgroundColor: '#FF914D',
     },
     tagTextSelected: {
         color: '#fff',
