@@ -151,7 +151,6 @@ const SearchScreen = ({navigation, route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //paddingHorizontal: 20,
     backgroundColor: '#fff',
     paddingTop: 35,
   },
@@ -185,29 +184,29 @@ const styles = StyleSheet.create({
   filterButton: {
     paddingHorizontal: 20,
     marginBottom: 5,
-    //borderWidth: 2,
   },
   sections: {
     marginTop: 5,
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontFamily: 'CodecPro-Bold',
     color: "#333",
     padding: 8,
-    backgroundColor: '#FF914D',
+    backgroundColor: '#E8E8E8',
     paddingHorizontal: 20,
   },
   listItem: {
     padding: 16,
-    backgroundColor: '#ffc9a1',
-    borderBottomColor: '#fff',
+    backgroundColor: '#ffff',
+    borderBottomColor: '#e8e8e8',
     borderBottomWidth: 1,
     paddingHorizontal: 20,
   },
   listText: {
     fontSize: 16,
     color: "#333",
+    fontFamily: 'CodecPro-Regular',
   },
   emptyText: {
     fontSize: 16,

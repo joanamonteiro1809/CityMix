@@ -284,16 +284,8 @@ const styles = StyleSheet.create({
     },
 
     infoCard: {
-        //backgroundColor: '#f7f7f7',
         padding: 12,
-        //borderRadius: 10,
-        //shadowColor: '#000',
-        //shadowOffset: { width: 0, height: 2 },
-        //shadowOpacity: 0.4,
-        //shadowRadius: 4,
-        //elevation: 5,
         marginBottom: 20,
-        //marginHorizontal: 5,
     },
     expandedInfoCard: {
         minHeight: 300, // Adjust to ensure enough space when CalendarPicker is visible
@@ -301,7 +293,6 @@ const styles = StyleSheet.create({
 
     sectionTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: '#333',
         marginRight: 10,
         fontFamily: 'CodecPro-Bold',
@@ -335,10 +326,10 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     tagSelected: {
-        backgroundColor: '#FF914D', // Slightly darker color when selected
+        backgroundColor: '#FF914D',
     },
     tagTextSelected: {
-       color: '#fff', // Slightly darker color when selected
+       color: '#fff',
     },
     showMore: {
         color: '#000000',
@@ -365,26 +356,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF914D',
         borderRadius: 25,
         padding: 14,
-        //margin: 5,
-        color: '#fff', // Slightly darker color when selected
-        fontWeight: 'bold',
+        color: '#fff',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.15,
         shadowRadius: 2,
         elevation: 1,
         overflow: 'hidden',
-        fontFamily: 'CodecPro-Regular',
+        fontFamily: 'CodecPro-ExtraBold',
     },
 
     reset:{
         backgroundColor: '#E8E8E8',
         borderRadius: 25,
         padding: 14,
-        fontFamily: 'CodecPro-Regular',
-        //margin: 5,
-        color: '#888', // Slightly darker color when selected
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
+        color: '#888',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.15,

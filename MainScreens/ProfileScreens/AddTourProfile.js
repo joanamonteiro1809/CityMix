@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    Dimensions,
-    ScrollView,
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Image,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Alert, KeyboardAvoidingView, Platform, Image, } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -44,24 +32,21 @@ const CreateTourScreen = ({ route }) => {
     const languagesToShow = showAllLanguages ? languages : languages.slice(0, 4);
 
    const [image, setImage] = useState(null);
-
-
     const guideName = route.params?.guideName;
 
-const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-    });
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
-    if (!result.canceled) {
-        setImage(result.assets[0]);
-        setErrors((prev) => ({ ...prev, image: '' })); // Remove o erro
-    }
-};
-
+        if (!result.canceled) {
+            setImage(result.assets[0]);
+            setErrors((prev) => ({ ...prev, image: '' })); // Remove o erro
+        }
+    };
 
     const addRoute = () => {
         if (routeLocation.trim()) {
@@ -168,197 +153,174 @@ const pickImage = async () => {
     };
 
     return (
-        <KeyboardAvoidingView
-                   style={{ flex: 1 }}
-                   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-               >
-                   <ScrollView contentContainerStyle={styles.scrollContainer}>
-                       <View style={styles.container}>
-                       <View style={styles.header}>
-                            <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
-                        </View>
-                        <Text style={styles.title}>New Tour</Text>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <View style={styles.container}>
+                <View style={styles.header}>
+                    <ArrowButton onPress={() => navigation.goBack()} iconName="chevron-left" />
+                </View>
+                <Text style={styles.title}>New Tour</Text>
 
-                           {/* Área de imagem */}
-                          <TouchableOpacity onPress={pickImage}>
-                              <View style={[styles.imageContainer, errors.image && styles.inputError]}>
-                                  {!image ? (
-                                      <Image source={require('../../assets/photo-upload.png')} style={styles.imagePlaceholder} />
-                                  ) : (
-                                      <Image source={image} style={styles.selectedImage} />
-                                  )}
-                              </View>
-                          </TouchableOpacity>
-                          {errors.image && <Text style={styles.errorText}>{errors.image}</Text>}
-
-                    <Text style={styles.label}>Title</Text>
-                    <TextInput
-                        style={[styles.input, errors.title && styles.inputError]}
-                        placeholder="Enter title"
-                        value={title}
-                        onChangeText={(text) => {
-                            setTitle(text);
-                            if (isSubmitted)
-                                setErrors((prev) => ({
-                                    ...prev,
-                                    title: text.trim() ? '' : 'Title is required.',
-                                }));
-                        }}
-                    />
-                    {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
-
-                    <Text style={styles.label}>Description</Text>
-                    <TextInput
-                        style={[
-                            styles.input,
-                            errors.description && styles.inputError,
-                            { height: height * 0.1 },
-                        ]}
-                        placeholder="Enter description"
-                        multiline
-                        value={description}
-                        onChangeText={(text) => {
-                            setDescription(text);
-                            if (isSubmitted)
-                                setErrors((prev) => ({
-                                    ...prev,
-                                    description: text.trim() ? '' : 'Description is required.',
-                                }));
-                        }}
-                    />
-                    {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
-
-                     <Text style={styles.label}>Activities</Text>
-                                        <View style={styles.selectionContainer}>
-                                            {activitiesToShow.map((activity) => (
-                                                <TouchableOpacity
-                                                    key={activity}
-                                                    style={[
-                                                        styles.tag,
-                                                        selectedActivities.includes(activity) && styles.tagSelected,
-                                                    ]}
-                                                    onPress={() => toggleActivitiesSelection(activity)}
-                                                >
-                                                    <Text
-                                                        style={[
-                                                            selectedActivities.includes(activity) && styles.tagTextSelected,
-                                                        ]}
-                                                    >
-                                                        {activity}
-                                                    </Text>
-                                                </TouchableOpacity>
-                                            ))}
-                                            <TouchableOpacity onPress={() => setShowAllActivities(!showAllActivities)}>
-                                                <Text style={styles.showMore}>
-                                                    {showAllActivities ? 'Show less' : 'Show more'}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                        {errors.activities && <Text style={styles.errorText}>{errors.activities}</Text>}
-
-                    <Text style={styles.label}>Languages</Text>
-                    <View style={styles.selectionContainer}>
-                        {languagesToShow.map((language) => (
-                            <TouchableOpacity
-                                key={language}
-                                style={[
-                                    styles.tag,
-                                    selectedLanguages.includes(language) && styles.tagSelected,
-                                ]}
-                                onPress={() => toggleLanguageSelection(language)}
-                            >
-                                <Text style={[
-                                    selectedLanguages.includes(language) && styles.tagTextSelected,
-                                ]}>
-                                    {language}
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                        <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
-                            <Text style={styles.showMore}>
-                                {showAllLanguages ? 'Show less' : 'Show more'}
-                            </Text>
-                        </TouchableOpacity>
+                {/* Área de imagem */}
+                <TouchableOpacity onPress={pickImage}>
+                    <View style={[styles.imageContainer, errors.image && styles.inputError]}>
+                        {!image ? (
+                          <Image source={require('../../assets/photo-upload.png')} style={styles.imagePlaceholder} />
+                        ) : (
+                          <Image source={image} style={styles.selectedImage} />
+                        )}
                     </View>
-                    {errors.languages && <Text style={styles.errorText}>{errors.languages}</Text>}
+                </TouchableOpacity>
+                {errors.image && <Text style={styles.errorText}>{errors.image}</Text>}
 
+                <Text style={styles.label}>Title</Text>
+                <TextInput
+                    style={[styles.input, errors.title && styles.inputError]}
+                    placeholder="Enter title"
+                    value={title}
+                    onChangeText={(text) => {
+                        setTitle(text);
+                        if (isSubmitted)
+                            setErrors((prev) => ({...prev, title: text.trim() ? '' : 'Title is required.',}));
+                    }}
+                />
+                {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
 
-                    <Text style={styles.label}>Route</Text>
-                    <View style={[styles.routeInput, errors.routes && styles.inputError]}>
-                        <TextInput
-                            placeholder="Add route"
-                            value={routeLocation}
-                            onChangeText={setRoute}
-                            style={{ flex: 1 }}
-                        />
-                        <TouchableOpacity onPress={addRoute} style={styles.addRouteIcon}>
-                            <Icon name="add" size={24} color="#fff" />
+                <Text style={styles.label}>Description</Text>
+                <TextInput
+                    style={[
+                        styles.input,
+                        errors.description && styles.inputError,
+                        { height: height * 0.1 },
+                    ]}
+                    placeholder="Enter description"
+                    multiline
+                    value={description}
+                    onChangeText={(text) => {
+                        setDescription(text);
+                        if (isSubmitted)
+                            setErrors((prev) => ({
+                                ...prev,
+                                description: text.trim() ? '' : 'Description is required.',
+                            }));
+                    }}
+                />
+                {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
+
+                <Text style={styles.label}>Activities</Text>
+                <View style={styles.selectionContainer}>
+                    {activitiesToShow.map((activity) => (
+                        <TouchableOpacity
+                            key={activity}
+                            style={[
+                                styles.tag,
+                                selectedActivities.includes(activity) && styles.tagSelected,
+                            ]}
+                            onPress={() => toggleActivitiesSelection(activity)}>
+                            <Text style={[selectedActivities.includes(activity) && styles.tagTextSelected,]}>{activity}</Text>
                         </TouchableOpacity>
-                    </View>
-                    {errors.routes && <Text style={styles.errorText}>{errors.routes}</Text>}
-
-                    {routes.map((routeItem, index) => (
-                        <View key={index} style={styles.item}>
-                            <Text style={styles.routeText}>{routeItem}</Text>
-                        </View>
                     ))}
-
-
-                    {/* Available Times */}
-                    <Text style={styles.label}>Available Times</Text>
-                    <View style={[styles.inputContainer, errors.availableTimes && styles.inputError]}>
-                        <TextInput
-                            style={[styles.input, { flex: 1 }]}
-                            placeholder="Add time (HH:mm)"
-                            value={availableTime}
-                            onChangeText={(text) => {
-                                const cleanedText = text.replace(/[^0-9]/g, '');
-                                if (cleanedText.length <= 2) {
-                                    setAvailableTime(cleanedText);
-                                } else if (cleanedText.length <= 4) {
-                                    setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`);
-                                }
-                            }}
-                            maxLength={5}
-                            keyboardType="numeric"
-                        />
-                        <TouchableOpacity style={styles.addTimeButton} onPress={addAvailableTime}>
-                            <Icon name="add" size={24} color="#fff" />
-                        </TouchableOpacity>
-                    </View>
-                    {errors.availableTimes && <Text style={styles.errorText}>{errors.availableTimes}</Text>}
-
-                    {availableTimes.map((time, index) => (
-                        <View key={index} style={styles.item}>
-                            <Text style={styles.routeText}>{time}</Text>
-                        </View>
-                    ))}
-
-                    <Text style={styles.label}>Price</Text>
-                   <View style={[styles.priceInput, errors.price && styles.inputError]}>
-                       <TextInput
-                           placeholder="Enter price"
-                           keyboardType="numeric"
-                           style={{ flex: 1 }}
-                           value={price}
-                           onChangeText={(text) => {
-                               setPrice(text);
-                               if (isSubmitted)
-                                   setErrors((prev) => ({
-                                       ...prev,
-                                       price: text.trim() ? '' : 'Price is required.',
-                                   }));
-                           }}
-                       />
-                       <Text>€</Text>
-                   </View>
-                   {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
-
-
-
-                    <TouchableOpacity style={styles.addButton} onPress={saveTour}>
-                        <Text style={styles.addButtonText}>Add Tour</Text>
+                    <TouchableOpacity onPress={() => setShowAllActivities(!showAllActivities)}>
+                        <Text style={styles.showMore}>{showAllActivities ? 'Show less' : 'Show more'}</Text>
                     </TouchableOpacity>
+                </View>
+                {errors.activities && <Text style={styles.errorText}>{errors.activities}</Text>}
+
+                <Text style={styles.label}>Languages</Text>
+                <View style={styles.selectionContainer}>
+                    {languagesToShow.map((language) => (
+                        <TouchableOpacity
+                            key={language}
+                            style={[
+                                styles.tag,
+                                selectedLanguages.includes(language) && styles.tagSelected,
+                            ]}
+                            onPress={() => toggleLanguageSelection(language)}>
+                            <Text style={[selectedLanguages.includes(language) && styles.tagTextSelected,]}>{language}</Text>
+                        </TouchableOpacity>
+                    ))}
+                    <TouchableOpacity onPress={() => setShowAllLanguages(!showAllLanguages)}>
+                        <Text style={styles.showMore}>{showAllLanguages ? 'Show less' : 'Show more'}</Text>
+                    </TouchableOpacity>
+                </View>
+                {errors.languages && <Text style={styles.errorText}>{errors.languages}</Text>}
+
+                <Text style={styles.label}>Route</Text>
+                <View style={[styles.routeInput, errors.routes && styles.inputError]}>
+                    <TextInput
+                        placeholder="Add route"
+                        value={routeLocation}
+                        onChangeText={setRoute}
+                        style={{ flex: 1 }}
+                    />
+                    <TouchableOpacity onPress={addRoute} style={styles.addRouteIcon}>
+                        <Icon name="add" size={24} color="#fff" />
+                    </TouchableOpacity>
+                </View>
+                {errors.routes && <Text style={styles.errorText}>{errors.routes}</Text>}
+
+                {routes.map((routeItem, index) => (
+                    <View key={index} style={styles.item}>
+                        <Text style={styles.routeText}>{routeItem}</Text>
+                    </View>
+                ))}
+
+
+            {/* Available Times */}
+            <Text style={styles.label}>Available Times</Text>
+            <View style={[styles.inputContainer, errors.availableTimes && styles.inputError]}>
+                <TextInput
+                    style={[styles.input, { flex: 1 }]}
+                    placeholder="Add time (HH:mm)"
+                    value={availableTime}
+                    onChangeText={(text) => {
+                        const cleanedText = text.replace(/[^0-9]/g, '');
+                        if (cleanedText.length <= 2) {
+                            setAvailableTime(cleanedText);
+                        } else if (cleanedText.length <= 4) {
+                            setAvailableTime(`${cleanedText.slice(0, 2)}:${cleanedText.slice(2)}`);
+                        }
+                    }}
+                    maxLength={5}
+                    keyboardType="numeric"
+                />
+                <TouchableOpacity style={styles.addTimeButton} onPress={addAvailableTime}>
+                    <Icon name="add" size={24} color="#fff" />
+                </TouchableOpacity>
+            </View>
+            {errors.availableTimes && <Text style={styles.errorText}>{errors.availableTimes}</Text>}
+
+            {availableTimes.map((time, index) => (
+                <View key={index} style={styles.item}>
+                    <Text style={styles.routeText}>{time}</Text>
+                </View>
+            ))}
+
+            <Text style={styles.label}>Price</Text>
+           <View style={[styles.priceInput, errors.price && styles.inputError]}>
+               <TextInput
+                   placeholder="Enter price"
+                   keyboardType="numeric"
+                   style={{ flex: 1 }}
+                   value={price}
+                   onChangeText={(text) => {
+                       setPrice(text);
+                       if (isSubmitted)
+                           setErrors((prev) => ({
+                               ...prev,
+                               price: text.trim() ? '' : 'Price is required.',
+                           }));
+                   }}
+               />
+               <Text>€</Text>
+           </View>
+           {errors.price && <Text style={styles.errorText}>{errors.price}</Text>}
+
+
+
+            <TouchableOpacity style={styles.addButton} onPress={saveTour}>
+                <Text style={styles.addButtonText}>Add Tour</Text>
+            </TouchableOpacity>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -378,34 +340,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: height * 0.05,
-        marginBottom: height * 0.02,
     },
     title: {
         fontSize: width * 0.08,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         color: '#FF914D',
         textAlign: 'center',
         flex: 1,
         position: 'relative',
         alignSelf: 'center', 
-        marginTop: height * -0.05, 
+        marginTop: height * -0.05,
         width: '60%',
-    },
-    coverPicture: {
-        width: width * 0.5,
-        height: width * 0.3,
-        backgroundColor: '#eee',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        alignSelf: 'center',
-        marginTop: height * 0.02,
     },
     label: {
         fontSize: width * 0.045,
         color: '#000',
         marginTop: height * 0.02,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
     },
     input: {
         backgroundColor: '#f5f5f5',
@@ -433,16 +384,16 @@ const styles = StyleSheet.create({
     },
     addButton: {
         backgroundColor: '#FF914D',
-        paddingVertical: height * 0.02,
+        paddingVertical: 15,
         borderRadius: 8,
         alignItems: 'center',
         marginTop: height * 0.04,
-        marginBottom: height * 0.01,
+        marginBottom: height * 0.02,
     },
     addButtonText: {
         color: '#fff',
-        fontWeight: 'bold',
-        fontSize: width * 0.04,
+        fontFamily: 'CodecPro-Bold',
+        fontSize: 18,
     },
     item: {
         backgroundColor: '#eaeaea',
@@ -503,31 +454,24 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: width * 0.03,
         marginTop: height * 0.01,
-        height: 50, // Altura fixa para manter o layout consistente
+        height: 50,
     },
     addTimeButton: {
         backgroundColor: '#FF914D',
         borderRadius: 20,
-        width: 40, // Largura fixa para o botão
+        width: 40,
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        // Remova marginLeft para fixar o botão
     },
-selectedImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
-},
+    selectedImage: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10,
+    },
 
-    imagePlaceholder: {
-        width: width * 0.20,
-        height: width * 0.20,
-        resizeMode: 'contain',
-        alignSelf: 'center',
-    },
     imageContainer: {
-        width: width * 0.4,
+        width: width * 0.35,
         height: width * 0.3,
         backgroundColor: '#f5f5f5',
         borderRadius: 10,
@@ -535,6 +479,9 @@ selectedImage: {
         justifyContent: 'center',
         alignSelf: 'center',
         marginTop: height * 0.02,
+        padding: 10,
+        borderWidth: 0.5,
+        borderColor: '#ccc',
     },
     inputError: {
         borderColor: 'red',
@@ -544,15 +491,13 @@ selectedImage: {
         width: '100%',
         height: '100%',
         resizeMode: 'contain',
+        alignSelf: 'center',
     },
     selectedImage: {
         width: '100%',
         height: '100%',
         borderRadius: 10,
     },
-
-
-
 });
 
 export default CreateTourScreen;

@@ -27,13 +27,13 @@ const GroupPopup = ({title, location, numMembers }) => {
                 {/* Location*/}
                 <View style={styles.locationContainer}>
                     <Icon name="location-pin" size={24} color="#555" style={{marginRight: 5}} />
-                    <Text>{location}</Text>
+                    <Text style={{fontFamily: 'CodecPro-Regular',}}>{location}</Text>
                 </View>
 
                 {/* Number of members*/}
                 <View style={styles.locationContainer}>
                     <Icon name="group" size={24} color="#555" style={{marginRight: 5}}/>
-                    <Text>{numMembers}</Text>
+                    <Text style={{fontFamily: 'CodecPro-Regular',}}>{numMembers}</Text>
                 </View>
             </View>
 
@@ -49,16 +49,15 @@ const GroupPopup = ({title, location, numMembers }) => {
 
 const styles = StyleSheet.create({
 
-    // Close button
     header: {
-        position: 'absolute', // Position close button at the top right
+        position: 'absolute',
         top: 10,
         right: 10,
     },
-    // Community title
+
     title: {
         fontSize: 25,
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         color: '#333',
         marginBottom: 5,
         textAlign: 'center',
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
     }, 
-    // Join community button
+
     button: {
         padding: 10,
         borderRadius: 25,
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     buttonText: {
-        fontWeight: 'bold',
+        fontFamily: 'CodecPro-Bold',
         color: '#fff',
         fontSize: 15,
         paddingHorizontal: 10,
