@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingHorizontal: 10,
         paddingTop: 20,
-        marginTop: 20,
+        //marginTop: 20,
 
     },
     header: {
